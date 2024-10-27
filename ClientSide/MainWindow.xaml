@@ -30,7 +30,8 @@
         <!--// Window Border //-->
 
         <Border Background="#212529"
-                CornerRadius="20" />
+                CornerRadius="20"
+                MouseDown="Border_MouseDown"/>
 
         <Grid>
 
