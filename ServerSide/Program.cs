@@ -22,9 +22,10 @@ namespace ServerSide
             listener.Start();
             Console.WriteLine("Сервер запущен, ожидание подключения...");
 
-            while (true)
-            {
+            
                 using TcpClient client = await listener.AcceptTcpClientAsync();
+
+            Console.WriteLine("Подключен: " + client.Client.RemoteEndPoint);
                 using NetworkStream stream = client.GetStream();
 
                 byte[] buffer = new byte[1024];
@@ -32,13 +33,8 @@ namespace ServerSide
 
                 string receivedJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                 Console.WriteLine("Полученный JSON: " + receivedJson +"\n");
-                Customer person = JsonSerializer.Deserialize<Customer>(receivedJson);
-                // Опциональный ответ клиенту
-
-                Console.WriteLine("Имя: " + person.customer_name);
-                byte[] responseBytes = Encoding.UTF8.GetBytes("JSON получен");
-                await stream.WriteAsync(responseBytes, 0, responseBytes.Length);
-            }
+                
+            
         }
     }
 

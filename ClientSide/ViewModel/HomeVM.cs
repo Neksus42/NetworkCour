@@ -2,7 +2,8 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
-
+using Page_Navigation_App.Model;
+using System.Text.Json;
 
 
 namespace Page_Navigation_App.ViewModel
@@ -44,10 +45,23 @@ namespace Page_Navigation_App.ViewModel
             IsVisible = Visibility.Visible;
         }
         #endregion
-       
+
+        #region SendMessageAuthorization
+        public ICommand SendMessageAuthorization { get; }
+
+        private bool CanSendMessageAuthorization(object p) => true;
+
+        private void OnSendMessageAuthorization(object p)
+        {
+            Customer customer = new Customer(Convert.ToString(Number), Name);
+            MainWindow.SendDataAsync("1:"+JsonSerializer.Serialize<Customer>(customer));
+        }
+        #endregion
+
+
         public HomeVM()
         {
-            
+            SendMessageAuthorization = new RelayCommand(OnSendMessageAuthorization, CanSendMessageAuthorization);
             ChangeNumber = new RelayCommand(OnChangeNumber, CanChangeNumber);
             ChangeVisibility = new RelayCommand(OnChangeVisibility, CanChangeVisibility);
         }

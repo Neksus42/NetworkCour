@@ -21,10 +21,10 @@
                 Width="239" Height="86">
             <Interactivity:Interaction.Triggers>
                 <Interactivity:EventTrigger EventName="Click">
-                    <Interactivity:InvokeCommandAction Command="{Binding ChangeNumber}" CommandParameter="+1"  />
+                   
                     <Interactivity:InvokeCommandAction Command="{Binding Source={StaticResource GlobalHomeVM}, Path=ChangeVisibility}" />
-                    
-                    
+                    <Interactivity:InvokeCommandAction Command="{Binding SendMessageAuthorization}"/>
+
                 </Interactivity:EventTrigger>
             </Interactivity:Interaction.Triggers>
             
