@@ -2,14 +2,20 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Page_Navigation_App"
+             xmlns:global="clr-namespace:Page_Navigation_App.ViewModel"
              StartupUri="MainWindow.xaml">
     
     <Application.Resources>
 
         <ResourceDictionary>
-
+            
+            <global:HomeVM x:Key="GlobalHomeVM" />
+            
             <ResourceDictionary.MergedDictionaries>
-
+                
+                
+                
+                
                 <ResourceDictionary Source="Styles/Page.xaml" />
                 <ResourceDictionary Source="Styles/Image.xaml" />
                 <ResourceDictionary Source="Styles/Text.xaml" />

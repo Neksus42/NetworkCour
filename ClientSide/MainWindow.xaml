@@ -24,9 +24,7 @@
         <vm:NavigationVM />
 
     </Window.DataContext>
-    <Window.Resources>
-        <vm:HomeVM x:Key="HomeVMResource" />
-    </Window.Resources>
+ 
     <Grid>
 
         <!--// Window Border //-->
@@ -75,7 +73,7 @@
                     <!--// Customer //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding CustomersCommand}" Visibility="{Binding IsVisible}">
+                              Command="{Binding CustomersCommand}" Visibility="{Binding Source={StaticResource GlobalHomeVM}, Path=IsVisible}">
 
                         <Grid>
 
@@ -92,7 +90,7 @@
                     <!--// Products //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding ProductsCommand}">
+                              Command="{Binding ProductsCommand}" Visibility="{Binding Source={StaticResource GlobalHomeVM}, Path=IsVisible}">
 
                         <Grid>
 
@@ -109,7 +107,7 @@
                     <!--// Orders //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding OrdersCommand}">
+                              Command="{Binding OrdersCommand}" Visibility="{Binding Source={StaticResource GlobalHomeVM}, Path=IsVisible}">
 
                         <Grid>
 

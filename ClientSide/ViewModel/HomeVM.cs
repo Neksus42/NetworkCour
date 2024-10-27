@@ -1,5 +1,6 @@
 ﻿using Page_Navigation_App.Utilities;
 using System;
+using System.Windows;
 using System.Windows.Input;
 
 
@@ -10,8 +11,8 @@ namespace Page_Navigation_App.ViewModel
     {
         static private int _number;
         static private string _name;
-        private string _isvisible = "Visible";
-        public string IsVisible
+        private Visibility _isvisible = Visibility.Collapsed;
+        public Visibility IsVisible
         {
             get { return _isvisible; }
             set => Set(ref _isvisible, value);
@@ -40,7 +41,7 @@ namespace Page_Navigation_App.ViewModel
 
         private void OnChangeVisibility(object p)
         {
-            IsVisible = "Collapsed";
+            IsVisible = Visibility.Visible;
         }
         #endregion
        

@@ -24,7 +24,7 @@ namespace Page_Navigation_App
         public MainWindow()
         {
             InitializeComponent();
-           
+          
         }
 
         private void CloseApp_Click(object sender, RoutedEventArgs e)
