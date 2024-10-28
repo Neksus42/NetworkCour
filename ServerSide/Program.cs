@@ -1,4 +1,5 @@
 ﻿
+using MySql.Data.MySqlClient;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -13,28 +14,171 @@ namespace ServerSide
         public int customer_id { get; set; }
         public string phone_number { get; set; }
         public string customer_name { get; set; }
+        private string role { get; set; }
+
+
     }
-    public class TcpJsonReceiver
-    {
-        public static async Task StartServerAsync(int port)
+    public class getCode
+    { 
+    static public int getIntFromMessageJson(ref string JsonMessage)
         {
-            TcpListener listener = new TcpListener(IPAddress.Any, port);
+
+            string intpart = string.Empty;
+
+            foreach (char line in JsonMessage)
+            {
+                if (line == ':')
+                    break;
+                intpart += line;
+                
+            }
+
+            return Convert.ToInt32(intpart);
+        }
+    
+    
+    }
+    public class TcpServer
+    {
+        static private string connectionString = "Server=localhost;Database=networkbase;User ID=root;Password=1111;";
+        static private TcpListener listener;
+        static private MySqlConnection connection;
+        static private string CodeHandler(ref string jsonstring)
+        {
+            string[] subarr = jsonstring.Split(':', 2);
+            int Code = Convert.ToInt32(subarr[0]);
+            string JsonData = subarr[1];
+            string stringtoreturn = string.Empty;
+
+            switch (Code)
+            {
+                case 1:
+                    {
+                        stringtoreturn = Authorization(JsonData);
+                        break;
+                    }
+
+            }
+
+
+            return stringtoreturn;
+        }
+        static private string Authorization(string Data)
+        {
+            string stringresult = string.Empty;
+            string role = string.Empty;
+            Customer currentcustomer = JsonSerializer.Deserialize<Customer>(Data);
+            string query = "SELECT * FROM networkbase.customers where phone_number ="+currentcustomer.phone_number+";";
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Client: {currentcustomer.customer_name} Phone: {currentcustomer.phone_number}");
+                using (var reader = command.ExecuteReader())
+                {
+                    role = reader.GetString("role");
+                    if (reader.Read())
+                    {
+                        
+                        if (reader.GetString("customer_name") == currentcustomer.customer_name)
+                        {
+                            stringresult = "1"; // Успешная авторизация
+                        }
+                        else
+                        {
+                            stringresult = "2"; // Несовпадение имени и номера
+                        }
+                    }
+                    else // Клиента нет в БД => Регистрация
+                    {
+                        reader.Close();
+                        string queryAddCustomer = "INSERT INTO `networkbase`.`customers` (`phone_number`, `customer_name`) VALUES (@phone_number, @customer_name);";
+                        using (var addCommand = new MySqlCommand(queryAddCustomer, connection))
+                        {
+                            addCommand.Parameters.AddWithValue("@phone_number", currentcustomer.phone_number);
+                            addCommand.Parameters.AddWithValue("@customer_name", currentcustomer.customer_name);
+                            addCommand.ExecuteNonQuery();
+                        }
+                        stringresult = "3"; // Регистрация успешна
+                    }
+                    stringresult += role == "admin" ? ":1" : ":0";
+
+                }
+            }
+
+
+
+
+
+
+
+
+            return stringresult;
+        }
+        public static void StartServerAsync(int port)
+        {
+            listener = new TcpListener(IPAddress.IPv6Any, port);
+            listener.Server.DualMode = true;
             listener.Start();
+
             Console.WriteLine("Сервер запущен, ожидание подключения...");
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+                Console.WriteLine("Соединение с SQL сервером открыто");
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+        public static async Task SendMessageOverTcpAsync(TcpClient client, string message,NetworkStream stream)
+        {
+          
+            //var stream = client.GetStream();
 
-            
-                using TcpClient client = await listener.AcceptTcpClientAsync();
-
-            Console.WriteLine("Подключен: " + client.Client.RemoteEndPoint);
-                using NetworkStream stream = client.GetStream();
-
+            // Отправляем JSON-байты
+            await  stream.WriteAsync(Encoding.UTF8.GetBytes(message));
+            Console.WriteLine("Сообщение отправлено.");
+        }
+        public static async Task RecieveConnection(TcpClient tcpClient)
+        {
+            try {Console.WriteLine("Подключен: " + tcpClient.Client.RemoteEndPoint);
+            var stream = tcpClient.GetStream();
+            while (true) // делаем цикл бесконечным
+            {
                 byte[] buffer = new byte[1024];
                 int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
 
+                if (bytesRead == 0)
+                {
+                    Console.WriteLine("Клиент отключился.");
+                    break; // выходим из цикла, если клиент отключился
+                }
+
                 string receivedJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                Console.WriteLine("Полученный JSON: " + receivedJson +"\n");
+                Console.WriteLine("Полученный JSON: " + receivedJson + "\n");
+
+                    string response = CodeHandler(ref receivedJson);
+                    //await SendMessageOverTcpAsync(tcpClient, response,stream);
+
+                    await stream.WriteAsync(Encoding.UTF8.GetBytes(response));
+                    Console.WriteLine("Сообщение отправлено.");
+                }
+
+            tcpClient.Close();
+            Console.WriteLine("Клиент отключен");
                 
-            
+            }catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+
+
+        }
+
+        public static async void WaitConnection()
+        {
+            while(true)
+            {
+                var tcpclient = await listener.AcceptTcpClientAsync();
+                new Thread(async () => await RecieveConnection(tcpclient)).Start();
+            }
         }
     }
 
@@ -44,9 +188,18 @@ namespace ServerSide
     internal class Program
     {
 
-        public static async Task Main(string[] args)
+        public static void Main()
         {
-            await TcpJsonReceiver.StartServerAsync(8888);
+            TcpServer.StartServerAsync(8888);
+
+           
+                new Thread(() => TcpServer.WaitConnection()).Start();
+            while (true) { }
+
+            
+
+
+
         }
 
 

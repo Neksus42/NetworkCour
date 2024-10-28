@@ -12,14 +12,24 @@ namespace Page_Navigation_App.ViewModel
     {
         static private int _number;
         static private string _name;
-        private Visibility _isvisible = Visibility.Collapsed;
+        static private string _viewmessage = "Text";
+        static private Visibility _isvisible = Visibility.Collapsed;
+        static private bool _isAuthorizationSuccessful = true;
+        static private bool _isadmin = false;
+        public bool IsAuthorizationSuccessful
+        {
+            get => _isAuthorizationSuccessful;
+            set => Set(ref _isAuthorizationSuccessful, value);
+        }
         public Visibility IsVisible
         {
             get { return _isvisible; }
             set => Set(ref _isvisible, value);
         }
+        public bool IsAdmin { get { return _isadmin; } set =>Set(ref _isadmin, value);} 
         public int Number { get { return _number; } set => Set(ref _number, value); }
         public string Name { get { return _name; } set => Set(ref _name, value); }
+        public string ViewMessage { get { return _viewmessage; } set => Set(ref _viewmessage, value); } 
 
        
       
@@ -51,10 +61,33 @@ namespace Page_Navigation_App.ViewModel
 
         private bool CanSendMessageAuthorization(object p) => true;
 
-        private void OnSendMessageAuthorization(object p)
+        private async void OnSendMessageAuthorization(object p)
         {
             Customer customer = new Customer(Convert.ToString(Number), Name);
-            MainWindow.SendDataAsync("1:"+JsonSerializer.Serialize<Customer>(customer));
+            await ServerConnection.SendDataAsync("1:"+JsonSerializer.Serialize<Customer>(customer));
+            string Answer = await ServerConnection.GetDataAsync();
+            string[] splitted = Answer.Split(':');
+            string CodeAnswer = splitted[0];
+            string Role = splitted[1];
+
+            MessageBox.Show(Answer);
+            if (Answer == "1")
+            {
+                ViewMessage = "Успешная авторизация";
+                
+                OnChangeVisibility(null);
+                IsAuthorizationSuccessful = false;
+                IsAdmin = Convert.ToBoolean(int.Parse(Role));
+            } else if(Answer == "2")
+            {
+                ViewMessage = "Несовпадение имени и номера";
+            } else if(Answer == "3")
+            {
+                OnChangeVisibility(null);
+                ViewMessage = "Успешная регистрация";
+                IsAuthorizationSuccessful = false;
+            }
+
         }
         #endregion
 

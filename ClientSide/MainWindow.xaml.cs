@@ -28,46 +28,12 @@ namespace Page_Navigation_App
         {
            
             InitializeComponent();
-            ConnectToServerAsync();
+           ServerConnection.ConnectToServerAsync();
+            
 
         }
-        private async void ConnectToServerAsync()
-        {
-            try
-            {
-                _client = new TcpClient(); // Инициализируем TcpClient
-                await _client.ConnectAsync("localhost", 8888);
-                
-            }
-            catch (SocketException ex)
-            {
-                MessageBox.Show($"Ошибка подключения: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Произошла ошибка: {ex.Message}");
-            }
-        }
-        static public async Task SendDataAsync(string data)
-        {
-            if (_client == null || !_client.Connected)
-            {
-                MessageBox.Show("Не подключено к серверу.");
-                return;
-            }
-
-            try
-            {
-                NetworkStream stream = _client.GetStream();
-                byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-                await stream.WriteAsync(dataBytes, 0, dataBytes.Length);
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при отправке данных: {ex.Message}");
-            }
-        }
+      
+        
 
 
 
