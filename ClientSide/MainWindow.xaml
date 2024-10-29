@@ -24,7 +24,7 @@
         <vm:NavigationVM />
 
     </Window.DataContext>
- 
+
     <Grid>
 
         <!--// Window Border //-->
@@ -39,7 +39,7 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="228" />
-                <ColumnDefinition Width="622" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
             <!--// Navigation Panel //-->
@@ -48,7 +48,19 @@
                   Width="228">
 
                 <Border Background="#272B2F"
-                        CornerRadius="20,0,0,20" />
+                        CornerRadius="20,0,0,20" >
+                    <Button Height="68" Margin="0,700,0,0" VerticalAlignment="Top" Width="228" Style="{StaticResource BtnStyle_Button}"
+                            Visibility="{Binding IsVisLogOut}" Command="{Binding LogOutCommand}">
+                        <Grid>
+                            <Image Source="Images/img_logout.png"
+                                Style="{StaticResource Image_Style}" Height="58" Margin="10,0,0,0" Width="51" />
+                            <TextBlock  
+                             Style="{StaticResource Text_Style}"
+                        Text="Log out" 
+                        FontSize="30" />
+                        </Grid>
+                    </Button>
+                </Border>
 
                 <StackPanel Height="400"
                             Width="228">
@@ -56,8 +68,8 @@
                     <!--// Home //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding HomeCommand}"
-                              IsChecked="True">
+                              Command="{Binding HomeCommand}" Visibility="{Binding IsVisHome}"
+                              IsChecked="{Binding IsEnabledHome}">
 
                         <Grid>
 
@@ -71,10 +83,10 @@
 
                     </Menu:Btn>
 
-                    <!--// Customer //-->
+                    <!--// Customer //  {Binding Source={StaticResource GlobalHomeVM}, Path=IsVisible}-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding CustomersCommand}" Visibility="{Binding Source={StaticResource GlobalHomeVM}, Path=IsVisible}">
+                              Command="{Binding CustomersCommand}" Visibility="{Binding IsVisC}" IsChecked="{Binding IsEnabledCustomer}">
 
                         <Grid>
 
@@ -91,7 +103,7 @@
                     <!--// Products //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding ProductsCommand}" Visibility="{Binding Source={StaticResource GlobalHomeVM}, Path=IsVisible}">
+                              Command="{Binding ProductsCommand}" Visibility="{Binding IsVisC}">
 
                         <Grid>
 
@@ -108,7 +120,7 @@
                     <!--// Orders //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding OrdersCommand}" Visibility="{Binding Source={StaticResource GlobalHomeVM}, Path=IsVisible}">
+                              Command="{Binding OrdersCommand}" Visibility="{Binding IsVisC}">
 
                         <Grid>
 
@@ -128,7 +140,7 @@
 
             </Grid>
 
-            <Grid Grid.Column="1" HorizontalAlignment="Left" Width="891">
+            <Grid Grid.Column="1" HorizontalAlignment="Left" Width="900">
 
                 <ContentControl x:Name="Pages"
                                 

@@ -74,10 +74,10 @@ namespace ServerSide
                 Console.WriteLine($"Client: {currentcustomer.customer_name} Phone: {currentcustomer.phone_number}");
                 using (var reader = command.ExecuteReader())
                 {
-                    role = reader.GetString("role");
+                    
                     if (reader.Read())
                     {
-                        
+                        role = reader.GetString("role");
                         if (reader.GetString("customer_name") == currentcustomer.customer_name)
                         {
                             stringresult = "1"; // Успешная авторизация

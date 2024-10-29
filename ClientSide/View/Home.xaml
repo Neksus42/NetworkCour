@@ -21,7 +21,7 @@
                 Width="239" Height="86">
             <Interactivity:Interaction.Triggers>
                 <Interactivity:EventTrigger EventName="Click">
-                    <Interactivity:InvokeCommandAction Command="{Binding Source={StaticResource GlobalHomeVM}, Path=SendMessageAuthorization}" IsEnabled="{Binding Source={StaticResource GlobalHomeVM}, Path=IsAuthorizationSuccessful}"/>
+                    <Interactivity:InvokeCommandAction Command="{Binding SendMessageAuthorization}" IsEnabled="{Binding IsAuthorizationSuccessful}"/>
 
 
                 </Interactivity:EventTrigger>
@@ -77,21 +77,21 @@
             <TextBlock TextWrapping="Wrap"
              Text="Имя" 
             Style="{StaticResource Text_Style}"
-            FontSize="18"/>
+            FontSize="18" Margin="0,0,0,0" HorizontalAlignment="Center"/>
         </Border>
 
         <Border  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="{x:Null}" BorderThickness="1" Height="29" Margin="10,194,423,377" Width="189">
             <TextBlock TextWrapping="Wrap"
                 Text="Телефон" 
                 Style="{StaticResource Text_Style}"
-                FontSize="18" />
+                FontSize="18" Margin="0,0,0,0" HorizontalAlignment="Center" />
         </Border>
-        <Border
-            BorderBrush="{x:Null}" BorderThickness="1" Margin="206,359,177,194">
+        <Border 
+            BorderBrush="{x:Null}" BorderThickness="1" Margin="206,375,177,167">
             <TextBlock TextWrapping="Wrap"
-                Text="{Binding Source={StaticResource GlobalHomeVM}, Path=ViewMessage}" 
+                Text="{Binding ViewMessage}" 
                 Style="{StaticResource Text_Style}"
-                FontSize="18" />
+                FontSize="18" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         </Border>
 
 

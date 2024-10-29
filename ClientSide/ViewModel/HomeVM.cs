@@ -10,22 +10,22 @@ namespace Page_Navigation_App.ViewModel
 {
     class HomeVM : Utilities.ViewModelBase
     {
-        static private int _number;
-        static private string _name;
-        static private string _viewmessage = "Text";
-        static private Visibility _isvisible = Visibility.Collapsed;
-        static private bool _isAuthorizationSuccessful = true;
-        static private bool _isadmin = false;
+
+         static private NavigationVM Nvm;
+         static private HomeVM instance;
+         static private bool IsCreated = false;
+         private int _number;
+         private string _name;
+         private string _viewmessage = "Text";
+        
+        private bool _isAuthorizationSuccessful = true;
+        private bool _isadmin = false;
         public bool IsAuthorizationSuccessful
         {
             get => _isAuthorizationSuccessful;
             set => Set(ref _isAuthorizationSuccessful, value);
         }
-        public Visibility IsVisible
-        {
-            get { return _isvisible; }
-            set => Set(ref _isvisible, value);
-        }
+    
         public bool IsAdmin { get { return _isadmin; } set =>Set(ref _isadmin, value);} 
         public int Number { get { return _number; } set => Set(ref _number, value); }
         public string Name { get { return _name; } set => Set(ref _name, value); }
@@ -45,16 +45,7 @@ namespace Page_Navigation_App.ViewModel
             Number += Convert.ToInt32(p);
         }
         #endregion
-        #region ChangeVisibility
-        public ICommand ChangeVisibility { get; }
-
-        private bool CanChangeVisibility(object p) => true;
-
-        private void OnChangeVisibility(object p)
-        {
-            IsVisible = Visibility.Visible;
-        }
-        #endregion
+        
 
         #region SendMessageAuthorization
         public ICommand SendMessageAuthorization { get; }
@@ -71,32 +62,57 @@ namespace Page_Navigation_App.ViewModel
             string Role = splitted[1];
 
             MessageBox.Show(Answer);
-            if (Answer == "1")
+            if (CodeAnswer == "1")
             {
                 ViewMessage = "Успешная авторизация";
                 
-                OnChangeVisibility(null);
+                
                 IsAuthorizationSuccessful = false;
                 IsAdmin = Convert.ToBoolean(int.Parse(Role));
-            } else if(Answer == "2")
+                ChangingVisibilityParameters();
+               
+            } else if(CodeAnswer == "2")
             {
                 ViewMessage = "Несовпадение имени и номера";
-            } else if(Answer == "3")
+            } else if(CodeAnswer == "3")
             {
-                OnChangeVisibility(null);
+                
                 ViewMessage = "Успешная регистрация";
                 IsAuthorizationSuccessful = false;
+                ChangingVisibilityParameters();
             }
-
+            
         }
         #endregion
-
+        private void ChangingVisibilityParameters()
+        {
+            Nvm.IsVisC = Visibility.Visible;
+            
+            Nvm.CurrentView = CustomerVM.GetInstance();
+            Nvm.IsEnabledCustomer = true;
+            Nvm.IsVisHome = Visibility.Collapsed;
+            Nvm.IsVisLogOut = Visibility.Visible;
+        }
+        public static HomeVM GetInstance(NavigationVM nvm)
+        {
+            Nvm = nvm;
+            if(!IsCreated)
+            {
+                IsCreated = true;
+                
+                return instance = new HomeVM();
+            }
+            return instance;
+        }
 
         public HomeVM()
         {
             SendMessageAuthorization = new RelayCommand(OnSendMessageAuthorization, CanSendMessageAuthorization);
             ChangeNumber = new RelayCommand(OnChangeNumber, CanChangeNumber);
-            ChangeVisibility = new RelayCommand(OnChangeVisibility, CanChangeVisibility);
+
+            IsCreated = true;
+            instance = this;
+            
         }
     }
 }

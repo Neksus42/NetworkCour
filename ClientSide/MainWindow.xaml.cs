@@ -23,7 +23,7 @@ namespace Page_Navigation_App
     public partial class MainWindow : Window
     {
 
-        static private TcpClient _client;
+       
         public MainWindow()
         {
            

@@ -16,6 +16,7 @@
     <None Remove="Images\home_page.png" />
     <None Remove="Images\img_customer.png" />
     <None Remove="Images\img_home.png" />
+    <None Remove="Images\img_logout.png" />
     <None Remove="Images\img_order.png" />
     <None Remove="Images\img_product.png" />
     <None Remove="Images\img_setting.png" />
@@ -37,6 +38,9 @@
     <Resource Include="Fonts\Rubik-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Images\img_logout.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\customer_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
