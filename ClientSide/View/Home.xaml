@@ -21,7 +21,7 @@
                 Width="239" Height="86">
             <Interactivity:Interaction.Triggers>
                 <Interactivity:EventTrigger EventName="Click">
-                    <Interactivity:InvokeCommandAction Command="{Binding SendMessageAuthorization}" IsEnabled="{Binding IsAuthorizationSuccessful}"/>
+                    <Interactivity:InvokeCommandAction Command="{Binding SendMessageAuthorization}"/>
 
 
                 </Interactivity:EventTrigger>

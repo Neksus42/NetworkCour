@@ -59,12 +59,12 @@ namespace Page_Navigation_App.ViewModel
             IsVisC = Visibility.Hidden;
             IsVisHome = Visibility.Visible;
             IsVisLogOut = Visibility.Hidden;
-            CurrentView = new HomeVM();
+            CurrentView = HomeVM.CreateInstance(this);
 
         }
 
         private void Home(object obj) => CurrentView = HomeVM.GetInstance(this);
-        private void Customer(object obj) => CurrentView = CustomerVM.GetInstance();
+        //private void Customer(object obj) => CurrentView = CustomerVM.GetInstance();
         private void Product(object obj) => CurrentView = new ProductVM();
         private void Order(object obj) => CurrentView = new OrderVM();
 
@@ -72,7 +72,7 @@ namespace Page_Navigation_App.ViewModel
         public NavigationVM()
         {
             HomeCommand = new RelayCommand(Home);
-            CustomersCommand = new RelayCommand(Customer);
+            CustomersCommand = new RelayCommand(Product);
             ProductsCommand = new RelayCommand(Product);
             OrdersCommand = new RelayCommand(Order);
             LogOutCommand = new RelayCommand(OnLogOutCommand, CanLogOutCommand);

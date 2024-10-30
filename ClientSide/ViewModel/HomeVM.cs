@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using Page_Navigation_App.Model;
 using System.Text.Json;
+using System.Collections.Generic;
 
 
 namespace Page_Navigation_App.ViewModel
@@ -54,14 +55,20 @@ namespace Page_Navigation_App.ViewModel
 
         private async void OnSendMessageAuthorization(object p)
         {
+            if (Name == "" || Number == 0)
+            {
+                ViewMessage = "Неверный формат имени или номера";
+                return;
+            }
             Customer customer = new Customer(Convert.ToString(Number), Name);
             await ServerConnection.SendDataAsync("1:"+JsonSerializer.Serialize<Customer>(customer));
             string Answer = await ServerConnection.GetDataAsync();
             string[] splitted = Answer.Split(':');
             string CodeAnswer = splitted[0];
             string Role = splitted[1];
-
+            IsAdmin = Role == "1";
             MessageBox.Show(Answer);
+
             if (CodeAnswer == "1")
             {
                 ViewMessage = "Успешная авторизация";
@@ -69,6 +76,8 @@ namespace Page_Navigation_App.ViewModel
                 
                 IsAuthorizationSuccessful = false;
                 IsAdmin = Convert.ToBoolean(int.Parse(Role));
+                SettingCustomer();
+
                 ChangingVisibilityParameters();
                
             } else if(CodeAnswer == "2")
@@ -79,16 +88,29 @@ namespace Page_Navigation_App.ViewModel
                 
                 ViewMessage = "Успешная регистрация";
                 IsAuthorizationSuccessful = false;
+                SettingCustomer();
+
                 ChangingVisibilityParameters();
             }
             
         }
         #endregion
+        private void SettingCustomer()
+        {
+            CustomerVM.GetInstance().CustomerName = Name;
+            CustomerVM.GetInstance().CustomerPhone = Number;
+            CustomerVM.GetInstance().Role = IsAdmin ? "Admin" : "Customer";
+            //CustomerVM.GetInstance().Fillcomboitems();
+            
+        }
         private void ChangingVisibilityParameters()
         {
             Nvm.IsVisC = Visibility.Visible;
-            
+
             Nvm.CurrentView = CustomerVM.GetInstance();
+
+
+           //CustomerVM.GetInstance().Fillcomboitems();
             Nvm.IsEnabledCustomer = true;
             Nvm.IsVisHome = Visibility.Collapsed;
             Nvm.IsVisLogOut = Visibility.Visible;
@@ -96,6 +118,7 @@ namespace Page_Navigation_App.ViewModel
         public static HomeVM GetInstance(NavigationVM nvm)
         {
             Nvm = nvm;
+
             if(!IsCreated)
             {
                 IsCreated = true;
@@ -104,14 +127,19 @@ namespace Page_Navigation_App.ViewModel
             }
             return instance;
         }
+        public static HomeVM CreateInstance(NavigationVM nvm)
+        {
+            Nvm = nvm;
+            IsCreated = true;
+            return instance = new HomeVM();
+        }
 
         public HomeVM()
         {
             SendMessageAuthorization = new RelayCommand(OnSendMessageAuthorization, CanSendMessageAuthorization);
             ChangeNumber = new RelayCommand(OnChangeNumber, CanChangeNumber);
-
-            IsCreated = true;
-            instance = this;
+            
+            
             
         }
     }

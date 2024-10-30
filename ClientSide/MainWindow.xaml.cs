@@ -39,6 +39,7 @@ namespace Page_Navigation_App
 
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
+            ServerConnection.Disconnect();
             Close();
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

@@ -13,7 +13,7 @@
         xmlns:Menu="clr-namespace:Page_Navigation_App.Utilities"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="798"
+        Height="800"
         Width="1129"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"

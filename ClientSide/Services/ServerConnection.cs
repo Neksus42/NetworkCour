@@ -33,6 +33,10 @@ namespace Page_Navigation_App
                 }
             
         }
+        static public void Disconnect()
+        {
+            _client.Close();
+        }
         static public async Task<string> GetDataAsync()
         {
             byte[] buffer = new byte[1024];

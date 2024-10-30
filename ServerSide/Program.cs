@@ -43,10 +43,12 @@ namespace ServerSide
         static private string connectionString = "Server=localhost;Database=networkbase;User ID=root;Password=1111;";
         static private TcpListener listener;
         static private MySqlConnection connection;
+        static ThreadLocal<Customer> localCustomer = new ThreadLocal<Customer>(() => new Customer());
         static private string CodeHandler(ref string jsonstring)
         {
             string[] subarr = jsonstring.Split(':', 2);
             int Code = Convert.ToInt32(subarr[0]);
+            Console.WriteLine($"Код задачи: {Code}");
             string JsonData = subarr[1];
             string stringtoreturn = string.Empty;
 
@@ -57,30 +59,59 @@ namespace ServerSide
                         stringtoreturn = Authorization(JsonData);
                         break;
                     }
+                case 2:
+                    {
+                        stringtoreturn = SendDataClientOrders();
+                        break;
+                    }
 
             }
 
 
             return stringtoreturn;
         }
+        static private string SendDataClientOrders()
+        {
+            string stringresult = string.Empty;
+
+            string query = $"SELECT * FROM networkbase.orders where customer_id = {localCustomer.Value.customer_id};";
+            Console.WriteLine(query);
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Заказы клиента {localCustomer.Value.customer_name}");
+                using (var reader = command.ExecuteReader())
+                {
+                    List<string> AllOrders = new List<string>();
+                    while(reader.Read())
+                    {
+                        AllOrders.Add(Convert.ToString(reader.GetDateTime("order_date")));
+                    }
+                    stringresult = JsonSerializer.Serialize<List<string>>(AllOrders);
+                }
+            }
+            return stringresult;
+        }
         static private string Authorization(string Data)
         {
             string stringresult = string.Empty;
             string role = string.Empty;
-            Customer currentcustomer = JsonSerializer.Deserialize<Customer>(Data);
-            string query = "SELECT * FROM networkbase.customers where phone_number ="+currentcustomer.phone_number+";";
+            localCustomer.Value = JsonSerializer.Deserialize<Customer>(Data);
+            
+            string query = "SELECT * FROM networkbase.customers where phone_number ="+ localCustomer.Value.phone_number+";";
             using (var command = new MySqlCommand(query, connection))
             {
-                Console.WriteLine($"Client: {currentcustomer.customer_name} Phone: {currentcustomer.phone_number}");
+                Console.WriteLine($"Client: {localCustomer.Value.customer_name} Phone: {localCustomer.Value.phone_number}");
                 using (var reader = command.ExecuteReader())
                 {
                     
                     if (reader.Read())
                     {
                         role = reader.GetString("role");
-                        if (reader.GetString("customer_name") == currentcustomer.customer_name)
+                        if (reader.GetString("customer_name") == localCustomer.Value.customer_name)
                         {
                             stringresult = "1"; // Успешная авторизация
+                            Console.WriteLine($"Клиент: {localCustomer.Value.customer_name}");
+                            localCustomer.Value.customer_id = reader.GetInt32("customer_id");
                         }
                         else
                         {
@@ -93,8 +124,8 @@ namespace ServerSide
                         string queryAddCustomer = "INSERT INTO `networkbase`.`customers` (`phone_number`, `customer_name`) VALUES (@phone_number, @customer_name);";
                         using (var addCommand = new MySqlCommand(queryAddCustomer, connection))
                         {
-                            addCommand.Parameters.AddWithValue("@phone_number", currentcustomer.phone_number);
-                            addCommand.Parameters.AddWithValue("@customer_name", currentcustomer.customer_name);
+                            addCommand.Parameters.AddWithValue("@phone_number", localCustomer.Value.phone_number);
+                            addCommand.Parameters.AddWithValue("@customer_name", localCustomer.Value.customer_name);
                             addCommand.ExecuteNonQuery();
                         }
                         stringresult = "3"; // Регистрация успешна
@@ -141,6 +172,7 @@ namespace ServerSide
         }
         public static async Task RecieveConnection(TcpClient tcpClient)
         {
+            
             try {Console.WriteLine("Подключен: " + tcpClient.Client.RemoteEndPoint);
             var stream = tcpClient.GetStream();
             while (true) // делаем цикл бесконечным
@@ -156,12 +188,12 @@ namespace ServerSide
 
                 string receivedJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                 Console.WriteLine("Полученный JSON: " + receivedJson + "\n");
-
+                    
                     string response = CodeHandler(ref receivedJson);
                     //await SendMessageOverTcpAsync(tcpClient, response,stream);
 
                     await stream.WriteAsync(Encoding.UTF8.GetBytes(response));
-                    Console.WriteLine("Сообщение отправлено.");
+                    Console.WriteLine($"Сообщение отправлено.{response}");
                 }
 
             tcpClient.Close();
@@ -174,10 +206,16 @@ namespace ServerSide
 
         public static async void WaitConnection()
         {
-            while(true)
+            
+            while (true)
             {
                 var tcpclient = await listener.AcceptTcpClientAsync();
-                new Thread(async () => await RecieveConnection(tcpclient)).Start();
+                
+
+                new Thread(async () => {
+                    localCustomer.Value = new Customer();
+                    await RecieveConnection(tcpclient);
+                    }).Start();
             }
         }
     }

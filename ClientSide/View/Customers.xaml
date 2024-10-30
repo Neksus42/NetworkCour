@@ -1,43 +1,130 @@
-﻿<UserControl x:Class="Page_Navigation_App.View.Customers"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
+             xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors" x:Class="Page_Navigation_App.View.Customers"
              mc:Ignorable="d"
-             d:DesignHeight="600"
-             d:DesignWidth="622"
+             d:DesignHeight="800"
+             d:DesignWidth="800"
              Style="{StaticResource Page_Style}">
 
     <UserControl.DataContext>
         <vm:CustomerVM />
     </UserControl.DataContext>
-    
+
     <Grid Margin="15">
 
-        <Border CornerRadius="0,20,20,0">
-            <Border.Background>
-                <ImageBrush ImageSource="/Images/customer_page.png"
-                            Stretch="None" />
-            </Border.Background>
-        </Border>
 
-        <TextBlock Text="Customer ID  :"
-                   Foreground="#DBDBDB"
-                   FontSize="12"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   FontFamily="/Fonts/#Rubik Medium"
-                   Margin="70,138,0,0" />
 
-        <TextBlock Text="{Binding CustomerID}"
-                   Foreground="#CED565"
-                   FontSize="12"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   FontFamily="/Fonts/#Rubik Medium"
-                   Margin="160,138,0,0" />
-     
+
+
+        <Border CornerRadius="25" 
+                Background="Gray" 
+                BorderBrush="Gray" 
+                BorderThickness="1" 
+                HorizontalAlignment="Left" 
+                Height="63" 
+                Margin="120,12,0,0" 
+                VerticalAlignment="Top" Width="572"/>
+        <TextBlock Text="Customer Name:"
+            Foreground="#DBDBDB"
+            FontSize="30"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontFamily="/Fonts/#Rubik Medium" Margin="139,26,0,0"
+    />
+        <TextBlock Text="{Binding CustomerName}"
+           Foreground="#CED565"
+           FontSize="30"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Top"
+           FontFamily="/Fonts/#Rubik Medium"
+           Margin="0,26,0,0" />
+        <Border CornerRadius="25" 
+            Background="Gray" 
+            BorderBrush="Gray" 
+            BorderThickness="1" 
+            HorizontalAlignment="Left" 
+            Height="63" 
+            Margin="120,106,0,0" 
+            VerticalAlignment="Top" Width="572"/>
+        <TextBlock Text="Customer Phone:"
+            Foreground="#DBDBDB"
+            FontSize="30"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontFamily="/Fonts/#Rubik Medium" Margin="139,120,0,0"
+                   
+/>
+        <TextBlock Text="{Binding CustomerPhone}"
+           Foreground="#CED565"
+           FontSize="30"
+           HorizontalAlignment="Left"
+           VerticalAlignment="Top"
+           FontFamily="/Fonts/#Rubik Medium"
+           Margin="393,120,0,0" />
+
+
+        <Border CornerRadius="25" 
+            Background="Gray" 
+            BorderBrush="Gray" 
+            BorderThickness="1" 
+            HorizontalAlignment="Left" 
+            Height="63" 
+            Margin="120,196,0,0" 
+            VerticalAlignment="Top" Width="572"/>
+        <TextBlock Text="Role:"
+            Foreground="#DBDBDB"
+            FontSize="30"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontFamily="/Fonts/#Rubik Medium" Margin="139,210,0,0"
+                   
+/>
+        <TextBlock Text="{Binding Role}"
+           Foreground="#CED565"
+           FontSize="30"
+           HorizontalAlignment="Left"
+           VerticalAlignment="Top"
+           FontFamily="/Fonts/#Rubik Medium"
+           Margin="215,210,0,0" />
+        <DataGrid HorizontalAlignment="Left" 
+                  Height="243" 
+                  Margin="75,385,0,0" 
+                  VerticalAlignment="Top" 
+                  FontSize="15"
+                  Width="649" 
+                  IsReadOnly="True"
+                  ColumnWidth="*"
+                  ItemsSource="{Binding Customers_List}"
+                  />
+        <ComboBox HorizontalAlignment="Left" Margin="105,306,0,0" VerticalAlignment="Top" Width="165"
+                  FontSize="15"
+                  ItemsSource="{Binding Comboitems, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedItem}" Height="46"/>
+
+
+        <Button Style="{StaticResource BtnStyle_Button}"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            Margin="296,306,198,418">
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="Click">
+                    <b:InvokeCommandAction Command="{Binding GetComboItems}"/>
+
+
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+
+
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                TextAlignment="Center" 
+                Text="Загрузить заказы" 
+                FontSize="30" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
+        </Button>
+
 
     </Grid>
 </UserControl>
