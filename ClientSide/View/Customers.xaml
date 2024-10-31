@@ -97,7 +97,7 @@
                   Width="649" 
                   IsReadOnly="True"
                   ColumnWidth="*"
-                  ItemsSource="{Binding Customers_List}"
+                  ItemsSource="{Binding Customer_Order_Items}"
                   />
         <ComboBox HorizontalAlignment="Left" Margin="105,306,0,0" VerticalAlignment="Top" Width="165"
                   FontSize="15"
@@ -123,7 +123,6 @@
                 Text="Загрузить заказы" 
                 FontSize="30" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
         </Button>
-        <Button  Command="{Binding Check}"  Content="Button" HorizontalAlignment="Left" Margin="642,297,0,0" VerticalAlignment="Top" Height="52" Width="82"/>
 
 
     </Grid>

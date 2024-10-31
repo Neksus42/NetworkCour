@@ -17,6 +17,7 @@ namespace Page_Navigation_App.Model.Base
         // static private bool issended = false;
         static private string _CustomerName;
         static private int _CustomerPhone;
+        static ObservableCollection<CustomerOrderItems> _Customer_Order_Items;
         static private string _Role;
         public string Role
         {
@@ -34,16 +35,11 @@ namespace Page_Navigation_App.Model.Base
             set { _CustomerPhone = value; }
         }
 
-        static ObservableCollection<Customer> _Customers_List = new ObservableCollection<Customer>
-                {
-                    new Customer { customer_id=6, customer_name="Apple", phone_number="54990" },
-                    new Customer {customer_id=6, customer_name="Microsoft", phone_number="39990"},
-
-                };
-        public ObservableCollection<Customer> Customers_List
+        
+        public ObservableCollection<CustomerOrderItems> Customer_Order_Items
         {
-            get { return _Customers_List; }
-            set { _Customers_List = value;}
+            get { return _Customer_Order_Items; }
+            set { _Customer_Order_Items = value;}
         }
 
         static private ObservableCollection<string> _comboitems = new ObservableCollection<string>();

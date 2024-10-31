@@ -18,6 +18,16 @@ namespace ServerSide
 
 
     }
+    public class CustomerOrderItems
+    {
+        public string component_name { get; set; }
+        public string category_name { get; set; }
+        public string manufacturer_name { get; set; }
+        public int quantity { get; set; }
+        public int price { get; set; }
+
+    }
+
     public class getCode
     { 
     static public int getIntFromMessageJson(ref string JsonMessage)
@@ -64,12 +74,59 @@ namespace ServerSide
                         stringtoreturn = SendDataClientOrders();
                         break;
                     }
+                case 3:
+                    {
+                        stringtoreturn = SendOrderItemsforClient(JsonData);
+                        break;
+                    }
 
             }
 
 
             return stringtoreturn;
         }
+        static private string SendOrderItemsforClient(string date)
+        {
+            string stringresult = string.Empty;
+            string query = $"SELECT " +
+
+                
+                $"cmp.component_name, cat.category_name, m.manufacturer_name, oi.quantity, oi.price " +
+                $"FROM " +
+                $"orders o " +
+                $"JOIN " +
+                $"order_items oi ON o.order_id = oi.order_id " +
+                $"JOIN " +
+                $"components cmp ON oi.component_id = cmp.component_id " +
+                $"JOIN " +
+                $"categories cat ON cmp.category_id = cat.category_id " +
+                $"JOIN " +
+                $"manufacturers m ON cmp.manufacturer_id = m.manufacturer_id " +
+                $"WHERE " +
+                $"o.order_date = '{date}';";
+            Console.WriteLine(query);
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Позиции заказа клиента {localCustomer.Value.customer_name}");
+                using (var reader = command.ExecuteReader())
+                {
+                    List<CustomerOrderItems> AllOrderItems = [];
+                    while (reader.Read())
+                    {
+                        CustomerOrderItems customerOrderItems = new CustomerOrderItems();
+                        customerOrderItems.component_name = reader.GetString("component_name");
+                        customerOrderItems.category_name = reader.GetString("category_name");
+                        customerOrderItems.manufacturer_name = reader.GetString("manufacturer_name");
+                        customerOrderItems.quantity = reader.GetInt32("quantity");
+                        customerOrderItems.price = reader.GetInt32("price");
+                        AllOrderItems.Add(customerOrderItems);
+                    }
+                    stringresult = JsonSerializer.Serialize<List<CustomerOrderItems>>(AllOrderItems);
+                }
+            }
+            return stringresult;
+        }
+
         static private string SendDataClientOrders()
         {
             string stringresult = string.Empty;
@@ -84,7 +141,8 @@ namespace ServerSide
                     List<string> AllOrders = new List<string>();
                     while(reader.Read())
                     {
-                        AllOrders.Add(Convert.ToString(reader.GetDateTime("order_date")));
+                        DateTime orderDate = reader.GetDateTime("order_date");
+                        AllOrders.Add(orderDate.ToString("yyyy-MM-dd HH:mm:ss"));
                     }
                     stringresult = JsonSerializer.Serialize<List<string>>(AllOrders);
                 }

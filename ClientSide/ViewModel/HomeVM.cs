@@ -114,7 +114,7 @@ namespace Page_Navigation_App.ViewModel
             Nvm.CustomerVM = new CustomerVM();
             Nvm.CustomerVM.CustomerBaseModel = csBase;
             Nvm.CustomerVM.Refreshitems();
-            Nvm.switchcontrols();
+            Nvm.Switchcontrols();
             //Nvm.CustomerVM.Fillcomboitems();
             
 

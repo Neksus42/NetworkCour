@@ -21,32 +21,28 @@ namespace Page_Navigation_App.ViewModel
     {
         private CustomerBase _CustomerBaseModel;
         public CustomerBase CustomerBaseModel
-        {
-            get { return _CustomerBaseModel; } set => Set(ref _CustomerBaseModel, value); }
+        { get { return _CustomerBaseModel; } set => Set(ref _CustomerBaseModel, value); }
 
-        private ObservableCollection<string> _comboitems;
+        
         public ObservableCollection<string> Comboitems
         {
-            get { return _comboitems; }
-            set => Set(ref _comboitems, value);
+            get { return CustomerBaseModel.Comboitems; }
+            set { CustomerBaseModel.Comboitems = value; OnPropertyChanged(); }
         }
-        static private string _CustomerName;
-        static private int _CustomerPhone;
-        static private string _Role;
         public string Role
         {
-            get { return _Role; }
-            set { _Role = value;OnPropertyChanged(); }
+            get { return CustomerBaseModel.Role; }
+            set { CustomerBaseModel.Role = value;OnPropertyChanged(); }
         }
         public string CustomerName
         {
-            get { return _CustomerName; }
-            set { _CustomerName = value; }
+            get { return CustomerBaseModel.CustomerName; }
+            set { CustomerBaseModel.CustomerName = value; OnPropertyChanged(); }
         }
         public int CustomerPhone
         {
-            get { return _CustomerPhone; }
-            set { _CustomerPhone = value; }
+            get { return CustomerBaseModel.CustomerPhone; }
+            set { CustomerBaseModel.CustomerPhone = value; OnPropertyChanged(); }
         }
         private string _selectedItem;
         public string SelectedItem
@@ -63,58 +59,44 @@ namespace Page_Navigation_App.ViewModel
 
             }
         }
-
+      
+        public ObservableCollection<CustomerOrderItems> Customer_Order_Items
+        {
+            get { return CustomerBaseModel.Customer_Order_Items; }
+            set { CustomerBaseModel.Customer_Order_Items = value; OnPropertyChanged(); }
+        }
         public async void ChangeList(string data)
         {
-            string jsontocombo;
-            async Task RunAsyncTask()
-            {
-                MessageBox.Show("jsontocombo");
-                await ServerConnection.SendDataAsync("2:<>");
-                MessageBox.Show("jsontocombo2");
+            
+                //MessageBox.Show("jsontocombo");
+                await ServerConnection.SendDataAsync($"3:{data}");
+                //MessageBox.Show("jsontocombo2");
                 string jsontocombo = await ServerConnection.GetDataAsync();
                 //await ServerConnection.GetDataAsync().ConfigureAwait(false);
                 //await Task.Run(() => ServerConnection.SendDataAsync("2:<>"));
-                MessageBox.Show("jsontocombo3");
-            }
-
-            // Запуск
-            await RunAsyncTask();
-
-
+                //MessageBox.Show("jsontocombo3");
 
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                // Пример обновления Customers_List
-                CustomerBaseModel.Customers_List = new ObservableCollection<Customer>
-        {
-            new Customer { customer_id=6, customer_name="Apple", phone_number="54990" }
-        };
+                // Пример обновления Customers_List JsonSerializer.Deserialize<ObservableCollection<CustomerOrderItems>>(jsontocombo);
+                Customer_Order_Items = JsonSerializer.Deserialize<ObservableCollection<CustomerOrderItems>>(jsontocombo);
             });
+            Refreshitems();
 
         }
         public async void Fillcomboitems()
         {
-            ////JsonSerializer.Serialize<Customer>(customer)
-            //await ServerConnection.SendDataAsync("2:<>"); //Запрос на получение дат всех заказов клиента
-            //string jsontocombo = await ServerConnection.GetDataAsync();
-            //MessageBox.Show($"ComboList{jsontocombo}");
-            ////JsonSerializer.Deserialize<List<string>>(jsontocombo)
-            //Comboitems = new List<string>()
-            //{ 
-            //"her","gan"
+            await Task.Run(() => ServerConnection.SendDataAsync("2:<>"));
+            string jsontocombo = await Task.Run(() => ServerConnection.GetDataAsync());
 
-            //};
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show(jsontocombo);
+                Comboitems = JsonSerializer.Deserialize<ObservableCollection<string>>(jsontocombo);
 
-            await Task.Run(()=> OnGetComboItems(null));
-            //OnGetComboItems(null);
-            //Task.Delay(2000);
-            //Comboitems = new List<string>()
-            //{
-            //"her","gan","gdfgdfgdf", "gdfgdf"
 
-            //};
+            });
 
 
         }
@@ -122,6 +104,10 @@ namespace Page_Navigation_App.ViewModel
         public void Refreshitems()
         {
             Role = CustomerBaseModel.Role;
+            CustomerName = CustomerBaseModel.CustomerName;
+            CustomerPhone = CustomerBaseModel.CustomerPhone;
+            Comboitems = CustomerBaseModel.Comboitems;
+            Customer_Order_Items = CustomerBaseModel.Customer_Order_Items;
         }
         public ICommand GetComboItems { get; }
 
@@ -135,8 +121,8 @@ namespace Page_Navigation_App.ViewModel
             Application.Current.Dispatcher.Invoke(() =>
             {
                 MessageBox.Show(jsontocombo);
-                CustomerBaseModel.Comboitems = JsonSerializer.Deserialize<ObservableCollection<string>>(Convert.ToString(jsontocombo));
-                Comboitems = CustomerBaseModel.Comboitems;
+                Comboitems = JsonSerializer.Deserialize<ObservableCollection<string>>(Convert.ToString(jsontocombo));
+                
                 
             });
         }
@@ -153,24 +139,7 @@ namespace Page_Navigation_App.ViewModel
         }
 
 
-        private void FillItms()
-        {
-
-        }
-
-        //public static CustomerVM GetInstance()
-        //{
-
-        //    if (!IsCreated)
-        //    {
-        //        IsCreated = true;
-        //        instance = new CustomerVM();
-                
-        //        return instance;
-        //    }
-            
-        //    return instance;
-        //}
+      
         public CustomerVM()
         {
             

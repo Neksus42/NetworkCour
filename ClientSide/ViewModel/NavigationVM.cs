@@ -72,11 +72,11 @@ namespace Page_Navigation_App.ViewModel
         }
         //HomeVM.GetInstance(this);
         private void Home(object obj) => CurrentView = homeVM;
-        //private void Customer(object obj) => CurrentView = CustomerVM.GetInstance();
+        private void Customer(object obj) => CurrentView = CustomerVM;
         private void Product(object obj) => CurrentView = new ProductVM();
         private void Order(object obj) => CurrentView = new OrderVM();
 
-        public void switchcontrols()
+        public void Switchcontrols()
         {
             CurrentView = CustomerVM;
         }
@@ -85,7 +85,7 @@ namespace Page_Navigation_App.ViewModel
         {
             ServerConnection.ConnectToServerAsync();
             HomeCommand = new RelayCommand(Home);
-            CustomersCommand = new RelayCommand(Product);
+            CustomersCommand = new RelayCommand(Customer);
             ProductsCommand = new RelayCommand(Product);
             OrdersCommand = new RelayCommand(Order);
             LogOutCommand = new RelayCommand(OnLogOutCommand, CanLogOutCommand);
