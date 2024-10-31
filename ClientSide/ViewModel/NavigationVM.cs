@@ -11,6 +11,14 @@ namespace Page_Navigation_App.ViewModel
 {
     class NavigationVM : ViewModelBase
     {
+
+        CustomerVM _customerVM;
+        public CustomerVM CustomerVM
+        {
+            get { return _customerVM; }
+            set { _customerVM = value;}
+        }
+        HomeVM homeVM;
         private object _currentView;
         public object CurrentView
         {
@@ -59,26 +67,32 @@ namespace Page_Navigation_App.ViewModel
             IsVisC = Visibility.Hidden;
             IsVisHome = Visibility.Visible;
             IsVisLogOut = Visibility.Hidden;
-            CurrentView = HomeVM.CreateInstance(this);
+            CurrentView = homeVM;
 
         }
-
-        private void Home(object obj) => CurrentView = HomeVM.GetInstance(this);
+        //HomeVM.GetInstance(this);
+        private void Home(object obj) => CurrentView = homeVM;
         //private void Customer(object obj) => CurrentView = CustomerVM.GetInstance();
         private void Product(object obj) => CurrentView = new ProductVM();
         private void Order(object obj) => CurrentView = new OrderVM();
 
+        public void switchcontrols()
+        {
+            CurrentView = CustomerVM;
+        }
 
         public NavigationVM()
         {
+            ServerConnection.ConnectToServerAsync();
             HomeCommand = new RelayCommand(Home);
             CustomersCommand = new RelayCommand(Product);
             ProductsCommand = new RelayCommand(Product);
             OrdersCommand = new RelayCommand(Order);
             LogOutCommand = new RelayCommand(OnLogOutCommand, CanLogOutCommand);
-
-            // Startup Page
-            CurrentView = HomeVM.GetInstance(this);
+            homeVM = new HomeVM(this);
+           //customerVM = new CustomerVM();
+        // Startup Page
+        CurrentView = homeVM;
         }
 
 

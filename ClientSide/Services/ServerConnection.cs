@@ -14,13 +14,13 @@ namespace Page_Navigation_App
     class ServerConnection
     {
         static private TcpClient _client;
-        static public async void ConnectToServerAsync()
+        static public void ConnectToServerAsync()
         {
           
                 try
                 {
                     _client = new TcpClient();
-                    await _client.ConnectAsync("localhost", 8888);
+                     _client.Connect("localhost", 8888);
 
                 }
                 catch (SocketException ex)
@@ -39,9 +39,19 @@ namespace Page_Navigation_App
         }
         static public async Task<string> GetDataAsync()
         {
-            byte[] buffer = new byte[1024];
-            int bytesRead = await _client.GetStream().ReadAsync(buffer);
-            return Encoding.UTF8.GetString(buffer, 0, bytesRead);
+            
+            try
+            {
+                byte[] buffer = new byte[1024];
+                int bytesRead = await _client.GetStream().ReadAsync(buffer);
+                return Encoding.UTF8.GetString(buffer, 0, bytesRead);
+            }
+            catch(Exception e) {
+
+                return null;
+            }
+            
+            
         }
         static public async Task SendDataAsync(string data)
         {

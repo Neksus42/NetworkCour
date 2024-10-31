@@ -23,6 +23,7 @@ namespace Page_Navigation_App.View
         public Customers()
         {
             InitializeComponent();
+           
         }
     }
 }

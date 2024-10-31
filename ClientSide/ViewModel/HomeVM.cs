@@ -5,14 +5,17 @@ using System.Windows.Input;
 using Page_Navigation_App.Model;
 using System.Text.Json;
 using System.Collections.Generic;
+using Page_Navigation_App.Model.Base;
 
 
 namespace Page_Navigation_App.ViewModel
 {
     class HomeVM : Utilities.ViewModelBase
     {
-
-         static private NavigationVM Nvm;
+        //static private CustomerVM cust = CustomerVM.GetInstance();
+        private CustomerBase _CustomerBaseModel;
+        
+         private NavigationVM Nvm;
          static private HomeVM instance;
          static private bool IsCreated = false;
          private int _number;
@@ -78,7 +81,7 @@ namespace Page_Navigation_App.ViewModel
                 IsAdmin = Convert.ToBoolean(int.Parse(Role));
                 SettingCustomer();
 
-                ChangingVisibilityParameters();
+                
                
             } else if(CodeAnswer == "2")
             {
@@ -90,55 +93,61 @@ namespace Page_Navigation_App.ViewModel
                 IsAuthorizationSuccessful = false;
                 SettingCustomer();
 
-                ChangingVisibilityParameters();
+                
             }
             
         }
         #endregion
         private void SettingCustomer()
         {
-            CustomerVM.GetInstance().CustomerName = Name;
-            CustomerVM.GetInstance().CustomerPhone = Number;
-            CustomerVM.GetInstance().Role = IsAdmin ? "Admin" : "Customer";
+            _CustomerBaseModel = new CustomerBase();
+            _CustomerBaseModel.CustomerName = Name;
+            _CustomerBaseModel.CustomerPhone = Number;
+            _CustomerBaseModel.Role = IsAdmin ? "Admin" : "Customer";
+            ChangingVisibilityParameters(_CustomerBaseModel);
             //CustomerVM.GetInstance().Fillcomboitems();
-            
+
         }
-        private void ChangingVisibilityParameters()
+        private void ChangingVisibilityParameters(CustomerBase csBase)
         {
             Nvm.IsVisC = Visibility.Visible;
-
-            Nvm.CurrentView = CustomerVM.GetInstance();
-
+            Nvm.CustomerVM = new CustomerVM();
+            Nvm.CustomerVM.CustomerBaseModel = csBase;
+            Nvm.CustomerVM.Refreshitems();
+            Nvm.switchcontrols();
+            //Nvm.CustomerVM.Fillcomboitems();
+            
 
            //CustomerVM.GetInstance().Fillcomboitems();
             Nvm.IsEnabledCustomer = true;
             Nvm.IsVisHome = Visibility.Collapsed;
             Nvm.IsVisLogOut = Visibility.Visible;
         }
-        public static HomeVM GetInstance(NavigationVM nvm)
-        {
-            Nvm = nvm;
+        //public static HomeVM GetInstance(NavigationVM nvm)
+        //{
+        //    Nvm = nvm;
 
-            if(!IsCreated)
-            {
-                IsCreated = true;
+        //    if(!IsCreated)
+        //    {
+        //        IsCreated = true;
                 
-                return instance = new HomeVM();
-            }
-            return instance;
-        }
-        public static HomeVM CreateInstance(NavigationVM nvm)
+        //        return instance = new HomeVM();
+        //    }
+        //    return instance;
+        //}
+        //public static HomeVM CreateInstance(NavigationVM nvm)
+        //{
+        //    Nvm = nvm;
+        //    IsCreated = true;
+        //    return instance = new HomeVM();
+        //}
+
+        public HomeVM(NavigationVM nvm)
         {
             Nvm = nvm;
-            IsCreated = true;
-            return instance = new HomeVM();
-        }
-
-        public HomeVM()
-        {
             SendMessageAuthorization = new RelayCommand(OnSendMessageAuthorization, CanSendMessageAuthorization);
             ChangeNumber = new RelayCommand(OnChangeNumber, CanChangeNumber);
-            
+            //cust = CustomerVM.GetInstance();
             
             
         }

@@ -26,9 +26,9 @@ namespace Page_Navigation_App
        
         public MainWindow()
         {
-           
+            
             InitializeComponent();
-           ServerConnection.ConnectToServerAsync();
+           
             
 
         }

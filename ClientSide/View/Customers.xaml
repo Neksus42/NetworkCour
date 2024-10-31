@@ -7,13 +7,11 @@
              xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors" x:Class="Page_Navigation_App.View.Customers"
              mc:Ignorable="d"
-             d:DesignHeight="800"
+             d:DesignHeight="800" d:DataContext="{d:DesignInstance Type=vm:CustomerVM}"
              d:DesignWidth="800"
              Style="{StaticResource Page_Style}">
 
-    <UserControl.DataContext>
-        <vm:CustomerVM />
-    </UserControl.DataContext>
+
 
     <Grid Margin="15">
 
@@ -103,8 +101,9 @@
                   />
         <ComboBox HorizontalAlignment="Left" Margin="105,306,0,0" VerticalAlignment="Top" Width="165"
                   FontSize="15"
-                  ItemsSource="{Binding Comboitems, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding SelectedItem}" Height="46"/>
+                  ItemsSource="{Binding Comboitems}"
+                  SelectedItem="{Binding SelectedItem}"
+                  Height="46"/>
 
 
         <Button Style="{StaticResource BtnStyle_Button}"
@@ -124,6 +123,7 @@
                 Text="Загрузить заказы" 
                 FontSize="30" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
         </Button>
+        <Button  Command="{Binding Check}"  Content="Button" HorizontalAlignment="Left" Margin="642,297,0,0" VerticalAlignment="Top" Height="52" Width="82"/>
 
 
     </Grid>
