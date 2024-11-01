@@ -187,6 +187,16 @@ namespace ServerSide
                             addCommand.ExecuteNonQuery();
                         }
                         stringresult = "3"; // Регистрация успешна
+                        query = "SELECT * FROM networkbase.customers where phone_number =" + localCustomer.Value.phone_number + ";";
+                        using (var addCommand = new MySqlCommand(query, connection))
+                        {
+                            using (var secondreader = command.ExecuteReader())
+                            {
+                                secondreader.Read();
+                                localCustomer.Value.customer_id = secondreader.GetInt32("customer_id");
+                            }
+
+                        }
                     }
                     stringresult += role == "admin" ? ":1" : ":0";
 

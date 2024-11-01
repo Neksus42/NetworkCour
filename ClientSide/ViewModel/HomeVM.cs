@@ -20,7 +20,7 @@ namespace Page_Navigation_App.ViewModel
          static private bool IsCreated = false;
          private int _number;
          private string _name;
-         private string _viewmessage = "Text";
+         private string _viewmessage = string.Empty;
         
         private bool _isAuthorizationSuccessful = true;
         private bool _isadmin = false;

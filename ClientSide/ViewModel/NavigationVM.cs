@@ -67,7 +67,7 @@ namespace Page_Navigation_App.ViewModel
             IsVisC = Visibility.Hidden;
             IsVisHome = Visibility.Visible;
             IsVisLogOut = Visibility.Hidden;
-            CurrentView = homeVM;
+            CurrentView = new HomeVM(this);
 
         }
         //HomeVM.GetInstance(this);
