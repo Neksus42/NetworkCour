@@ -1,0 +1,273 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="ComboBox" x:Key="RoundedComboBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <!-- Основной Border для ComboBox с закругленными краями -->
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10"
+                                SnapsToDevicePixels="True">
+                            <Grid>
+                                <!-- ContentPresenter для отображения выбранного элемента -->
+                                <ContentPresenter Name="ContentSite"
+                                                  IsHitTestVisible="False"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                  Margin="5,3,35,3"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Left" />
+                                <!-- ToggleButton для раскрытия списка -->
+                                <ToggleButton x:Name="ToggleButton"
+                                              Grid.Column="2"
+                                              Focusable="false"
+                                              IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                              ClickMode="Press"
+                                              Background="Gray"
+                                              BorderBrush="Transparent"
+                                              Width="30"
+                                              Height="30"
+                                              Margin="0,0,2,0"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="10"
+                                                    SnapsToDevicePixels="True">
+                                                <Grid>
+                                                    <Path x:Name="Arrow"
+                                                          Fill="White"
+                                                          Data="M 0 0 L 4 4 L 8 0 Z"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"
+                                                          RenderTransformOrigin="0.5,0.5">
+                                                        <Path.RenderTransform>
+                                                            <RotateTransform Angle="0"/>
+                                                        </Path.RenderTransform>
+                                                    </Path>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#FF333333"/>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter Property="Background" Value="#FF555555"/>
+                                                </Trigger>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter TargetName="Arrow" Property="RenderTransform">
+                                                        <Setter.Value>
+                                                            <RotateTransform Angle="180"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                            </Grid>
+                        </Border>
+                        <!-- Popup для выпадающего списка -->
+                        <Popup Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                            <Grid Name="DropDown"
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border x:Name="DropDownBorder"
+                                        Background="Black" 
+                                        CornerRadius="10"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ScrollViewer Margin="4,6,4,6"
+                                                  SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True"
+                                                    KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="#FFF0F0F0"/>
+                            <Setter Property="Foreground" Value="#FFADADAD"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+                        </Trigger>
+                        <!-- Удален Trigger, который вызывал ошибку -->
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!-- Дополнительные свойства ComboBox -->
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+
+    <!-- Стиль для ComboBoxItem с белым текстом -->
+    <Style TargetType="ComboBoxItem">
+        <Setter Property="Foreground" Value="White"/>
+        <!-- Белый текст -->
+        <Setter Property="Background" Value="Black"/>
+        <!-- Черный фон -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="5" 
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="Gray"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="DarkGray"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="DataGrid" x:Key="DarkDataGrid">
+        <!-- Установка общих свойств -->
+        <Setter Property="Background" Value="#1E1E1E"/>
+        <!-- Темный фон DataGrid -->
+        <Setter Property="Foreground" Value="White"/>
+        <!-- Белый текст -->
+        <Setter Property="RowBackground" Value="#2D2D30"/>
+        <!-- Фон нечетных строк -->
+        <Setter Property="AlternatingRowBackground" Value="#252526"/>
+        <!-- Фон четных строк -->
+        
+        <!-- Цвет сетки -->
+        <Setter Property="HeadersVisibility" Value="All"/>
+        <!-- Видимость заголовков -->
+        <Setter Property="BorderBrush" Value="#3C3C3C"/>
+        <!-- Цвет границы DataGrid -->
+        <Setter Property="BorderThickness" Value="1"/>
+        <!-- Толщина границы -->
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <!-- Скрыть строковые заголовки -->
+        <Setter Property="FontSize" Value="15"/>
+        <!-- Размер шрифта -->
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <!-- Семейство шрифтов -->
+
+        <!-- Настройка стилей заголовков столбцов -->
+        <Setter Property="ColumnHeaderStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#333333"/>
+                    <!-- Темный фон заголовков -->
+                    <Setter Property="Foreground" Value="White"/>
+                    <!-- Белый текст заголовков -->
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <!-- Жирный текст заголовков -->
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <!-- Выравнивание текста по центру -->
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Height" Value="30"/>
+                    <!-- Высота заголовков -->
+                    <Setter Property="Padding" Value="5"/>
+
+                    <!-- Удаление разделителей между заголовками -->
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+        <!-- Настройка стилей строк -->
+        <Setter Property="RowStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="#2D2D30"/>
+                    <!-- Фон строк -->
+                    <Setter Property="Foreground" Value="White"/>
+                    <!-- Текст строк -->
+                    <Setter Property="Height" Value="25"/>
+                    <!-- Высота строк -->
+
+                    <!-- Стиль при наведении курсора -->
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#3C3C3C"/>
+                            <!-- Фон при наведении -->
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#FF5F4F4F"/>
+                            <!-- Фон при выборе -->
+                            <Setter Property="Foreground" Value="White"/>
+                            <!-- Текст при выборе -->
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter Property="Foreground" Value="White"/>
+                            <!-- Текст без выбора -->
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+        <!-- Настройка стилей ячеек -->
+        <Setter Property="CellStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Background" Value="#2D2D30"/>
+                    <!-- Фон ячеек -->
+                    <Setter Property="Foreground" Value="White"/>
+                    <!-- Текст ячеек -->
+                    <Setter Property="BorderBrush" Value="#3C3C3C"/>
+                    <!-- Цвет границы ячеек -->
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <!-- Толщина границ ячеек -->
+                    <Setter Property="Padding" Value="5"/>
+                    <!-- Отступы внутри ячеек -->
+
+                    <!-- Стиль при наведении курсора на ячейку -->
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#3C3C3C"/>
+                            <!-- Фон при наведении -->
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#FF494E52"/>
+                            <!-- Фон при выборе ячейки -->
+                            <Setter Property="Foreground" Value="White"/>
+                            <!-- Текст при выборе ячейки -->
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+        <!-- Настройка стилей футера (если используется) -->
+        <Setter Property="ColumnHeaderHeight" Value="30"/>
+    </Style>
+
+
+
+</ResourceDictionary>

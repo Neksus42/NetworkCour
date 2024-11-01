@@ -9,13 +9,13 @@
 
         <ResourceDictionary>
             
-            <global:HomeVM x:Key="GlobalHomeVM" />
+            
             
             <ResourceDictionary.MergedDictionaries>
-                
-                
-                
-                
+
+
+                <ResourceDictionary Source ="Styles/TextAndBorder.xaml"/>
+                <ResourceDictionary Source="Styles/ComboBoxStyles.xaml"/>
                 <ResourceDictionary Source="Styles/Page.xaml" />
                 <ResourceDictionary Source="Styles/Image.xaml" />
                 <ResourceDictionary Source="Styles/Text.xaml" />

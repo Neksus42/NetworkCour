@@ -19,75 +19,70 @@
 
 
 
-        <Border CornerRadius="25" 
-                Background="Gray" 
-                BorderBrush="Gray" 
-                BorderThickness="1" 
-                HorizontalAlignment="Left" 
-                Height="63" 
-                Margin="120,12,0,0" 
-                VerticalAlignment="Top" Width="572"/>
+        <!-- Border для "Customer Name" -->
+        <Border Style="{StaticResource RoundedGrayBorder}"
+        HorizontalAlignment="Left" 
+        Height="63" 
+        Margin="120,12,0,0" 
+        VerticalAlignment="Top" 
+        Width="572"/>
+
+        <!-- Метка "Customer Name:" -->
         <TextBlock Text="Customer Name:"
-            Foreground="#DBDBDB"
-            FontSize="30"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontFamily="/Fonts/#Rubik Medium" Margin="139,26,0,0"
-    />
+           Style="{StaticResource LabelTextBlockStyle}"
+           HorizontalAlignment="Left"
+           VerticalAlignment="Top"
+           Margin="139,26,0,0" />
+
+        <!-- Данные "CustomerName" -->
         <TextBlock Text="{Binding CustomerName}"
-           Foreground="#CED565"
-           FontSize="30"
+           Style="{StaticResource DataTextBlockStyle}"
            HorizontalAlignment="Center"
            VerticalAlignment="Top"
-           FontFamily="/Fonts/#Rubik Medium"
            Margin="0,26,0,0" />
-        <Border CornerRadius="25" 
-            Background="Gray" 
-            BorderBrush="Gray" 
-            BorderThickness="1" 
-            HorizontalAlignment="Left" 
-            Height="63" 
-            Margin="120,106,0,0" 
-            VerticalAlignment="Top" Width="572"/>
+
+        <!-- Border для "Customer Phone" -->
+        <Border Style="{StaticResource RoundedGrayBorder}"
+        HorizontalAlignment="Left" 
+        Height="63" 
+        Margin="120,106,0,0" 
+        VerticalAlignment="Top" 
+        Width="572"/>
+
+        <!-- Метка "Customer Phone:" -->
         <TextBlock Text="Customer Phone:"
-            Foreground="#DBDBDB"
-            FontSize="30"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontFamily="/Fonts/#Rubik Medium" Margin="139,120,0,0"
-                   
-/>
-        <TextBlock Text="{Binding CustomerPhone}"
-           Foreground="#CED565"
-           FontSize="30"
+           Style="{StaticResource LabelTextBlockStyle}"
            HorizontalAlignment="Left"
            VerticalAlignment="Top"
-           FontFamily="/Fonts/#Rubik Medium"
+           Margin="139,120,0,0" />
+
+        <!-- Данные "CustomerPhone" -->
+        <TextBlock Text="{Binding CustomerPhone}"
+           Style="{StaticResource DataTextBlockStyle}"
+           HorizontalAlignment="Left"
+           VerticalAlignment="Top"
            Margin="393,120,0,0" />
 
+        <!-- Border для "Role" -->
+        <Border Style="{StaticResource RoundedGrayBorder}"
+        HorizontalAlignment="Left" 
+        Height="63" 
+        Margin="120,196,0,0" 
+        VerticalAlignment="Top" 
+        Width="572"/>
 
-        <Border CornerRadius="25" 
-            Background="Gray" 
-            BorderBrush="Gray" 
-            BorderThickness="1" 
-            HorizontalAlignment="Left" 
-            Height="63" 
-            Margin="120,196,0,0" 
-            VerticalAlignment="Top" Width="572"/>
+        <!-- Метка "Role:" -->
         <TextBlock Text="Role:"
-            Foreground="#DBDBDB"
-            FontSize="30"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontFamily="/Fonts/#Rubik Medium" Margin="139,210,0,0"
-                   
-/>
-        <TextBlock Text="{Binding Role}"
-           Foreground="#CED565"
-           FontSize="30"
+           Style="{StaticResource LabelTextBlockStyle}"
            HorizontalAlignment="Left"
            VerticalAlignment="Top"
-           FontFamily="/Fonts/#Rubik Medium"
+           Margin="139,210,0,0" />
+
+        <!-- Данные "Role" -->
+        <TextBlock Text="{Binding Role}"
+           Style="{StaticResource DataTextBlockStyle}"
+           HorizontalAlignment="Left"
+           VerticalAlignment="Top"
            Margin="215,210,0,0" />
         <DataGrid HorizontalAlignment="Left" 
                   Height="243" 
@@ -98,17 +93,19 @@
                   IsReadOnly="True"
                   ColumnWidth="*"
                   ItemsSource="{Binding Customer_Order_Items}"
+                  Style="{StaticResource DarkDataGrid}"
                   />
-        <ComboBox HorizontalAlignment="Left" Margin="105,306,0,0" VerticalAlignment="Top" Width="165"
-                  FontSize="15"
+        <ComboBox HorizontalAlignment="Left" Margin="75,306,0,0" VerticalAlignment="Top" Width="205"
+                  FontSize="17"
                   ItemsSource="{Binding Comboitems}"
                   SelectedItem="{Binding SelectedItem}"
-                  Height="46"/>
+                  Height="46"
+                  Style="{StaticResource RoundedComboBox}"/>
 
 
         <Button Style="{StaticResource BtnStyle_Button}"
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-            Margin="296,306,198,418">
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="296,306,0,0" Height="46">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="Click">
                     <b:InvokeCommandAction Command="{Binding GetComboItems}"/>

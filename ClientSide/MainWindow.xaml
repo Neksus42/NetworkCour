@@ -26,14 +26,24 @@
     </Window.DataContext>
 
     <Grid>
-
+        <Border Background="#212529"
+                Height="40"
+                VerticalAlignment="Top"
+                CornerRadius="20,20,0,0"
+                MouseDown="Border_MouseDown">
+            <TextBlock Text="Page Navigation App" 
+                       Foreground="White" 
+                       FontSize="16" 
+                       VerticalAlignment="Center"
+                       Margin="15,0,0,0"/>
+        </Border>
         <!--// Window Border //-->
 
         <Border Background="#212529"
                 CornerRadius="20"
-                MouseDown="Border_MouseDown"/>
+                Margin="0,40,0,0"/>
 
-        <Grid>
+        <Grid Margin="0,40,0,0">
 
             <!--// Base Grid //-->
 
@@ -49,7 +59,7 @@
 
                 <Border Background="#272B2F"
                         CornerRadius="20,0,0,20" >
-                    <Button Height="68" Margin="0,700,0,0" VerticalAlignment="Top" Width="228" Style="{StaticResource BtnStyle_Button}"
+                    <Button Height="68" Margin="0,660,0,0" VerticalAlignment="Top" Width="228" Style="{StaticResource BtnStyle_Button}"
                             Visibility="{Binding IsVisLogOut}" Command="{Binding LogOutCommand}">
                         <Grid>
                             <Image Source="Images/img_logout.png"

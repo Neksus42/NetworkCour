@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Новый стиль для Border с закругленными краями и темным фоном -->
+    <Style x:Key="RoundedGrayBorder" TargetType="Border">
+        <Setter Property="CornerRadius" Value="25"/>
+        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+
+    <!-- Новый стиль для TextBlock-меток (например, "Customer Name:") -->
+    <Style x:Key="LabelTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#DBDBDB"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontFamily" Value="/Fonts/#Rubik Medium"/>
+    </Style>
+
+    <!-- Новый стиль для TextBlock-данных (например, "{Binding CustomerName}") -->
+    <Style x:Key="DataTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#CED565"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontFamily" Value="/Fonts/#Rubik Medium"/>
+    </Style>
+</ResourceDictionary>
