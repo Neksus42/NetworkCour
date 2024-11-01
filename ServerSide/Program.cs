@@ -53,7 +53,7 @@ namespace ServerSide
         static private string connectionString = "Server=localhost;Database=networkbase;User ID=root;Password=1111;";
         static private TcpListener listener;
         static private MySqlConnection connection;
-        static ThreadLocal<Customer> localCustomer = new ThreadLocal<Customer>(() => new Customer());
+        static AsyncLocal<Customer> localCustomer = new AsyncLocal<Customer>();
         static private string CodeHandler(ref string jsonstring)
         {
             string[] subarr = jsonstring.Split(':', 2);
@@ -287,7 +287,6 @@ namespace ServerSide
             }
         }
     }
-
 
 
 
