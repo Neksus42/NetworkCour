@@ -18,9 +18,9 @@ namespace Page_Navigation_App.View
     /// <summary>
     /// Interaction logic for Products.xaml
     /// </summary>
-    public partial class Products : UserControl
+    public partial class Catalog : UserControl
     {
-        public Products()
+        public Catalog()
         {
             InitializeComponent();
         }

@@ -6,10 +6,15 @@ using Page_Navigation_App.Model;
 using System.Text.Json;
 using System.Collections.Generic;
 using Page_Navigation_App.Model.Base;
+using System.Threading;
 
 
 namespace Page_Navigation_App.ViewModel
 {
+    public static class GlobalSemaphore
+    {
+        public static readonly SemaphoreSlim ServerSemaphore = new SemaphoreSlim(1, 1);
+    }
     class HomeVM : Utilities.ViewModelBase
     {
         //static private CustomerVM cust = CustomerVM.GetInstance();
@@ -112,6 +117,8 @@ namespace Page_Navigation_App.ViewModel
         {
             Nvm.IsVisC = Visibility.Visible;
             Nvm.CustomerVM = new CustomerVM();
+          
+            Nvm.CatalogVM = new CatalogVM();
             Nvm.CustomerVM.CustomerBaseModel = csBase;
             Nvm.CustomerVM.Refreshitems();
             Nvm.Switchcontrols();

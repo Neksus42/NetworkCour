@@ -9,24 +9,8 @@ using System.Text.Json;
 namespace ServerSide
 {
 
-    public class Customer
-    {
-        public int customer_id { get; set; }
-        public string phone_number { get; set; }
-        public string customer_name { get; set; }
-        private string role { get; set; }
-
-
-    }
-    public class CustomerOrderItems
-    {
-        public string component_name { get; set; }
-        public string category_name { get; set; }
-        public string manufacturer_name { get; set; }
-        public int quantity { get; set; }
-        public int price { get; set; }
-
-    }
+   
+   
 
     public class getCode
     { 
@@ -79,11 +63,50 @@ namespace ServerSide
                         stringtoreturn = SendOrderItemsforClient(JsonData);
                         break;
                     }
+                case 4:
+                    stringtoreturn = SendCatalogItemsforClient();
+                    break;
 
             }
 
 
             return stringtoreturn;
+        }
+        static private string SendCatalogItemsforClient()
+        {
+            string stringresult = string.Empty;
+
+            string query = $"SELECT " +
+                            $"c.component_name, c.price, cat.category_name, m.manufacturer_name " +
+                            $"FROM " +
+                            $"components c " +
+                            $"JOIN " +
+                            $"categories cat ON c.category_id = cat.category_id " +
+                            $"JOIN " +
+                            $"manufacturers m ON c.manufacturer_id = m.manufacturer_id;";
+            Console.WriteLine(query);
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Состав каталога для {localCustomer.Value.customer_name}");
+                using (var reader = command.ExecuteReader())
+                {
+                    List<CatalogItems> AllOrders = new List<CatalogItems>();
+                    while (reader.Read())
+                    {
+                        CatalogItems OneItem = new CatalogItems();
+                        OneItem.component_name = reader.GetString("component_name");
+                        OneItem.category_name = reader.GetString("category_name");
+                        
+                        OneItem.price = reader.GetInt32("price");
+                        OneItem.manufacturer_name = reader.GetString("manufacturer_name");
+
+
+                        AllOrders.Add(OneItem);
+                    }
+                    stringresult = JsonSerializer.Serialize<List<CatalogItems>>(AllOrders);
+                }
+            }
+            return stringresult;
         }
         static private string SendOrderItemsforClient(string date)
         {

@@ -18,7 +18,9 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        Background="Transparent">
+        ResizeMode="NoResize"
+        Background="Transparent"
+        Closing="Window_Close">
 
     <Window.DataContext>
         <vm:NavigationVM />
@@ -31,16 +33,12 @@
                 VerticalAlignment="Top"
                 CornerRadius="20,20,0,0"
                 MouseDown="Border_MouseDown">
-            <TextBlock Text="Page Navigation App" 
-                       Foreground="White" 
-                       FontSize="16" 
-                       VerticalAlignment="Center"
-                       Margin="15,0,0,0"/>
+            <Border CornerRadius="20,0,0,0" HorizontalAlignment="Left" Width="228" Background="#272B2F"></Border>
         </Border>
         <!--// Window Border //-->
 
         <Border Background="#212529"
-                CornerRadius="20"
+                CornerRadius="0,0,20,20"
                 Margin="0,40,0,0"/>
 
         <Grid Margin="0,40,0,0">
@@ -58,9 +56,10 @@
                   Width="228">
 
                 <Border Background="#272B2F"
-                        CornerRadius="20,0,0,20" >
+                        CornerRadius="0,0,0,20" >
                     <Button Height="68" Margin="0,660,0,0" VerticalAlignment="Top" Width="228" Style="{StaticResource BtnStyle_Button}"
-                            Visibility="{Binding IsVisLogOut}" Command="{Binding LogOutCommand}">
+                            Visibility="{Binding IsVisLogOut}" d:Visibility="Visible"
+                            Command="{Binding LogOutCommand}">
                         <Grid>
                             <Image Source="Images/img_logout.png"
                                 Style="{StaticResource Image_Style}" Height="58" Margin="10,0,0,0" Width="51" />
@@ -96,7 +95,9 @@
                     <!--// Customer //  {Binding Source={StaticResource GlobalHomeVM}, Path=IsVisible}-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding CustomersCommand}" Visibility="{Binding IsVisC}" IsChecked="{Binding IsEnabledCustomer}">
+                              Command="{Binding CustomersCommand}" 
+                              Visibility="{Binding IsVisC}" d:Visibility="Visible" 
+                              IsChecked="{Binding IsEnabledCustomer}">
 
                         <Grid>
 
@@ -113,14 +114,15 @@
                     <!--// Products //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding ProductsCommand}" Visibility="{Binding IsVisC}">
+                              Command="{Binding CatalogCommand}" 
+                              Visibility="{Binding IsVisC}" d:Visibility="Visible">
 
                         <Grid>
 
                             <Image Source="Images/img_product.png"
                                    Style="{StaticResource Image_Style}" />
 
-                            <TextBlock Text="Products"
+                            <TextBlock Text="Catalog"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>
@@ -130,7 +132,8 @@
                     <!--// Orders //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding OrdersCommand}" Visibility="{Binding IsVisC}">
+                              Command="{Binding OrdersCommand}" 
+                              Visibility="{Binding IsVisC}" d:Visibility="Visible">
 
                         <Grid>
 

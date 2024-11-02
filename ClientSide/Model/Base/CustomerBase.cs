@@ -10,11 +10,7 @@ namespace Page_Navigation_App.Model.Base
 {
     internal class CustomerBase
     {
-        static private bool IsCreated = false;
-        static private CustomerBase instance = null;
-        static private bool IsSecondCreated = false;
-        //private readonly PageModel _pageModel;
-        // static private bool issended = false;
+     
         static private string _CustomerName;
         static private int _CustomerPhone;
         static ObservableCollection<CustomerOrderItems> _Customer_Order_Items;

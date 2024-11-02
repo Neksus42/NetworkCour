@@ -11,14 +11,12 @@
         <view:Customers />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:ProductVM}">
-        <view:Products />
+    <DataTemplate DataType="{x:Type vm:CatalogVM}">
+        <view:Catalog />
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:OrderVM}">
         <view:Orders />
     </DataTemplate>
 
-
-    
 </ResourceDictionary>

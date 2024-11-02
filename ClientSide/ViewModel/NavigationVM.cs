@@ -13,10 +13,18 @@ namespace Page_Navigation_App.ViewModel
     {
 
         CustomerVM _customerVM;
+        CatalogVM _catalogVM;
+
+        public CatalogVM CatalogVM
+        {
+            get { return _catalogVM; }
+            set { _catalogVM = value;}
+        }
+
         public CustomerVM CustomerVM
         {
             get { return _customerVM; }
-            set { _customerVM = value;}
+            set { _customerVM = value; }
         }
         HomeVM homeVM;
         private object _currentView;
@@ -52,7 +60,7 @@ namespace Page_Navigation_App.ViewModel
 
         public ICommand HomeCommand { get; set; }
         public ICommand CustomersCommand { get; set; }
-        public ICommand ProductsCommand { get; set; }
+        public ICommand CatalogCommand { get; set; }
         public ICommand OrdersCommand { get; set; }
         public ICommand TransactionsCommand { get; set; }
         public ICommand ShipmentsCommand { get; set; }
@@ -73,7 +81,7 @@ namespace Page_Navigation_App.ViewModel
         //HomeVM.GetInstance(this);
         private void Home(object obj) => CurrentView = homeVM;
         private void Customer(object obj) => CurrentView = CustomerVM;
-        private void Product(object obj) => CurrentView = new ProductVM();
+        private void Catalog(object obj) => CurrentView = CatalogVM;
         private void Order(object obj) => CurrentView = new OrderVM();
 
         public void Switchcontrols()
@@ -83,10 +91,10 @@ namespace Page_Navigation_App.ViewModel
 
         public NavigationVM()
         {
-            ServerConnection.ConnectToServerAsync();
+            
             HomeCommand = new RelayCommand(Home);
             CustomersCommand = new RelayCommand(Customer);
-            ProductsCommand = new RelayCommand(Product);
+            CatalogCommand = new RelayCommand(Catalog);
             OrdersCommand = new RelayCommand(Order);
             LogOutCommand = new RelayCommand(OnLogOutCommand, CanLogOutCommand);
             homeVM = new HomeVM(this);

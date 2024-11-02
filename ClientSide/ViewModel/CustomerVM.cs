@@ -87,16 +87,17 @@ namespace Page_Navigation_App.ViewModel
         }
         public async void Fillcomboitems()
         {
+            await GlobalSemaphore.ServerSemaphore.WaitAsync();
             await Task.Run(() => ServerConnection.SendDataAsync("2:<>"));
             string jsontocombo = await Task.Run(() => ServerConnection.GetDataAsync());
+            GlobalSemaphore.ServerSemaphore.Release();
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(jsontocombo);
-                Comboitems = JsonSerializer.Deserialize<ObservableCollection<string>>(jsontocombo);
+            //MessageBox.Show(jsontocombo);
+            Comboitems = JsonSerializer.Deserialize<ObservableCollection<string>>(jsontocombo);
+
+            
 
 
-            });
 
 
         }
@@ -127,16 +128,7 @@ namespace Page_Navigation_App.ViewModel
             });
         }
 
-        public ICommand Check { get; }
-
-        private bool CanCheck(object p) => true;
-
-        private async void OnCheck(object p)
-        {
-            await Task.Run(() => ServerConnection.SendDataAsync("2:<>"));
-            string jsontocombo = await Task.Run(() => ServerConnection.GetDataAsync());
-            //OnPropertyChanged(nameof(CustomerBaseModel.Comboitems));
-        }
+      
 
 
       
@@ -144,12 +136,12 @@ namespace Page_Navigation_App.ViewModel
         {
             
             GetComboItems = new RelayCommand(OnGetComboItems, CanGetComboItems);
-            Check = new RelayCommand(OnCheck, CanCheck);
+    
             //MessageBox.Show("CustomerVM");
             //this.CustomerBaseModel = CustomerBase;
             
-
-            Fillcomboitems();
+            
+           Fillcomboitems();
         }
     }
 }

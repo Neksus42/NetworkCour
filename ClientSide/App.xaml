@@ -22,7 +22,7 @@
                 <ResourceDictionary Source="Styles/Button.xaml" />
                 <ResourceDictionary Source="Utilities/DataTemplate.xaml" />
                 <ResourceDictionary Source="Styles/DatagridStyle.xaml"/>
-
+             
             </ResourceDictionary.MergedDictionaries>
             
         </ResourceDictionary>

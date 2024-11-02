@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Sockets;
+using System.ComponentModel;
 
 namespace Page_Navigation_App
 {
@@ -26,16 +27,20 @@ namespace Page_Navigation_App
        
         public MainWindow()
         {
-            
+            ServerConnection.ConnectToServerAsync();
             InitializeComponent();
            
             
 
         }
-      
-        
 
 
+
+        private void Window_Close(object sender, CancelEventArgs e)
+        {
+            ServerConnection.Disconnect();
+            
+        }
 
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
