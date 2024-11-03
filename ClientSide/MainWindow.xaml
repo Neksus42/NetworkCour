@@ -69,8 +69,26 @@
                         FontSize="30" />
                         </Grid>
                     </Button>
+        
                 </Border>
+                
+                                <!--Cart-->
+                <Menu:Btn Style="{StaticResource BtnStyle}"
+                    Command="{Binding CartCommand}" 
+                    Visibility="{Binding IsVisC}" d:Visibility="Visible"
+                          VerticalAlignment="Top" Margin="0,10,0,0">
 
+                                        <Grid>
+
+                                            <Image Source="Images/cart.png" Width="40" Height="40"
+                                                Style="{StaticResource Image_Style}" />
+
+                                            <TextBlock Text="Cart"
+                                                   Style="{StaticResource Text_Style}" />
+
+                    </Grid>
+
+                </Menu:Btn>
                 <StackPanel Height="400"
                             Width="228">
 

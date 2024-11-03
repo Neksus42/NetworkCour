@@ -66,6 +66,8 @@ namespace Page_Navigation_App.ViewModel
         public ICommand ShipmentsCommand { get; set; }
         public ICommand SettingsCommand { get; set; }
 
+        public ICommand CartCommand { get; set; }
+
         public ICommand LogOutCommand { get;}
         private bool CanLogOutCommand(object p) => true;
 
@@ -84,6 +86,8 @@ namespace Page_Navigation_App.ViewModel
         private void Catalog(object obj) => CurrentView = CatalogVM;
         private void Order(object obj) => CurrentView = new OrderVM();
 
+        private void Cart(object obj)=> CurrentView = new CartVM();
+
         public void Switchcontrols()
         {
             CurrentView = CustomerVM;
@@ -97,6 +101,7 @@ namespace Page_Navigation_App.ViewModel
             CatalogCommand = new RelayCommand(Catalog);
             OrdersCommand = new RelayCommand(Order);
             LogOutCommand = new RelayCommand(OnLogOutCommand, CanLogOutCommand);
+            CartCommand = new RelayCommand(Cart);
             homeVM = new HomeVM(this);
            //customerVM = new CustomerVM();
         // Startup Page

@@ -23,8 +23,8 @@ namespace Page_Navigation_App.ViewModel
          private NavigationVM Nvm;
          static private HomeVM instance;
          static private bool IsCreated = false;
-         private int _number;
-         private string _name;
+         private int? _number = null;
+         private string _name = string.Empty;
          private string _viewmessage = string.Empty;
         
         private bool _isAuthorizationSuccessful = true;
@@ -36,7 +36,7 @@ namespace Page_Navigation_App.ViewModel
         }
     
         public bool IsAdmin { get { return _isadmin; } set =>Set(ref _isadmin, value);} 
-        public int Number { get { return _number; } set => Set(ref _number, value); }
+        public int? Number { get { return _number; } set => Set(ref _number, value); }
         public string Name { get { return _name; } set => Set(ref _name, value); }
         public string ViewMessage { get { return _viewmessage; } set => Set(ref _viewmessage, value); } 
 
@@ -63,7 +63,7 @@ namespace Page_Navigation_App.ViewModel
 
         private async void OnSendMessageAuthorization(object p)
         {
-            if (Name == "" || Number == 0)
+            if (Name == "" || Number == 0 || Number == null)
             {
                 ViewMessage = "Неверный формат имени или номера";
                 return;
@@ -107,7 +107,7 @@ namespace Page_Navigation_App.ViewModel
         {
             _CustomerBaseModel = new CustomerBase();
             _CustomerBaseModel.CustomerName = Name;
-            _CustomerBaseModel.CustomerPhone = Number;
+            _CustomerBaseModel.CustomerPhone = Convert.ToInt32(Number);
             _CustomerBaseModel.Role = IsAdmin ? "Admin" : "Customer";
             ChangingVisibilityParameters(_CustomerBaseModel);
             //CustomerVM.GetInstance().Fillcomboitems();

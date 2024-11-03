@@ -24,9 +24,36 @@
           Width="650" 
           IsReadOnly="True"
           ColumnWidth="*"
+                  AutoGenerateColumns="False"
           ItemsSource="{Binding CatalogItems}"
           Style="{StaticResource DarkDataGrid}"
-          />
+          >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Component" 
+                Binding="{Binding component_name}" 
+                Width="*" />
+
+                <DataGridTextColumn Header="Category" 
+                Binding="{Binding category_name}" 
+                Width="*" />
+
+                <DataGridTextColumn Header="Manufacturer" 
+                Binding="{Binding manufacturer_name}" 
+                Width="*" />
+
+               
+
+                <DataGridTextColumn Header="Price" 
+                Binding="{Binding price}" 
+                Width="Auto" />
+            </DataGrid.Columns>
+
+
+
+
+
+
+        </DataGrid>
         <ComboBox HorizontalAlignment="Center" Margin="-450,64,0,0" VerticalAlignment="Top" Width="204"
           FontSize="17"
           ItemsSource="{Binding ComboItems_catalog}"
@@ -49,8 +76,8 @@
 
 
         <Button Style="{StaticResource BtnStyle_Button}"
-    HorizontalAlignment="Left" VerticalAlignment="Top"
-    Margin="402,187,0,0" Height="46">
+    HorizontalAlignment="Center" VerticalAlignment="Top"
+    Margin="0,187,0,0" Height="46">
 
 
 
@@ -60,10 +87,16 @@
         FontSize="30" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
         </Button>
         <TextBlock FontSize="30"
-            Style="{StaticResource Text_Style}" Height="33" Margin="141,160,0,0" TextWrapping="Wrap" Text="{Binding Price}" VerticalAlignment="Top" Width="144"/>
-        <TextBlock 
-            FontSize="30"
-    Style="{StaticResource Text_Style}" Height="33" Margin="52,160,0,0" TextWrapping="Wrap" Text="Price: " VerticalAlignment="Top" Width="84"/>
+            Style="{StaticResource Text_Style}" 
+                   d:Text="Price: 000"  
+                   Height="31" 
+                   Margin="400,70,0,0" TextWrapping="Wrap" 
+                   Text="{Binding Price, StringFormat=Price: {0}}" 
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Center"
+                   Width="219"
+                   />
+        
 
 
     </Grid>

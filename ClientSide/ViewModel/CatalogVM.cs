@@ -25,8 +25,8 @@ namespace Page_Navigation_App.ViewModel
         CatalogBase _catalogBase = new CatalogBase();
 
         public CatalogBase CatalogBase
-        { 
-        get { return _catalogBase; }
+        {
+            get { return _catalogBase; }
             set => Set(ref _catalogBase, value);
         }
         public ObservableCollection<CatalogItems> CatalogItems
