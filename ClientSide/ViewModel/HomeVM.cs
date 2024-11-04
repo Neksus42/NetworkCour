@@ -118,7 +118,8 @@ namespace Page_Navigation_App.ViewModel
             Nvm.IsVisC = Visibility.Visible;
             Nvm.CustomerVM = new CustomerVM();
           
-            Nvm.CatalogVM = new CatalogVM();
+            //Nvm.CatalogVM = new CatalogVM();
+
             Nvm.CustomerVM.CustomerBaseModel = csBase;
             Nvm.CustomerVM.Refreshitems();
             Nvm.Switchcontrols();

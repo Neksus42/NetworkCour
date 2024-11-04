@@ -21,7 +21,13 @@ namespace Page_Navigation_App.ViewModel
 {
     class CatalogVM : Utilities.ViewModelBase
     {
-
+        CartVM _cartVM;
+        public CartVM CartVM
+        {
+        get { return _cartVM; }
+        set { _cartVM = value; }
+        
+        }
         CatalogBase _catalogBase = new CatalogBase();
 
         public CatalogBase CatalogBase
@@ -101,11 +107,38 @@ namespace Page_Navigation_App.ViewModel
                 ComboItems_catalog.Add(CItems.component_name);
             }
 
+            CartVM.CatalogItems = CatalogItems;
+
+        }
+        int? _SelectedItemRow = null;
+
+        public int? SelectedItemRow
+        {
+            get { return _SelectedItemRow; }
+            set => Set(ref _SelectedItemRow, value);
+
         }
 
+
+        public ICommand AddPosition { get; }
+
+        private bool CanAddPosition(object p) => true;
+
+        private void OnAddPosition(object p)
+        {
+            if(Counter == 0 || SelectedItemRow == null) return;
+            CartBase additem = new CartBase();
+            additem.component_name = CatalogItems[Convert.ToInt32(SelectedItemRow)].component_name;
+            additem.category_name = CatalogItems[Convert.ToInt32(SelectedItemRow)].category_name;
+            additem.manufacturer_name = CatalogItems[Convert.ToInt32(SelectedItemRow)].manufacturer_name;
+            additem.quantity = Counter;
+            additem.position_price = Price;
+
+            CartVM.CartCollection.Add(additem);
+        }
         public CatalogVM()
         {
-            
+            AddPosition = new RelayCommand(OnAddPosition, CanAddPosition);
           FillCatalog();
         }
     }

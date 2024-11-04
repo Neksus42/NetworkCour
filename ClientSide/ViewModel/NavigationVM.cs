@@ -14,6 +14,13 @@ namespace Page_Navigation_App.ViewModel
 
         CustomerVM _customerVM;
         CatalogVM _catalogVM;
+        CartVM _cartVM;
+
+        public CartVM CartVM
+        {
+            get { return _cartVM; }
+            set { _cartVM = value; }
+        }
 
         public CatalogVM CatalogVM
         {
@@ -86,7 +93,7 @@ namespace Page_Navigation_App.ViewModel
         private void Catalog(object obj) => CurrentView = CatalogVM;
         private void Order(object obj) => CurrentView = new OrderVM();
 
-        private void Cart(object obj)=> CurrentView = new CartVM();
+        private void Cart(object obj)=> CurrentView = CartVM;
 
         public void Switchcontrols()
         {
@@ -103,6 +110,9 @@ namespace Page_Navigation_App.ViewModel
             LogOutCommand = new RelayCommand(OnLogOutCommand, CanLogOutCommand);
             CartCommand = new RelayCommand(Cart);
             homeVM = new HomeVM(this);
+            CartVM = new CartVM();
+            CatalogVM = new CatalogVM();
+            CatalogVM.CartVM = CartVM;
            //customerVM = new CustomerVM();
         // Startup Page
         CurrentView = homeVM;

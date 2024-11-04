@@ -12,7 +12,33 @@
         <d:DesignInstance Type="vm:CartVM"/>
     </d:UserControl.DataContext>
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="74" Margin="218,39,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="220"/>
+        <DataGrid HorizontalAlignment="Center" 
+  Height="243" 
+  Margin="0,463,0,0" 
+  VerticalAlignment="Top" 
+  FontSize="15"
+  Width="650" 
+  IsReadOnly="True"
+  ColumnWidth="*"
+          SelectedIndex="{Binding SelectedItemRow, Mode=TwoWay}"
+  ItemsSource="{Binding CartCollection}"
+  Style="{StaticResource DarkDataGrid}"
+  >
+        </DataGrid>
+        <Button Style="{StaticResource BtnStyle_Button}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="231,187,0,0" Height="46"
+                Command="{Binding DeletePosition}">
+            
 
+
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                TextAlignment="Center" 
+                Text="Удалить позицию" 
+                FontSize="30" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
+        </Button>
+        <TextBlock 
+            Background="White" FontSize="30" Text="{Binding SelectedItemRow}"
+            HorizontalAlignment="Left" Height="63" Margin="130,273,0,0" TextWrapping="Wrap" d:Text="TextBlock" VerticalAlignment="Top" Width="144"/>
     </Grid>
 </UserControl>

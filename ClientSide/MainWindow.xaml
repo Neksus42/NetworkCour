@@ -75,6 +75,7 @@
                                 <!--Cart-->
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                     Command="{Binding CartCommand}" 
+                           GroupName="MainMenu"
                     Visibility="{Binding IsVisC}" d:Visibility="Visible"
                           VerticalAlignment="Top" Margin="0,10,0,0">
 
@@ -95,6 +96,7 @@
                     <!--// Home //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
+                               GroupName="MainMenu"
                               Command="{Binding HomeCommand}" Visibility="{Binding IsVisHome}"
                               IsChecked="{Binding IsEnabledHome}">
 
@@ -113,6 +115,7 @@
                     <!--// Customer //  {Binding Source={StaticResource GlobalHomeVM}, Path=IsVisible}-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
+                               GroupName="MainMenu"
                               Command="{Binding CustomersCommand}" 
                               Visibility="{Binding IsVisC}" d:Visibility="Visible" 
                               IsChecked="{Binding IsEnabledCustomer}">
@@ -132,6 +135,7 @@
                     <!--// Products //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
+                               GroupName="MainMenu"
                               Command="{Binding CatalogCommand}" 
                               Visibility="{Binding IsVisC}" d:Visibility="Visible">
 
@@ -151,6 +155,7 @@
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
                               Command="{Binding OrdersCommand}" 
+                               GroupName="MainMenu"
                               Visibility="{Binding IsVisC}" d:Visibility="Visible">
 
                         <Grid>

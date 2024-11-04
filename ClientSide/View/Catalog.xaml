@@ -58,6 +58,7 @@
           FontSize="17"
           ItemsSource="{Binding ComboItems_catalog}"
           SelectedItem="{Binding SelectedItem}"
+                  SelectedIndex="{Binding SelectedItemRow}"
           Height="46"
           Style="{StaticResource RoundedComboBox}"/>
 
@@ -77,7 +78,7 @@
 
         <Button Style="{StaticResource BtnStyle_Button}"
     HorizontalAlignment="Center" VerticalAlignment="Top"
-    Margin="0,187,0,0" Height="46">
+    Margin="0,187,0,0" Height="46" Command="{Binding AddPosition}">
 
 
 
@@ -96,7 +97,10 @@
                    HorizontalAlignment="Center"
                    Width="219"
                    />
-        
+        <TextBlock Style="{StaticResource Text_Style}" Text="{Binding SelectedItemRow}"
+            HorizontalAlignment="Left" Height="92" Margin="58,163,0,0" TextWrapping="Wrap" d:Text="TextBlock" VerticalAlignment="Top" Width="102"/>
+
+
 
 
     </Grid>

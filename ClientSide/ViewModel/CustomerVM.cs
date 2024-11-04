@@ -19,6 +19,8 @@ namespace Page_Navigation_App.ViewModel
 {
     class CustomerVM : Utilities.ViewModelBase
     {
+      
+
         private CustomerBase _CustomerBaseModel;
         public CustomerBase CustomerBaseModel
         { get { return _CustomerBaseModel; } set => Set(ref _CustomerBaseModel, value); }
