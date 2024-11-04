@@ -66,11 +66,86 @@ namespace ServerSide
                 case 4:
                     stringtoreturn = SendCatalogItemsforClient();
                     break;
+                case 5:
+                    stringtoreturn = AddCustomerOrder(JsonData);
+                    break;
 
             }
 
 
             return stringtoreturn;
+        }
+
+        static private string AddCustomerOrder(string JsonData)
+        {
+            
+            List<CartBase> cart = JsonSerializer.Deserialize<List<CartBase>>(JsonData);
+            int totalsum = 0;
+            foreach (CartBase itemcart in cart)
+            {
+                totalsum += itemcart.position_price; 
+            }
+
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    
+                    string orderQuery = "INSERT INTO orders (customer_id, order_date, total_amount) VALUES (@customer_id, NOW(), @total_amount);";
+                    using (var orderCommand = new MySqlCommand(orderQuery, connection, transaction))
+                    {
+                        orderCommand.Parameters.AddWithValue("@customer_id", localCustomer.Value.customer_id);
+                        orderCommand.Parameters.AddWithValue("@total_amount", totalsum);
+                        orderCommand.ExecuteNonQuery();
+                    }
+
+            
+                    int orderId = Convert.ToInt32(new MySqlCommand("SELECT LAST_INSERT_ID();", connection, transaction).ExecuteScalar());
+
+                   
+                    string orderItemsQuery = "INSERT INTO order_items (order_id, component_id, quantity, price) VALUES ";
+
+                    List<string> valuesList = new List<string>();
+                    foreach (var item in cart)
+                    {
+                        
+                        string componentQuery = "SELECT component_id FROM components WHERE component_name = @component_name LIMIT 1;";
+                        int componentId;
+                        using (var componentCommand = new MySqlCommand(componentQuery, connection, transaction))
+                        {
+                            componentCommand.Parameters.AddWithValue("@component_name", item.component_name);
+                            var result = componentCommand.ExecuteScalar();
+                            if (result == null)
+                            {
+                                throw new Exception("Компонент не найден: " + item.component_name);
+                            }
+                            componentId = Convert.ToInt32(result);
+                        }
+
+                        
+                        valuesList.Add($"({orderId}, {componentId}, {item.quantity}, {item.position_price})");
+                    }
+
+                    
+                    orderItemsQuery += string.Join(", ", valuesList) + ";";
+                    Console.WriteLine(orderItemsQuery);
+                    
+                    using (var orderItemsCommand = new MySqlCommand(orderItemsQuery, connection, transaction))
+                    {
+                        orderItemsCommand.ExecuteNonQuery();
+                    }
+
+                   
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                  
+                    transaction.Rollback();
+                    Console.WriteLine("Ошибка при добавлении заказа: " + ex.Message);
+                }
+            }
+            return "AddedOrder";
         }
         static private string SendCatalogItemsforClient()
         {

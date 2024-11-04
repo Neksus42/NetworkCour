@@ -107,7 +107,7 @@ namespace Page_Navigation_App.ViewModel
                 ComboItems_catalog.Add(CItems.component_name);
             }
 
-            CartVM.CatalogItems = CatalogItems;
+            
 
         }
         int? _SelectedItemRow = null;

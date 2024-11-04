@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Page_Navigation_App.Utilities;
+using System.Text.Json;
 
 namespace Page_Navigation_App.ViewModel
 {
@@ -23,16 +24,7 @@ namespace Page_Navigation_App.ViewModel
             set { _cartCollection = value; OnPropertyChanged(); }
         }
 
-        public CatalogBase CatalogBase
-        {
-            get { return _catalogBase; }
-            set => Set(ref _catalogBase, value);
-        }
-        public ObservableCollection<CatalogItems> CatalogItems
-        {
-            get { return CatalogBase.CatalogItems; }
-            set { CatalogBase.CatalogItems = value; OnPropertyChanged(); }
-        }
+     
 
         int _SelectedItemRow;
 
@@ -54,10 +46,23 @@ namespace Page_Navigation_App.ViewModel
             CartCollection.RemoveAt(SelectedItemRow);
         }
 
+        public ICommand  ConfirmOrder { get; }
+
+        private bool CanConfirmOrder(object p) => true;
+
+        private async void OnConfirmOrder(object p)
+        {
+            await GlobalSemaphore.ServerSemaphore.WaitAsync();
+            await ServerConnection.SendDataAsync("5:" + JsonSerializer.Serialize<ObservableCollection<CartBase>>(CartCollection));
+
+            string jsontocombo = await ServerConnection.GetDataAsync();
+            GlobalSemaphore.ServerSemaphore.Release();
+        }
+
         public CartVM()
         {
             DeletePosition = new RelayCommand(OnDeletePosition,CanDeletePosition);
-
+            ConfirmOrder = new RelayCommand(OnConfirmOrder, CanConfirmOrder);   
 
         }
     }
