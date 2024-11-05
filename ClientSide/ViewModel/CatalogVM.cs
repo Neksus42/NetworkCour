@@ -15,6 +15,7 @@ using System.Windows.Controls;
 using System.Threading;
 using Page_Navigation_App.Model.Base;
 using System.Data;
+using System.ComponentModel;
 
 
 namespace Page_Navigation_App.ViewModel
@@ -119,6 +120,7 @@ namespace Page_Navigation_App.ViewModel
 
         }
 
+        
 
         public ICommand AddPosition { get; }
 
@@ -135,11 +137,20 @@ namespace Page_Navigation_App.ViewModel
             additem.position_price = Price;
 
             CartVM.CartCollection.Add(additem);
+            Counter = 0;
+            SelectedItem = null;
+            _SelectedItemRow = null;
         }
         public CatalogVM()
         {
             AddPosition = new RelayCommand(OnAddPosition, CanAddPosition);
-          FillCatalog();
+            
+            if (!DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+            {
+ 
+                FillCatalog();
+            }
+
         }
     }
 }

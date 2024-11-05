@@ -129,7 +129,7 @@
 
         <Button Style="{StaticResource BtnStyle_Button}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="296,306,0,0" Height="46">
+            Margin="296,306,0,0" Height="50" Width="60">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="Click">
                     <b:InvokeCommandAction Command="{Binding GetComboItems}"/>
@@ -137,14 +137,13 @@
 
                 </b:EventTrigger>
             </b:Interaction.Triggers>
+            <Image Source="../Images/refresh.png" HorizontalAlignment="Center"
+        Height="40" Width="40" />
 
 
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
-                TextAlignment="Center" 
-                Text="Загрузить заказы" 
-                FontSize="30" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
+
+
         </Button>
-
 
     </Grid>
 </UserControl>

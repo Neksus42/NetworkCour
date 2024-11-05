@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Page_Navigation_App.Utilities;
 using System.Windows.Input;
 using System.Windows;
+using Page_Navigation_App.Services;
+using System.ComponentModel;
 
 namespace Page_Navigation_App.ViewModel
 {
@@ -15,7 +17,7 @@ namespace Page_Navigation_App.ViewModel
         CustomerVM _customerVM;
         CatalogVM _catalogVM;
         CartVM _cartVM;
-
+        public EventNotification CurrentEventer;
         public CartVM CartVM
         {
             get { return _cartVM; }
@@ -84,7 +86,7 @@ namespace Page_Navigation_App.ViewModel
             IsVisC = Visibility.Hidden;
             IsVisHome = Visibility.Visible;
             IsVisLogOut = Visibility.Hidden;
-            CurrentView = new HomeVM(this);
+            CurrentView = new HomeVM(this, CurrentEventer);
 
         }
         //HomeVM.GetInstance(this);
@@ -102,15 +104,18 @@ namespace Page_Navigation_App.ViewModel
 
         public NavigationVM()
         {
-            
+           
             HomeCommand = new RelayCommand(Home);
             CustomersCommand = new RelayCommand(Customer);
             CatalogCommand = new RelayCommand(Catalog);
             OrdersCommand = new RelayCommand(Order);
             LogOutCommand = new RelayCommand(OnLogOutCommand, CanLogOutCommand);
             CartCommand = new RelayCommand(Cart);
-            homeVM = new HomeVM(this);
+            CurrentEventer = new EventNotification();
+
+            homeVM = new HomeVM(this, CurrentEventer);
             CartVM = new CartVM();
+            CartVM.CurrentEventer = CurrentEventer;
             CatalogVM = new CatalogVM();
             CatalogVM.CartVM = CartVM;
            //customerVM = new CustomerVM();

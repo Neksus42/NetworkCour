@@ -20,10 +20,33 @@
   Width="650" 
   IsReadOnly="True"
   ColumnWidth="*"
+                  AutoGenerateColumns="False"
           SelectedIndex="{Binding SelectedItemRow, Mode=TwoWay}"
   ItemsSource="{Binding CartCollection}"
   Style="{StaticResource DarkDataGrid}"
   >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Component" 
+    Binding="{Binding component_name}" 
+    Width="*" />
+
+                <DataGridTextColumn Header="Category" 
+    Binding="{Binding category_name}" 
+    Width="*" />
+
+                <DataGridTextColumn Header="Manufacturer" 
+    Binding="{Binding manufacturer_name}" 
+    Width="*" />
+                <DataGridTextColumn Header="Quantity"
+                    Binding="{Binding quantity}"
+                    Width="Auto"/>
+
+
+                <DataGridTextColumn Header="Price" 
+    Binding="{Binding position_price}" 
+    Width="Auto" />
+                
+            </DataGrid.Columns>
         </DataGrid>
         <Button Style="{StaticResource BtnStyle_Button}"
             HorizontalAlignment="Center" VerticalAlignment="Top"
@@ -52,5 +75,16 @@
                 Text="Удалить позицию" 
                 FontSize="30" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
         </Button>
+
+        <TextBlock FontSize="30"
+    Style="{StaticResource Text_Style}" 
+           d:Text="Price: 000"  
+           Height="31" 
+           Margin="400,400,0,0" TextWrapping="Wrap" 
+           Text="{Binding TotalPrice, StringFormat=Price: {0}}" 
+           VerticalAlignment="Top" 
+           HorizontalAlignment="Center"
+           Width="219"
+           />
     </Grid>
 </UserControl>

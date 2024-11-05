@@ -29,8 +29,9 @@ namespace Page_Navigation_App
         {
             ServerConnection.ConnectToServerAsync();
             InitializeComponent();
-           
+            // Проверяем, что мы не в режиме дизайна
             
+
 
         }
 

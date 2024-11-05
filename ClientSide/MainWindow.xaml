@@ -1,8 +1,4 @@
-﻿<!--/// <Summary>
-    /// Author : R. Arun Mutharasu
-    /// Created :25-08-2022
-    /// YouTube Channel : C# Design Pro 
-    /// </Summary>-->
+﻿
 
 <Window x:Class="Page_Navigation_App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -24,8 +20,13 @@
 
     <Window.DataContext>
         <vm:NavigationVM />
-
     </Window.DataContext>
+
+    <d:Window.DataContext>
+        <d:DesignInstance Type="vm:NavigationVM" IsDesignTimeCreatable="True"/>
+    </d:Window.DataContext>
+
+
 
     <Grid>
         <Border Background="#212529"

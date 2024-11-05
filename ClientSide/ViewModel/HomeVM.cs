@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Collections.Generic;
 using Page_Navigation_App.Model.Base;
 using System.Threading;
+using Page_Navigation_App.Services;
 
 
 namespace Page_Navigation_App.ViewModel
@@ -19,7 +20,7 @@ namespace Page_Navigation_App.ViewModel
     {
         //static private CustomerVM cust = CustomerVM.GetInstance();
         private CustomerBase _CustomerBaseModel;
-        
+        EventNotification CurrentHandler;
          private NavigationVM Nvm;
          static private HomeVM instance;
          static private bool IsCreated = false;
@@ -116,7 +117,7 @@ namespace Page_Navigation_App.ViewModel
         private void ChangingVisibilityParameters(CustomerBase csBase)
         {
             Nvm.IsVisC = Visibility.Visible;
-            Nvm.CustomerVM = new CustomerVM();
+            Nvm.CustomerVM = new CustomerVM(CurrentHandler);
           
             //Nvm.CatalogVM = new CatalogVM();
 
@@ -150,8 +151,9 @@ namespace Page_Navigation_App.ViewModel
         //    return instance = new HomeVM();
         //}
 
-        public HomeVM(NavigationVM nvm)
+        public HomeVM(NavigationVM nvm, EventNotification CurrentHandler)
         {
+            this.CurrentHandler = CurrentHandler;
             Nvm = nvm;
             SendMessageAuthorization = new RelayCommand(OnSendMessageAuthorization, CanSendMessageAuthorization);
             ChangeNumber = new RelayCommand(OnChangeNumber, CanChangeNumber);

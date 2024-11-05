@@ -15,12 +15,13 @@ using System.Windows.Controls;
 using System.Threading;
 using Page_Navigation_App.Model.Base;
 using System.Data;
+using Page_Navigation_App.Services;
 namespace Page_Navigation_App.ViewModel
 {
     class CustomerVM : Utilities.ViewModelBase
     {
-      
 
+        public EventNotification CurrentEventer;
         private CustomerBase _CustomerBaseModel;
         public CustomerBase CustomerBaseModel
         { get { return _CustomerBaseModel; } set => Set(ref _CustomerBaseModel, value); }
@@ -87,7 +88,7 @@ namespace Page_Navigation_App.ViewModel
             Refreshitems();
 
         }
-        public async void Fillcomboitems()
+        public async void Fillcomboitems(object sender, EventArgs e)
         {
             await GlobalSemaphore.ServerSemaphore.WaitAsync();
             await Task.Run(() => ServerConnection.SendDataAsync("2:<>"));
@@ -96,11 +97,6 @@ namespace Page_Navigation_App.ViewModel
 
             //MessageBox.Show(jsontocombo);
             Comboitems = JsonSerializer.Deserialize<ObservableCollection<string>>(jsontocombo);
-
-            
-
-
-
 
         }
 
@@ -134,16 +130,19 @@ namespace Page_Navigation_App.ViewModel
 
 
       
-        public CustomerVM()
+        public CustomerVM(EventNotification CurrentEventer)
         {
             
             GetComboItems = new RelayCommand(OnGetComboItems, CanGetComboItems);
-    
+
+
+            this.CurrentEventer = CurrentEventer;
+            this.CurrentEventer.Update += Fillcomboitems;
             //MessageBox.Show("CustomerVM");
             //this.CustomerBaseModel = CustomerBase;
-            
-            
-           Fillcomboitems();
+
+
+           Fillcomboitems(null,null);
         }
     }
 }
