@@ -131,6 +131,10 @@ namespace Page_Navigation_App.ViewModel
             Nvm.IsEnabledCustomer = true;
             Nvm.IsVisHome = Visibility.Collapsed;
             Nvm.IsVisLogOut = Visibility.Visible;
+            if(IsAdmin)
+            {
+                Nvm.IsVisibleForAdmin = Visibility.Visible;
+            }
         }
         //public static HomeVM GetInstance(NavigationVM nvm)
         //{

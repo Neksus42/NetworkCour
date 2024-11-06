@@ -67,6 +67,14 @@ namespace Page_Navigation_App.ViewModel
             set => Set(ref _isvishome, value);
         }
 
+        static private Visibility _isvisadmin = Visibility.Hidden;
+        public Visibility IsVisibleForAdmin
+        {
+            get { return _isvisadmin; }
+            set => Set(ref _isvisadmin, value);
+        }
+        
+
         public ICommand HomeCommand { get; set; }
         public ICommand CustomersCommand { get; set; }
         public ICommand CatalogCommand { get; set; }
@@ -86,6 +94,7 @@ namespace Page_Navigation_App.ViewModel
             IsVisC = Visibility.Hidden;
             IsVisHome = Visibility.Visible;
             IsVisLogOut = Visibility.Hidden;
+            IsVisibleForAdmin = Visibility.Hidden;
             CurrentView = new HomeVM(this, CurrentEventer);
 
         }

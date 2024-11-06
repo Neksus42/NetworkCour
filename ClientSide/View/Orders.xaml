@@ -5,42 +5,55 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
              mc:Ignorable="d"
-             d:DesignHeight="600"
-             d:DesignWidth="622"
+             d:DesignHeight="800"
+             d:DesignWidth="800"
              Style="{StaticResource Page_Style}">
 
-    <UserControl.DataContext>
-        <vm:OrderVM />
-    </UserControl.DataContext>
-    
+    <d:UserControl.DataContext>
+        <d:DesignInstance Type="vm:OrderVM"/>
+    </d:UserControl.DataContext>
+
     <Grid Margin="15">
+        <Button Style="{StaticResource BtnStyle_Button}"
+    HorizontalAlignment="Center" VerticalAlignment="Top"
+    Margin="0,331,0,0" Height="46"
+    Command="{Binding DeletePosition}">
+            
 
-        <Border CornerRadius="0,20,20,0">
-            <Border.Background>
-                <ImageBrush ImageSource="/Images/order_page.png"
-                            Stretch="None" />
-            </Border.Background>
-        </Border>
 
-        <Grid>
 
-            <TextBlock Text="DATE  :"
-                       Foreground="#DBDBDB"
-                       FontSize="12"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Top"
-                       FontFamily="/Fonts/#Rubik Medium"
-                       Margin="0,145,160,0" />
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+        TextAlignment="Center" 
+        Text="Удалить позицию" 
+        FontSize="30" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
+        </Button>
 
-            <TextBlock Text="{Binding DisplayOrderDate}"
-                       Foreground="#CED565"
-                       FontSize="12"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Top"
-                       FontFamily="/Fonts/#Rubik Medium"
-                       Margin="0,145,90,0" />
+        <ComboBox HorizontalAlignment="Center" Margin="-400,150,0,0" VerticalAlignment="Top" Width="204"
+    FontSize="17"
+    ItemsSource="{Binding ComboItems_catalog}"
+    SelectedItem="{Binding SelectedItem}"
+            SelectedIndex="{Binding SelectedItemRow}"
+    Height="46"
+    Style="{StaticResource RoundedComboBox}"/>
 
-        </Grid>
+
+        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+          VerticalContentAlignment="Center"
+             Margin="204,139,177,432" TextWrapping="Wrap" FontSize="18" Height="29" Width="239"
+              Text="{Binding Name}">
+            <TextBox.Template>
+                <ControlTemplate TargetType="TextBox">
+                    <Border Background="White"
+                     BorderBrush="Gray"
+                     BorderThickness="1"
+                     CornerRadius="10">
+                        <!-- Скругление углов -->
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </Border>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
+
 
     </Grid>
 </UserControl>
