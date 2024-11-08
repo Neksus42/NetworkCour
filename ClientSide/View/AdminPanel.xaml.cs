@@ -18,9 +18,9 @@ namespace Page_Navigation_App.View
     /// <summary>
     /// Interaction logic for Orders.xaml
     /// </summary>
-    public partial class Orders : UserControl
+    public partial class AdminPamel : UserControl
     {
-        public Orders()
+        public AdminPamel()
         {
             InitializeComponent();
         }

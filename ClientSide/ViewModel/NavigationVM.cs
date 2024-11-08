@@ -17,11 +17,18 @@ namespace Page_Navigation_App.ViewModel
         CustomerVM _customerVM;
         CatalogVM _catalogVM;
         CartVM _cartVM;
+        AdminPanelVM _adminPanelVM;
         public EventNotification CurrentEventer;
         public CartVM CartVM
         {
             get { return _cartVM; }
             set { _cartVM = value; }
+        }
+
+        public AdminPanelVM AdminPanelVM
+        {
+            get { return _adminPanelVM; }
+            set { _adminPanelVM = value; }
         }
 
         public CatalogVM CatalogVM
@@ -66,19 +73,17 @@ namespace Page_Navigation_App.ViewModel
             get { return _isvishome; }
             set => Set(ref _isvishome, value);
         }
+        static private Visibility _IsVisibleForAdmin = Visibility.Hidden;
 
-        static private Visibility _isvisadmin = Visibility.Hidden;
-        public Visibility IsVisibleForAdmin
+        public Visibility IsVisibleForAdmin 
         {
-            get { return _isvisadmin; }
-            set => Set(ref _isvisadmin, value);
+            get { return _IsVisibleForAdmin; }
+            set => Set(ref _IsVisibleForAdmin, value);
         }
-        
-
         public ICommand HomeCommand { get; set; }
         public ICommand CustomersCommand { get; set; }
         public ICommand CatalogCommand { get; set; }
-        public ICommand OrdersCommand { get; set; }
+        public ICommand AdminPanelCommand { get; set; }
         public ICommand TransactionsCommand { get; set; }
         public ICommand ShipmentsCommand { get; set; }
         public ICommand SettingsCommand { get; set; }
@@ -102,7 +107,7 @@ namespace Page_Navigation_App.ViewModel
         private void Home(object obj) => CurrentView = homeVM;
         private void Customer(object obj) => CurrentView = CustomerVM;
         private void Catalog(object obj) => CurrentView = CatalogVM;
-        private void Order(object obj) => CurrentView = new OrderVM();
+        private void AdminPanel(object obj) => CurrentView = AdminPanelVM;
 
         private void Cart(object obj)=> CurrentView = CartVM;
 
@@ -117,7 +122,7 @@ namespace Page_Navigation_App.ViewModel
             HomeCommand = new RelayCommand(Home);
             CustomersCommand = new RelayCommand(Customer);
             CatalogCommand = new RelayCommand(Catalog);
-            OrdersCommand = new RelayCommand(Order);
+            AdminPanelCommand = new RelayCommand(AdminPanel);
             LogOutCommand = new RelayCommand(OnLogOutCommand, CanLogOutCommand);
             CartCommand = new RelayCommand(Cart);
             CurrentEventer = new EventNotification();

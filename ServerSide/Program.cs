@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json;
 
@@ -64,16 +65,158 @@ namespace ServerSide
                         break;
                     }
                 case 4:
-                    stringtoreturn = SendCatalogItemsforClient();
-                    break;
+                    {stringtoreturn = SendCatalogItemsforClient();
+                        break;
+                    }
                 case 5:
-                    stringtoreturn = AddCustomerOrder(JsonData);
-                    break;
+                    {stringtoreturn = AddCustomerOrder(JsonData);
+                        break;
+                    }
+                case 6:
+                    {stringtoreturn = InsertManufacturer(JsonData);
+                        break;
+                    }
+                case 7:
+                 {   stringtoreturn = InsertCategory(JsonData);
+                        break;
+                    }
+                    case 8:
+                    {
+                        stringtoreturn = SendManufacturers();
+                            break;
+                    }
+                    case 9:
+                    {
+                        stringtoreturn = SendCategories();
+                        break;
+
+                    }
+                case 10:
+                    {
+                        stringtoreturn = DeleteManufacturer(JsonData);
+                        break;
+
+                    }
+                    case 11:
+                    {
+                        stringtoreturn = DeleteCategory(JsonData);
+                        break;
+                    }
 
             }
 
 
             return stringtoreturn;
+        }
+        static private string DeleteCategory(string Data)
+        {
+
+            string query = "DELETE FROM `networkbase`.`categories` WHERE `category_name` = @categoryname;";
+
+            using (var command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@categoryname", Data);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    Console.WriteLine($"Удалена категория {Data}");
+                }
+                else
+                {
+                    Console.WriteLine($"Категория {Data} не найден.");
+                }
+            }
+            return "<>";
+        }
+        static private string DeleteManufacturer(string Data)
+        {
+
+            string query = "DELETE FROM `networkbase`.`manufacturers` WHERE `manufacturer_name` = @ManufacturerName;";
+
+            using (var command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@ManufacturerName", Data);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    Console.WriteLine($"Удален производитель {Data}");
+                }
+                else
+                {
+                    Console.WriteLine($"Производитель {Data} не найден.");
+                }
+            }
+            return "<>";
+        }
+        static private string SendCategories()
+        {
+            string stringresult = string.Empty;
+            string query = "SELECT * FROM networkbase.categories;";
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Все категории для {localCustomer.Value.customer_name}");
+                List<string> AllCategories = new List<string>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AllCategories.Add(reader.GetString("category_name"));
+
+                    }
+                    stringresult = JsonSerializer.Serialize<List<string>>(AllCategories);
+
+                }
+
+            }
+            return stringresult;
+        }
+        static private string SendManufacturers()
+        {
+            string stringresult = string.Empty;
+            string query = "SELECT * FROM networkbase.manufacturers;";
+            using(var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Все производители для {localCustomer.Value.customer_name}");
+                List<string> AllManufacturers = new List<string>(); 
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AllManufacturers.Add(reader.GetString("manufacturer_name"));
+                    
+                    }
+                    stringresult = JsonSerializer.Serialize<List<string>>(AllManufacturers);
+
+                }
+
+            }
+            return stringresult;
+        }
+        static private string InsertCategory(string Data)
+        {
+            string query = "INSERT INTO `networkbase`.`categories` (`category_name`) VALUES (@category_name);";
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@category_name", Data);
+                cmd.ExecuteNonQuery();
+            }
+            Console.WriteLine($"Добавлена категория: {Data}");
+            return "<>";
+        }
+        static private string InsertManufacturer(string Data)
+        {
+            string query = "INSERT INTO `networkbase`.`manufacturers` (`manufacturer_name`) VALUES (@manufacturerName);";
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@manufacturerName", Data);
+                cmd.ExecuteNonQuery();
+            }
+            Console.WriteLine($"Добавлен производитель: {Data}");
+            return "<>";
         }
 
         static private string AddCustomerOrder(string JsonData)

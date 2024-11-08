@@ -154,7 +154,7 @@
                 <!--// Orders //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding OrdersCommand}" 
+                              Command="{Binding AdminPanelCommand}" 
                                GroupName="MainMenu"
                               Visibility="{Binding IsVisibleForAdmin}" d:Visibility="Visible"
                               VerticalAlignment="Bottom"
