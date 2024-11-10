@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace ServerSide
 {
-    public class Customer
+    internal class AllOrders
     {
+        public int order_id { get; set; }
+        public string order_date { get; set; }
+        public int total_amount { get; set; }
         public int customer_id { get; set; }
-        public string phone_number { get; set; }
         public string customer_name { get; set; }
-        public string role { get; set; }
-
-
     }
 }

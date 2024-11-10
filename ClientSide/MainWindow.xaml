@@ -111,7 +111,7 @@
 
                     </Menu:Btn>
 
-                    <!--// Customer //  {Binding Source={StaticResource GlobalHomeVM}, Path=IsVisible}-->
+                    <!--// Customer //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
                                GroupName="MainMenu"

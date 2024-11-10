@@ -39,19 +39,37 @@ namespace Page_Navigation_App
         }
         static public async Task<string> GetDataAsync()
         {
-            
+
             try
             {
                 byte[] buffer = new byte[1024];
-                int bytesRead = await _client.GetStream().ReadAsync(buffer);
-                return Encoding.UTF8.GetString(buffer, 0, bytesRead);
-            }
-            catch(Exception e) {
+                StringBuilder completeMessage = new StringBuilder();
+                NetworkStream stream = _client.GetStream();
 
+                int bytesRead;
+                while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                {
+                    string chunk = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    completeMessage.Append(chunk);
+
+                    // Проверяем наличие маркера конца сообщения
+                    if (chunk.Contains("<END>"))
+                    {
+                        break;
+                    }
+                }
+
+                // Удаляем маркер конца сообщения перед возвратом результата
+                string fullMessage = completeMessage.ToString();
+                return fullMessage.Replace("<END>", "");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
                 return null;
             }
-            
-            
+
+
         }
         static public async Task SendDataAsync(string data)
         {

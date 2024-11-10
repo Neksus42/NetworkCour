@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace ServerSide
@@ -102,11 +103,197 @@ namespace ServerSide
                         stringtoreturn = DeleteCategory(JsonData);
                         break;
                     }
+                case 12:
+                    {
+                        stringtoreturn = AddComponent(JsonData);
+                        break;
+                    }
+                case 13:
+                    {
+                    stringtoreturn = SendAllCustomers();
+                        break;
+                    }
+                case 14:
+                    {
+                        stringtoreturn = SendAllOrders();
+                        break;
+
+                    }
+                    case 15:
+                    {
+                        stringtoreturn = SendOrder_items_byID(JsonData);
+                        break;
+                    }
+                    case 16:
+                    {
+                        stringtoreturn = DeleteRowFromAdminDataGrid(JsonData);
+                        break ;
+                    }
 
             }
 
 
             return stringtoreturn;
+        }
+
+        static private string DeleteRowFromAdminDataGrid(string Data)
+        {
+            string[] subarr = Data.Split(':', 2);
+            string ClassName = subarr[0];
+            int idRowtoDelete = Convert.ToInt32(subarr[1]);
+            Console.WriteLine($"Все удаление позиции для {localCustomer.Value.customer_name}");
+            string query = "DELETE FROM `networkbase`.`{0}` WHERE (`{1}` = '{2}');";
+            if(ClassName == "AllCustomers")
+            {
+                query = string.Format(query,"customers", "customer_id",idRowtoDelete);
+
+            } else if(ClassName == "AllOrders")
+            {
+                query = string.Format(query, "orders", "order_id", idRowtoDelete);
+
+            }else if(ClassName == "Selectedorder")
+            {
+                query = string.Format(query, "order_items", "order_item_id", idRowtoDelete);
+
+            }
+            Console.WriteLine(query);
+            new MySqlCommand(query,connection).ExecuteNonQuery();
+            return "<>";
+        }
+        static private string SendOrder_items_byID(string orderID)
+        {
+            string query = $"SELECT * FROM networkbase.order_items where order_id = {orderID};";
+            string jsontoreturn;
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Все содержимое заказа клиента для {localCustomer.Value.customer_name}");
+                List<Selectedorder> OrderItems = new List<Selectedorder>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        OrderItems.Add(new Selectedorder
+                        {
+                            order_item_id = reader.GetInt32("order_item_id"),
+                            order_id = reader.GetInt32("order_id"),
+                            component_name = "noth",
+                            quantity = reader.GetInt32("quantity"),
+                            price = reader.GetInt32("price")
+
+
+                        });
+
+
+
+                    }
+
+
+                }
+                jsontoreturn = JsonSerializer.Serialize<List<Selectedorder>>(OrderItems);
+                Console.WriteLine(jsontoreturn);
+                return jsontoreturn;
+            }
+
+        }
+        static private string SendAllOrders()
+        {
+            string query = "SELECT a.order_id, a.order_date, a.total_amount, a.customer_id, b.customer_name " +
+                            "from orders a " +
+                            "join customers b ON a.customer_id = b.customer_id; ";
+            string jsontoreturn;
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Все заказы клиеетов для {localCustomer.Value.customer_name}");
+                List<AllOrders> Orders = new List<AllOrders>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Orders.Add(new AllOrders
+                        {
+                            order_id = reader.GetInt32("order_id"),
+                            order_date = Convert.ToString(reader.GetDateTime("order_date")),
+                            total_amount = reader.GetInt32("total_amount"),
+                            customer_id = reader.GetInt32("customer_id"),
+                            customer_name = reader.GetString("customer_name")
+
+
+                        });
+
+
+
+                    }
+
+
+                }
+                jsontoreturn = JsonSerializer.Serialize<List<AllOrders>>(Orders);
+                return jsontoreturn;
+            }
+
+
+        }
+        static private string SendAllCustomers()
+        {
+        string query = "SELECT * FROM networkbase.customers;";
+            string jsontoreturn;
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Все клиенты для {localCustomer.Value.customer_name}");
+                List<AllCustomers> customers = new List<AllCustomers>();
+                using (var reader = command.ExecuteReader())
+                { 
+                while(reader.Read())
+                    {
+                        customers.Add(new AllCustomers
+                        {
+                            customer_id = reader.GetInt32("customer_id"),
+                            phone_number = reader.GetString("phone_number"),
+                            customer_name = reader.GetString("customer_name"),
+                            role = reader.GetString("role")
+
+
+                        });
+
+
+
+                    }
+                
+                
+                }
+                jsontoreturn = JsonSerializer.Serialize<List<AllCustomers>>(customers); 
+                return jsontoreturn;
+            }
+
+
+        }
+        static private string AddComponent(string Data)
+        {
+            Component component = JsonSerializer.Deserialize<Component>(Data);
+            string query = @"
+        INSERT INTO components (component_name, price, category_id, manufacturer_id)
+        VALUES (@ComponentName, @Price, 
+                (SELECT category_id FROM categories WHERE category_name = @CategoryName),
+                (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name = @ManufacturerName)
+               );";
+
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@ComponentName", component.component_name);
+                command.Parameters.AddWithValue("@Price", component.price);
+                command.Parameters.AddWithValue("@CategoryName", component.category_name);
+                command.Parameters.AddWithValue("@ManufacturerName", component.manufacturer_name);
+
+                // Выводим строку запроса с подставленными значениями
+                string formattedQuery = query
+                    .Replace("@ComponentName", $"'{component.component_name}'")
+                    .Replace("@Price", component.price.ToString())
+                    .Replace("@CategoryName", $"'{component.category_name}'")
+                    .Replace("@ManufacturerName", $"'{component.manufacturer_name}'");
+
+                Console.WriteLine(formattedQuery);  // Выводим строку в Console
+                command.ExecuteNonQuery();
+            }
+            return "<>";
         }
         static private string DeleteCategory(string Data)
         {
@@ -500,8 +687,8 @@ namespace ServerSide
                     
                     string response = CodeHandler(ref receivedJson);
                     //await SendMessageOverTcpAsync(tcpClient, response,stream);
-
-                    await stream.WriteAsync(Encoding.UTF8.GetBytes(response));
+                    byte[] data = Encoding.UTF8.GetBytes(response + "<END>");
+                    await stream.WriteAsync(data, 0, data.Length);
                     Console.WriteLine($"Сообщение отправлено.{response}");
                 }
 
