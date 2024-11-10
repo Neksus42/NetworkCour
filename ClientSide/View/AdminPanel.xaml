@@ -42,7 +42,7 @@
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
              Margin="74,22,0,0" TextWrapping="Wrap" FontSize="18" Height="30" Width="238"
-              Text="{Binding SelectedIndexDataGrid}">
+              Text="{Binding ManufacturerName}">
             <TextBox.Template>
                 <ControlTemplate TargetType="TextBox">
                     <Border Background="White"

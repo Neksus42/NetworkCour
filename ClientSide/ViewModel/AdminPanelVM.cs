@@ -159,7 +159,7 @@ namespace Page_Navigation_App.ViewModel
         {
             await ServerConnection.SendDataAsync("14:<>");
             string Answer = await ServerConnection.GetDataAsync();
-            MessageBox.Show(Answer);
+            //MessageBox.Show(Answer);
             List<AllOrders> Orders = JsonSerializer.Deserialize<List<AllOrders>>(Answer);
 
 
@@ -175,7 +175,7 @@ namespace Page_Navigation_App.ViewModel
         {
             await ServerConnection.SendDataAsync("13:<>");
             string Answer = await ServerConnection.GetDataAsync();
-            MessageBox.Show(Answer);
+            //MessageBox.Show(Answer);
             List<AllCustomers> customers = JsonSerializer.Deserialize<List<AllCustomers>>(Answer);
 
 
@@ -183,7 +183,7 @@ namespace Page_Navigation_App.ViewModel
          
             
             VisibilityForOrderItemsButton = Visibility.Hidden;
-            MessageBox.Show(DataGridCollection.GetType().Name);
+            //MessageBox.Show(DataGridCollection.GetType().Name);
         }
         public ICommand ShowSelectedOrder { get; }
 
@@ -195,7 +195,7 @@ namespace Page_Navigation_App.ViewModel
             AllOrders temp = DataGridCollection[Convert.ToInt32(SelectedIndexDataGrid)] as AllOrders;
             await ServerConnection.SendDataAsync("15:"+temp.order_id);
             string Answer = await ServerConnection.GetDataAsync();
-            MessageBox.Show(Answer);
+            //MessageBox.Show(Answer);
             List<Selectedorder> SelectedOrder = JsonSerializer.Deserialize<List<Selectedorder>>(Answer);
 
 

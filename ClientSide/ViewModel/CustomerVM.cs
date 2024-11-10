@@ -119,7 +119,7 @@ namespace Page_Navigation_App.ViewModel
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                MessageBox.Show(jsontocombo);
+                //MessageBox.Show(jsontocombo);
                 Comboitems = JsonSerializer.Deserialize<ObservableCollection<string>>(Convert.ToString(jsontocombo));
                 
                 

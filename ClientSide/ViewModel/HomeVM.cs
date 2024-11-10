@@ -76,7 +76,7 @@ namespace Page_Navigation_App.ViewModel
             string CodeAnswer = splitted[0];
             string Role = splitted[1];
             IsAdmin = Role == "1";
-            MessageBox.Show(Answer);
+            //MessageBox.Show(Answer);
 
             if (CodeAnswer == "1")
             {

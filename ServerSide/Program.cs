@@ -162,7 +162,11 @@ namespace ServerSide
         }
         static private string SendOrder_items_byID(string orderID)
         {
-            string query = $"SELECT * FROM networkbase.order_items where order_id = {orderID};";
+            string query = $@"
+        SELECT oi.order_item_id, oi.order_id, c.component_name, oi.quantity, oi.price
+        FROM networkbase.order_items oi
+        JOIN networkbase.components c ON oi.component_id = c.component_id
+        WHERE oi.order_id = {orderID};";
             string jsontoreturn;
             using (var command = new MySqlCommand(query, connection))
             {
@@ -176,7 +180,7 @@ namespace ServerSide
                         {
                             order_item_id = reader.GetInt32("order_item_id"),
                             order_id = reader.GetInt32("order_id"),
-                            component_name = "noth",
+                            component_name = reader.GetString("component_name"),
                             quantity = reader.GetInt32("quantity"),
                             price = reader.GetInt32("price")
 
@@ -683,13 +687,13 @@ namespace ServerSide
                 }
 
                 string receivedJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                Console.WriteLine("Полученный JSON: " + receivedJson + "\n");
+                Console.WriteLine("Полученный JSON: " + receivedJson);
                     
                     string response = CodeHandler(ref receivedJson);
                     //await SendMessageOverTcpAsync(tcpClient, response,stream);
                     byte[] data = Encoding.UTF8.GetBytes(response + "<END>");
                     await stream.WriteAsync(data, 0, data.Length);
-                    Console.WriteLine($"Сообщение отправлено.{response}");
+                    Console.WriteLine($"Сообщение отправлено.{response}\n");
                 }
 
             tcpClient.Close();

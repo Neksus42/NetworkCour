@@ -97,8 +97,6 @@
                    HorizontalAlignment="Center"
                    Width="219"
                    />
-        <TextBlock Style="{StaticResource Text_Style}" Text="{Binding SelectedItemRow}"
-            HorizontalAlignment="Left" Height="92" Margin="58,163,0,0" TextWrapping="Wrap" d:Text="TextBlock" VerticalAlignment="Top" Width="102"/>
 
 
 
