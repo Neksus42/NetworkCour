@@ -31,6 +31,8 @@
     <None Remove="Images\shutdown_def.png" />
     <None Remove="Images\shutdown_mo.png" />
     <None Remove="Images\transaction_page.png" />
+    <None Remove="Images\trashbin.png" />
+    <None Remove="Images\trashcan.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,6 +52,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\home_page.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\trashbin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\img_customer.png">

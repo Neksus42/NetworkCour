@@ -175,10 +175,12 @@
         </Button>
         <Button Style="{StaticResource BtnStyle_Button}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
-            Margin="707,527,0,0" Height="46"
-            Command="{Binding DeleteRowFromDataGrid}" Width="49">
+            Margin="707,527,0,0" Height="50"
+            Command="{Binding DeleteRowFromDataGrid}" Width="50"
+                >
 
-
+            <Image Source="../Images/trashbin.png" HorizontalAlignment="Center"
+Height="40" Width="40" />
 
 
 
