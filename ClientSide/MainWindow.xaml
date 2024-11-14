@@ -151,9 +151,28 @@
 
                     </Menu:Btn>
                 </StackPanel>
-                <!--// Orders //-->
+                <!--// ReportPanel //-->
+                <Menu:Btn Style="{StaticResource BtnStyle}"
+           Command="{Binding ReportsCommand}" 
+            GroupName="MainMenu"
+           Visibility="{Binding IsVisibleForAdmin}" d:Visibility="Visible"
+           VerticalAlignment="Bottom"
+           
+           Margin="0,0,0,200">
 
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                    <Grid>
+
+                        <Image Source="Images/img_order.png"
+                Style="{StaticResource Image_Style}" />
+
+                        <TextBlock Text="Reports"
+                    Style="{StaticResource Text_Style}" />
+
+                    </Grid>
+
+                </Menu:Btn>
+                <!--// adminPanel //-->
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                               Command="{Binding AdminPanelCommand}" 
                                GroupName="MainMenu"
                               Visibility="{Binding IsVisibleForAdmin}" d:Visibility="Visible"
@@ -163,7 +182,7 @@
 
                         <Grid>
 
-                            <Image Source="Images/img_order.png"
+                            <Image Source="Images/adminIcon.png"
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Admin Panel"

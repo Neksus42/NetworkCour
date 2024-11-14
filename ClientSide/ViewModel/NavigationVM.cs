@@ -13,7 +13,7 @@ namespace Page_Navigation_App.ViewModel
 {
     class NavigationVM : ViewModelBase
     {
-
+        ReportsVM _reportsvm;
         CustomerVM _customerVM;
         CatalogVM _catalogVM;
         CartVM _cartVM;
@@ -24,7 +24,11 @@ namespace Page_Navigation_App.ViewModel
             get { return _cartVM; }
             set { _cartVM = value; }
         }
-
+        public ReportsVM ReportsVM
+        {
+            get { return _reportsvm; }
+            set { _reportsvm = value; }
+        }
         public AdminPanelVM AdminPanelVM
         {
             get { return _adminPanelVM; }
@@ -84,6 +88,7 @@ namespace Page_Navigation_App.ViewModel
         public ICommand CustomersCommand { get; set; }
         public ICommand CatalogCommand { get; set; }
         public ICommand AdminPanelCommand { get; set; }
+        public ICommand ReportsCommand { get; set; }
         public ICommand TransactionsCommand { get; set; }
         public ICommand ShipmentsCommand { get; set; }
         public ICommand SettingsCommand { get; set; }
@@ -110,7 +115,7 @@ namespace Page_Navigation_App.ViewModel
         private void AdminPanel(object obj) => CurrentView = AdminPanelVM;
 
         private void Cart(object obj)=> CurrentView = CartVM;
-
+        private void Reports(object obj) => CurrentView = ReportsVM;
         public void Switchcontrols()
         {
             CurrentView = CustomerVM;
@@ -126,7 +131,7 @@ namespace Page_Navigation_App.ViewModel
             LogOutCommand = new RelayCommand(OnLogOutCommand, CanLogOutCommand);
             CartCommand = new RelayCommand(Cart);
             CurrentEventer = new EventNotification();
-
+            ReportsCommand = new RelayCommand(Reports);
             homeVM = new HomeVM(this, CurrentEventer);
             CartVM = new CartVM();
             CartVM.CurrentEventer = CurrentEventer;
