@@ -135,6 +135,7 @@ namespace Page_Navigation_App.ViewModel
             {
                 Nvm.IsVisibleForAdmin = Visibility.Visible;
                 Nvm.AdminPanelVM = new AdminPanelVM();
+                Nvm.ReportsVM = new ReportsVM();
             }
         }
         //public static HomeVM GetInstance(NavigationVM nvm)

@@ -135,6 +135,7 @@ namespace Page_Navigation_App.ViewModel
             await ServerConnection.SendDataAsync("6:" + ManufacturerName);
             string Answer = await ServerConnection.GetDataAsync();
             ComboItemsManufacturers.Add(ManufacturerName);
+            ManufacturerName = "";
         }
 
         public ICommand SendCategory { get; }
@@ -147,6 +148,7 @@ namespace Page_Navigation_App.ViewModel
             await ServerConnection.SendDataAsync("7:" + CategoryName);
             string Answer = await ServerConnection.GetDataAsync();
             ComboItemsCategories.Add(CategoryName);
+            CategoryName = "";
         }
         #endregion
 

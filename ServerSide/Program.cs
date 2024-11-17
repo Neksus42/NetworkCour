@@ -129,13 +129,67 @@ namespace ServerSide
                         stringtoreturn = DeleteRowFromAdminDataGrid(JsonData);
                         break ;
                     }
+                case 17:
+                    {
+                        stringtoreturn = SendAllOrder_items();
+                        break;
+                    }
 
             }
 
 
             return stringtoreturn;
         }
+        static private string SendAllOrder_items()
+        {
+            string query = @"
+                    SELECT 
+                        oi.order_item_id, 
+                        oi.order_id, 
+                        c.component_name, 
+                        
+                        oi.quantity, 
+                        oi.price,
+                         cat.category_name, 
+                        m.manufacturer_name 
+                    FROM networkbase.order_items oi
+                    JOIN networkbase.components c ON oi.component_id = c.component_id
+                    JOIN networkbase.categories cat ON c.category_id = cat.category_id
+                    JOIN networkbase.manufacturers m ON c.manufacturer_id = m.manufacturer_id;";
 
+            string jsontoreturn;
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Все содержимое всех заказов клиента для {localCustomer.Value.customer_name}");
+                List<AllOrderItems> OrderItems = new List<AllOrderItems>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        OrderItems.Add(new AllOrderItems
+                        {
+                            order_item_id = reader.GetInt32("order_item_id"),
+                            order_id = reader.GetInt32("order_id"),
+                            component_name = reader.GetString("component_name"),
+                            quantity = reader.GetInt32("quantity"),
+                            price = reader.GetInt32("price"),
+                            category_name = reader.GetString("category_name"),
+                            manufacturer_name = reader.GetString("manufacturer_name")
+
+                        });
+
+
+
+                    }
+
+
+                }
+                jsontoreturn = JsonSerializer.Serialize<List<AllOrderItems>>(OrderItems);
+                Console.WriteLine(jsontoreturn);
+                return jsontoreturn;
+            }
+
+        }
         static private string DeleteRowFromAdminDataGrid(string Data)
         {
             string[] subarr = Data.Split(':', 2);

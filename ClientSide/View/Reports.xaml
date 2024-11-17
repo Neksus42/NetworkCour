@@ -12,6 +12,18 @@
         <d:DesignInstance Type="vm:ReportsVM"/>
     </d:UserControl.DataContext>
     <Grid>
-            
+        <Button Style="{StaticResource BtnStyle_Button}"
+HorizontalAlignment="Center" VerticalAlignment="Top"
+Margin="368,184,0,0" Height="46"
+Command="{Binding MakeReport}">
+
+
+
+
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+    TextAlignment="Center" 
+    Text="Отчёт" 
+    FontSize="30" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
+        </Button>
     </Grid>
 </UserControl>
