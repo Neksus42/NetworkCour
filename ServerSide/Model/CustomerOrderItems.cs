@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerSide
+namespace ServerSide.Model
 {
-    internal class Component
+    public class CustomerOrderItems
     {
         public string component_name { get; set; }
-        public int price { get; set; }
-
         public string category_name { get; set; }
         public string manufacturer_name { get; set; }
+        public int quantity { get; set; }
+        public int price { get; set; }
+
     }
 }

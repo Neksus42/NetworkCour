@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerSide
+namespace ServerSide.Model
 {
     internal class CartBase
     {

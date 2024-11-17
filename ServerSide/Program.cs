@@ -1,5 +1,6 @@
 ﻿
 using MySql.Data.MySqlClient;
+using ServerSide.Model;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection.Metadata;
@@ -11,8 +12,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace ServerSide
 {
 
-   
-   
+
+
 
     public class getCode
     { 
@@ -134,11 +135,64 @@ namespace ServerSide
                         stringtoreturn = SendAllOrder_items();
                         break;
                     }
+                case 18:
+                    {
+                        stringtoreturn = SendCategorySumPriceForPeriod(JsonData);
+                        break;
+                    }
 
             }
 
 
             return stringtoreturn;
+        }
+        static private string SendCategorySumPriceForPeriod(string Data)
+        {
+            string[] subarr = Data.Split(':', 2);
+            string query = @$"
+                    SELECT 
+                        c.category_name AS category,
+                        SUM(comp.price * oi.quantity) AS total_amount
+                    FROM 
+                        orders o
+                    JOIN 
+                        order_items oi ON o.order_id = oi.order_id
+                    JOIN 
+                        components comp ON oi.component_id = comp.component_id
+                    JOIN 
+                        categories c ON comp.category_id = c.category_id
+                    WHERE 
+                        DATE_FORMAT(o.order_date, '%Y-%m') BETWEEN '{subarr[0]}' AND '{subarr[1]}'
+                    GROUP BY 
+                        c.category_name
+                    ORDER BY 
+                        total_amount DESC;";
+            string jsontoreturn;
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Сумма заказов за период по категориям для {localCustomer.Value.customer_name}");
+                List<CategoryPriceSumForPeriod> CategorySum = new List<CategoryPriceSumForPeriod>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        CategorySum.Add(new CategoryPriceSumForPeriod
+                        {
+                            total_price = reader.GetInt32("total_amount"),
+                            category = reader.GetString("category")
+
+                        });
+
+
+
+                    }
+
+
+                }
+                jsontoreturn = JsonSerializer.Serialize<List<CategoryPriceSumForPeriod>>(CategorySum);
+                Console.WriteLine(jsontoreturn);
+                return jsontoreturn;
+            }
         }
         static private string SendAllOrder_items()
         {

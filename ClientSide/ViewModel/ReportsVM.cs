@@ -28,24 +28,57 @@ namespace Page_Navigation_App.ViewModel
             get { return _order_items; }
             set => Set(ref _order_items, value);
         }
+        ObservableCollection<string> MainDates = new ObservableCollection<string> { };
+
+
+        ObservableCollection<string> _Dates ;
+        public ObservableCollection<string> Dates
+        {
+
+            get { return MainDates; }
+            set => Set(ref MainDates, value);
+        }
+        ObservableCollection<string> _Dates2 ;
+        public ObservableCollection<string> Dates2
+        {
+
+            get { return _Dates2; }
+            set => Set(ref _Dates2, value);
+        }
+        int? _SelectedIndexDate = null;
+
+        public int? SelectedIndexDate
+        {
+            get { return _SelectedIndexDate; }
+            set => Set(ref _SelectedIndexDate, value);
+
+        }
+        int? _SelectedIndexDate2 = null;
+
+        public int? SelectedIndexDate2
+        {
+            get { return _SelectedIndexDate2; }
+            set => Set(ref _SelectedIndexDate2, value);
+
+        }
         private async void SaveReportToExcel(string filePath)
         {
             string Answer = string.Empty;
             await ServerConnection.SendDataAsync("14:<>");
              Answer = await ServerConnection.GetDataAsync();
-            //MessageBox.Show(Answer);
+     
             ReportOrders = JsonSerializer.Deserialize<ObservableCollection<ReportPanelBase>>(Answer);
             await ServerConnection.SendDataAsync("17:<>");
             Answer = await ServerConnection.GetDataAsync();
-            //MessageBox.Show(Answer);
+     
             OrderItems = JsonSerializer.Deserialize<ObservableCollection<AllOrderItems>>(Answer);
 
             using (var workbook = new XLWorkbook())
             {
-                // Добавляем рабочий лист
+                
                 var worksheet = workbook.Worksheets.Add("Orders Report");
 
-                // Заполняем заголовки столбцов
+              
                 worksheet.Cell(1, 1).Value = "Order ID";
                 worksheet.Cell(1, 2).Value = "Order Date";
                 worksheet.Cell(1, 3).Value = "Total Amount";
@@ -53,7 +86,7 @@ namespace Page_Navigation_App.ViewModel
                 worksheet.Cell(1, 5).Value = "Customer Name";
                 worksheet.Columns().AdjustToContents();
 
-                // Заполняем строки данными
+          
                 for (int i = 0; i < ReportOrders.Count; i++)
                 {
                     var order = ReportOrders[i];
@@ -72,7 +105,7 @@ namespace Page_Navigation_App.ViewModel
                 worksheet.Cell(1, 12).Value = "Category name";
                 worksheet.Cell(1, 13).Value = "Manufacturer name";
                 worksheet.Columns().AdjustToContents();
-                // Заполняем строки данными
+             
                 for (int i = 0; i < OrderItems.Count; i++)
                 {
                     var order = OrderItems[i];
@@ -88,11 +121,50 @@ namespace Page_Navigation_App.ViewModel
                 worksheet.Range("G1:M1").SetAutoFilter();
                 worksheet.Columns().AdjustToContents();
 
-                // Сохраняем Excel файл
+                worksheet.Cell(1, 15).Value = "Category";
+                worksheet.Cell(1, 16).Value = "Total Sum";
+                await ServerConnection.SendDataAsync($"18:{MainDates[Convert.ToInt32(SelectedIndexDate)]}:{MainDates[Convert.ToInt32(SelectedIndexDate2)]}");
+                Answer = await ServerConnection.GetDataAsync();
+         
+                List<CategoryPriceSumForPeriod> CategoryPrice = JsonSerializer.Deserialize<List<CategoryPriceSumForPeriod>>(Answer);
+                for (int i = 0; i < CategoryPrice.Count; i++)
+                {
+                    var CategoryCurr = CategoryPrice[i];
+                    worksheet.Cell(i + 2, 15).Value = CategoryCurr.category;
+                    worksheet.Cell(i + 2, 16).Value = CategoryCurr.total_price;
+                    
+                }
+                worksheet.Cell(2, 17).Value = $"From: {MainDates[Convert.ToInt32(SelectedIndexDate)]} to: {MainDates[Convert.ToInt32(SelectedIndexDate2)]}";
+
+
+
+
+
+
+                worksheet.Columns().AdjustToContents();
                 workbook.SaveAs(filePath);
             }
         }
+        static void FillDates(ObservableCollection<string> collection)
+        {
+          
+            DateTime now = DateTime.Now;
+            int currentYear = now.Year;
+            int currentMonth = now.Month;
 
+       
+            for (int year = 2024; year <= currentYear; year++)
+            {
+                int startMonth = (year == 2024) ? 1 : 1;
+                int endMonth = (year == currentYear) ? currentMonth : 12;
+
+                for (int month = startMonth; month <= endMonth; month++)
+                {
+                    string date = $"{year}-{month:D2}"; 
+                    collection.Add(date);
+                }
+            }
+        }
 
         public ICommand MakeReport { get; }
 
@@ -100,6 +172,7 @@ namespace Page_Navigation_App.ViewModel
 
         private async void OnMakeReport(object p)
         {
+            if(SelectedIndexDate2 < SelectedIndexDate || SelectedIndexDate == null || SelectedIndexDate2 == null) return;
             SaveReportToExcel("ReportOrders.xlsx");
 
 
@@ -109,7 +182,9 @@ namespace Page_Navigation_App.ViewModel
         {
 
             MakeReport = new RelayCommand(OnMakeReport, CanMakeReport);
-        
+            FillDates(MainDates);
+                _Dates = MainDates;
+            _Dates2 = MainDates;
         
         
         }

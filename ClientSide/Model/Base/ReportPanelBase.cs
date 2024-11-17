@@ -25,4 +25,9 @@ namespace Page_Navigation_App.Model.Base
         public string category_name { get; set; }
         public string manufacturer_name { get; set; }
     }
+    class CategoryPriceSumForPeriod
+    {
+        public int total_price { get; set; }
+        public string category { get; set; }
+    }
 }

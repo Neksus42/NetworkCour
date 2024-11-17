@@ -25,5 +25,17 @@ Command="{Binding MakeReport}">
     Text="Отчёт" 
     FontSize="30" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
         </Button>
+        <ComboBox HorizontalAlignment="Left" Margin="63,184,0,0" VerticalAlignment="Top" Width="204"
+            FontSize="17"
+            ItemsSource="{Binding Dates}"
+           SelectedIndex="{Binding SelectedIndexDate}"
+            Height="46"
+            Style="{StaticResource RoundedComboBox}"/>
+        <ComboBox HorizontalAlignment="Center" Margin="0,184,0,0" VerticalAlignment="Top" Width="204"
+            FontSize="17"
+            ItemsSource="{Binding Dates}"
+            SelectedIndex="{Binding SelectedIndexDate2}"
+            Height="46"
+            Style="{StaticResource RoundedComboBox}"/>
     </Grid>
 </UserControl>
