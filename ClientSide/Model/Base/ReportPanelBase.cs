@@ -30,4 +30,14 @@ namespace Page_Navigation_App.Model.Base
         public int total_price { get; set; }
         public string category { get; set; }
     }
+    class ManufacturerPriceSum
+    {
+        public int total_price { get; set; }
+        public string manufacturer { get; set; }
+    }
+    class SumPriceByMonths
+    {
+        public int total_sum {  get; set; }
+        public string month {  get; set; }
+    }
 }

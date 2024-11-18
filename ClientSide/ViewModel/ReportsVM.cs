@@ -136,8 +136,37 @@ namespace Page_Navigation_App.ViewModel
                 }
                 worksheet.Cell(2, 17).Value = $"From: {MainDates[Convert.ToInt32(SelectedIndexDate)]} to: {MainDates[Convert.ToInt32(SelectedIndexDate2)]}";
 
+                worksheet.Cell(1, 19).Value = "Manufacturer";
+                worksheet.Cell(1, 20).Value = "Total Sum";
+                await ServerConnection.SendDataAsync($"19:<>");
+                Answer = await ServerConnection.GetDataAsync();
+
+                List<ManufacturerPriceSum> ManufacturerPrice = JsonSerializer.Deserialize<List<ManufacturerPriceSum>>(Answer);
+                for (int i = 0; i < ManufacturerPrice.Count; i++)
+                {
+                    var ManufacturerCurr = ManufacturerPrice[i];
+                    worksheet.Cell(i + 2, 19).Value = ManufacturerCurr.manufacturer;
+                    worksheet.Cell(i + 2, 20).Value = ManufacturerCurr.total_price;
+
+                }
 
 
+
+                worksheet.Cell(1, 22).Value = "Month";
+                worksheet.Cell(1, 23).Value = "Total Sum";
+
+
+                await ServerConnection.SendDataAsync($"20:<>");
+                Answer = await ServerConnection.GetDataAsync();
+
+                List<SumPriceByMonths> MonthPrice = JsonSerializer.Deserialize<List<SumPriceByMonths>>(Answer);
+                for (int i = 0; i < MonthPrice.Count; i++)
+                {
+                    var MonthCurr = MonthPrice[i];
+                    worksheet.Cell(i + 2, 22).Value = MonthCurr.month;
+                    worksheet.Cell(i + 2, 23).Value = MonthCurr.total_sum;
+
+                }
 
 
 

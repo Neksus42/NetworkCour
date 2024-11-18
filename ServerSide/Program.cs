@@ -140,11 +140,107 @@ namespace ServerSide
                         stringtoreturn = SendCategorySumPriceForPeriod(JsonData);
                         break;
                     }
+                case 19:
+                    {
+                        stringtoreturn = SendManufacturerSum();
+                        break;
+                    }
+                case 20:
+                    {
+                        stringtoreturn = SendMonthPriceSum();
+                        break;
+                    }
 
             }
 
 
             return stringtoreturn;
+        }
+        static private string SendMonthPriceSum()
+        {
+
+            string query = @$"SELECT 
+                                DATE_FORMAT(order_date, '%Y-%m') AS order_month,
+                                SUM(total_amount) AS total_sum
+                            FROM 
+                                orders
+                            GROUP BY 
+                                order_month
+                            ORDER BY 
+                                order_month;";
+            string jsontoreturn;
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Сумма заказов по месяцам для {localCustomer.Value.customer_name}");
+                List<SumPriceByMonths> MonthSum = new List<SumPriceByMonths>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        MonthSum.Add(new SumPriceByMonths
+                        {
+                            total_sum = reader.GetInt32("total_sum"),
+                            month = reader.GetString("order_month")
+                      
+                        });
+                        
+
+
+                    }
+
+
+                }
+                
+                jsontoreturn = JsonSerializer.Serialize<List<SumPriceByMonths>>(MonthSum);
+                Console.WriteLine(jsontoreturn);
+                return jsontoreturn;
+            }
+        }
+        static private string SendManufacturerSum()
+        {
+            
+            string query = @$"SELECT 
+                                man.manufacturer_name AS manufacturer,
+                                SUM(comp.price * oi.quantity) AS total_amount
+                            FROM 
+                                orders o
+                            JOIN 
+                                order_items oi ON o.order_id = oi.order_id
+                            JOIN 
+                                components comp ON oi.component_id = comp.component_id
+                            JOIN 
+                                manufacturers man ON comp.manufacturer_id = man.manufacturer_id
+
+                            GROUP BY 
+                                man.manufacturer_name
+                            ORDER BY 
+                                total_amount DESC;";
+            string jsontoreturn;
+            using (var command = new MySqlCommand(query, connection))
+            {
+                Console.WriteLine($"Сумма заказов по производителям для {localCustomer.Value.customer_name}");
+                List<ManufacturerPriceSum> CategorySum = new List<ManufacturerPriceSum>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        CategorySum.Add(new ManufacturerPriceSum
+                        {
+                            total_price = reader.GetInt32("total_amount"),
+                            manufacturer = reader.GetString("manufacturer")
+
+                        });
+
+
+
+                    }
+
+
+                }
+                jsontoreturn = JsonSerializer.Serialize<List<ManufacturerPriceSum>>(CategorySum);
+                Console.WriteLine(jsontoreturn);
+                return jsontoreturn;
+            }
         }
         static private string SendCategorySumPriceForPeriod(string Data)
         {
