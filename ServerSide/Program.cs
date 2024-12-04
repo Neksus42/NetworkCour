@@ -150,11 +150,48 @@ namespace ServerSide
                         stringtoreturn = SendMonthPriceSum();
                         break;
                     }
+                    case 21:
+                    {
+                        UpdateManufacturer(JsonData);
+                        break;
+                    }
+                case 22:
+                    {
+                        UpdateCategory(JsonData);
+                        break;
+                    }
+
 
             }
 
 
             return stringtoreturn;
+        }
+        static private string UpdateCategory(string Data)
+        {
+            string[] subarr = Data.Split(':', 2);
+            string PreviousName = subarr[0];
+            string NewName = subarr[1];
+
+            string query = $@"UPDATE `networkbase`.`categories` SET `category_name` = '{NewName}' WHERE (`category_name` = '{PreviousName}');";
+            Console.WriteLine(query);
+            new MySqlCommand(query, connection).ExecuteNonQuery();
+            return "<>";
+
+
+        }
+        static private string UpdateManufacturer(string Data)
+        {
+            string[] subarr = Data.Split(':', 2);
+            string PreviousName = subarr[0];
+            string NewName = subarr[1];
+
+            string query = $@"UPDATE `networkbase`.`manufacturers` SET `manufacturer_name` = '{NewName}' WHERE (`manufacturer_name` = '{PreviousName}');";
+           Console.WriteLine(query);
+            new MySqlCommand(query, connection).ExecuteNonQuery();
+            return "<>";
+
+
         }
         static private string SendMonthPriceSum()
         {
@@ -344,7 +381,7 @@ namespace ServerSide
         {
             string[] subarr = Data.Split(':', 2);
             string ClassName = subarr[0];
-            int idRowtoDelete = Convert.ToInt32(subarr[1]);
+            string idRowtoDelete = subarr[1];
             Console.WriteLine($"Все удаление позиции для {localCustomer.Value.customer_name}");
             string query = "DELETE FROM `networkbase`.`{0}` WHERE (`{1}` = '{2}');";
             if(ClassName == "AllCustomers")
@@ -358,6 +395,11 @@ namespace ServerSide
             }else if(ClassName == "Selectedorder")
             {
                 query = string.Format(query, "order_items", "order_item_id", idRowtoDelete);
+
+            }
+            else if (ClassName == "CatalogItems")
+            {
+                query = string.Format(query, "components", "component_name", idRowtoDelete);
 
             }
             Console.WriteLine(query);

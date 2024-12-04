@@ -14,7 +14,9 @@
     <None Remove="Fonts\Rubik-Regular.ttf" />
     <None Remove="Images\adminIcon.png" />
     <None Remove="Images\cart.png" />
+    <None Remove="Images\confirmation.png" />
     <None Remove="Images\customer_page.png" />
+    <None Remove="Images\edit.png" />
     <None Remove="Images\home_page.png" />
     <None Remove="Images\img_customer.png" />
     <None Remove="Images\img_home.png" />
@@ -47,6 +49,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\cart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\confirmation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\edit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\img_logout.png">

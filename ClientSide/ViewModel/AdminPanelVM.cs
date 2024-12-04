@@ -19,6 +19,7 @@ namespace Page_Navigation_App.ViewModel
 {
     class AdminPanelVM : Utilities.ViewModelBase
     {
+        EventNotification CurrentEventer;
         ObservableCollection<Object> _DataGridCollection = new ObservableCollection<Object>();
         public ObservableCollection<Object> DataGridCollection
         {
@@ -102,6 +103,278 @@ namespace Page_Navigation_App.ViewModel
             set => Set(ref _Visibility, value);
 
         }
+        /// <summary>
+        /// /////////////////////////
+        /// </summary>
+
+
+
+        #region ElementsVisibility
+        Visibility _ManufacturerEditingElementsVisibility = Visibility.Hidden;
+        public Visibility ManufacturerEditingElementsVisibility
+        {
+            get => _ManufacturerEditingElementsVisibility;
+            set => Set(ref _ManufacturerEditingElementsVisibility, value);
+
+        }
+        Visibility _ManufacturerDelitingElementsVisibility = Visibility.Visible;
+        public Visibility ManufacturerDelitingElementsVisibility
+        {
+            get => _ManufacturerDelitingElementsVisibility;
+            set => Set(ref _ManufacturerDelitingElementsVisibility, value);
+
+        }
+
+        Visibility _CategoryEditingElementsVisibility = Visibility.Hidden;
+        public Visibility CategoryEditingElementsVisibility
+        {
+            get => _CategoryEditingElementsVisibility;
+            set => Set(ref _CategoryEditingElementsVisibility, value);
+
+        }
+        Visibility _CategoryDelitingElementsVisibility = Visibility.Visible;
+        public Visibility CategoryDelitingElementsVisibility
+        {
+            get => _CategoryDelitingElementsVisibility;
+            set => Set(ref _CategoryDelitingElementsVisibility, value);
+
+        }
+
+
+        #endregion
+
+
+
+        #region ChangeManufacturerElementsVisibility
+        private double _manufacturerDelitingElementsOpacity = 1.0;
+        public double ManufacturerDelitingElementsOpacity
+        {
+            get => _manufacturerDelitingElementsOpacity;
+            set
+            {
+                if (_manufacturerDelitingElementsOpacity != value)
+                {
+                    _manufacturerDelitingElementsOpacity = value;
+                    OnPropertyChanged(nameof(ManufacturerDelitingElementsOpacity));
+                }
+            }
+        }
+        private double _manufacturerEditingElementsOpacity = 0;
+        public double ManufacturerEditingElementsOpacity
+        {
+            get => _manufacturerEditingElementsOpacity;
+            set
+            {
+                if (_manufacturerEditingElementsOpacity != value)
+                {
+                    _manufacturerEditingElementsOpacity = value;
+                    OnPropertyChanged(nameof(ManufacturerEditingElementsOpacity));
+                }
+            }
+        }
+
+
+        public ICommand ChangeManufacturerElementsVisibility { get; }
+        bool ManufacturerExecutable = true;
+        private bool CanChangeManufacturerElementsVisibility(object p) => true;
+
+        private async void OnChangeManufacturerElementsVisibility(object p)
+        {
+            if (!ManufacturerExecutable) return;
+            ManufacturerExecutable = false;
+            if (ManufacturerDelitingElementsVisibility == Visibility.Visible)
+            {
+            
+                for (double opacity = 1.0; opacity >= 0; opacity -= 0.1)
+                {
+                    ManufacturerDelitingElementsOpacity = opacity;
+                    await Task.Delay(30); 
+                }
+
+                
+                ManufacturerDelitingElementsVisibility = Visibility.Hidden;
+                ManufacturerDelitingElementsOpacity = 0;
+
+                
+                ManufacturerEditingElementsVisibility = Visibility.Visible;
+                ManufacturerEditingElementsOpacity = 0;
+
+         
+                for (double opacity = 0; opacity <= 1.0; opacity += 0.1)
+                {
+                    ManufacturerEditingElementsOpacity = opacity;
+                    await Task.Delay(30);
+                }
+            }
+            else if (ManufacturerEditingElementsVisibility == Visibility.Visible)
+            {
+                
+                for (double opacity = 1.0; opacity >= 0; opacity -= 0.1)
+                {
+                    ManufacturerEditingElementsOpacity = opacity;
+                    await Task.Delay(30); 
+                }
+
+          
+                ManufacturerEditingElementsVisibility = Visibility.Hidden;
+                ManufacturerEditingElementsOpacity = 0;
+
+                
+                ManufacturerDelitingElementsVisibility = Visibility.Visible;
+                ManufacturerDelitingElementsOpacity = 0;
+
+            
+                for (double opacity = 0; opacity <= 1.0; opacity += 0.1)
+                {
+                    ManufacturerDelitingElementsOpacity = opacity;
+                    await Task.Delay(30);
+                }
+            }
+            ManufacturerExecutable = true;
+        }
+        #endregion
+        #region ChangeCategoryElementsVisibility
+        private double _CategoryDelitingElementsOpacity = 1.0;
+        public double CategoryDelitingElementsOpacity
+        {
+            get => _CategoryDelitingElementsOpacity;
+            set
+            {
+                if (_CategoryDelitingElementsOpacity != value)
+                {
+                    _CategoryDelitingElementsOpacity = value;
+                    OnPropertyChanged(nameof(CategoryDelitingElementsOpacity));
+                }
+            }
+        }
+        private double _CategoryEditingElementsOpacity = 0;
+        public double CategoryEditingElementsOpacity
+        {
+            get => _CategoryEditingElementsOpacity;
+            set
+            {
+                if (_CategoryEditingElementsOpacity != value)
+                {
+                    _CategoryEditingElementsOpacity = value;
+                    OnPropertyChanged(nameof(CategoryEditingElementsOpacity));
+                }
+            }
+        }
+
+
+        public ICommand ChangeCategoryElementsVisibility { get; }
+        bool CategoryExecutable = true;
+        private bool CanChangeCategoryElementsVisibility(object p) => true;
+
+        private async void OnChangeCategoryElementsVisibility(object p)
+        {
+            if (!CategoryExecutable) return;
+
+            CategoryExecutable = false;
+            if (CategoryDelitingElementsVisibility == Visibility.Visible)
+            {
+
+                for (double opacity = 1.0; opacity >= 0; opacity -= 0.1)
+                {
+                    CategoryDelitingElementsOpacity = opacity;
+                    await Task.Delay(30);
+                }
+
+
+                CategoryDelitingElementsVisibility = Visibility.Hidden;
+                CategoryDelitingElementsOpacity = 0;
+
+
+                CategoryEditingElementsVisibility = Visibility.Visible;
+                CategoryEditingElementsOpacity = 0;
+
+
+                for (double opacity = 0; opacity <= 1.0; opacity += 0.1)
+                {
+                    CategoryEditingElementsOpacity = opacity;
+                    await Task.Delay(30);
+                }
+            }
+            else if (CategoryEditingElementsVisibility == Visibility.Visible)
+            {
+
+                for (double opacity = 1.0; opacity >= 0; opacity -= 0.1)
+                {
+                    CategoryEditingElementsOpacity = opacity;
+                    await Task.Delay(30);
+                }
+
+
+                CategoryEditingElementsVisibility = Visibility.Hidden;
+                CategoryEditingElementsOpacity = 0;
+
+
+                CategoryDelitingElementsVisibility = Visibility.Visible;
+                CategoryDelitingElementsOpacity = 0;
+
+
+                for (double opacity = 0; opacity <= 1.0; opacity += 0.1)
+                {
+                    CategoryDelitingElementsOpacity = opacity;
+                    await Task.Delay(30);
+                }
+            }
+            CategoryExecutable = true;
+        }
+
+        #endregion
+
+        #region ChangeManufacturer
+        private string _UpdateManufacturerstring;
+        public string UpdateManufacturerstring
+        {
+            get => _UpdateManufacturerstring;
+            set => Set(ref _UpdateManufacturerstring, value);
+
+        }
+        public ICommand UpdateManufacturer { get; }
+
+        private bool CanUpdateManufacturer(object p) => true;
+
+        private async void OnUpdateManufacturer(object p)
+        {
+            if(UpdateManufacturerstring == "" || SelectedManufacturerItemRow == null) return;
+            await ServerConnection.SendDataAsync("21:" + ComboItemsManufacturers[Convert.ToInt32(SelectedManufacturerItemRow)]+":"+ UpdateManufacturerstring);
+            string Answer = await ServerConnection.GetDataAsync();
+
+
+            ComboItemsManufacturers[Convert.ToInt32(SelectedManufacturerItemRow)] = UpdateManufacturerstring;
+            SelectedManufacturerItemRow = null;
+            UpdateManufacturerstring = "";
+
+        }
+        #endregion
+        #region ChangeCategory
+        private string _UpdateCategorystring;
+        public string UpdateCategorystring
+        {
+            get => _UpdateCategorystring;
+            set => Set(ref _UpdateCategorystring, value);
+
+        }
+        public ICommand UpdateCategory { get; }
+
+        private bool CanUpdateCategory(object p) => true;
+
+        private async void OnUpdateCategory(object p)
+        {
+            if (UpdateCategorystring == "" || SelectedCategoryItemRow == null) return;
+            await ServerConnection.SendDataAsync("22:" + ComboItemsCategories[Convert.ToInt32(SelectedCategoryItemRow)] + ":" + UpdateCategorystring);
+            string Answer = await ServerConnection.GetDataAsync();
+
+
+            ComboItemsCategories[Convert.ToInt32(SelectedCategoryItemRow)] = UpdateCategorystring;
+            SelectedCategoryItemRow = null;
+            UpdateCategorystring = "";
+
+        }
+        #endregion
+
 
         #region AddComponent
 
@@ -119,6 +392,7 @@ namespace Page_Navigation_App.ViewModel
             CurrentComponent.category_name = ComboItemsCategories[Convert.ToInt32(SelectedIndexCategory)];
             await ServerConnection.SendDataAsync("12:" + JsonSerializer.Serialize<Component>(CurrentComponent));
             string Answer = await ServerConnection.GetDataAsync();
+            CurrentEventer.UpdateCatalog.Invoke(this, new EventArgs());
         }
 
 
@@ -168,7 +442,22 @@ namespace Page_Navigation_App.ViewModel
             DataGridCollection = new ObservableCollection<object>(Orders);
             VisibilityForOrderItemsButton = Visibility.Visible;
         }
-        
+        public ICommand ShowCatalog { get; }
+
+        private bool CanShowCatalog(object p) => true;
+
+        private async void OnShowCatalog(object p)
+        {
+            await ServerConnection.SendDataAsync("4:<>");
+
+            string Answer = await ServerConnection.GetDataAsync();
+            //MessageBox.Show(Answer);
+            List<CatalogItems> Orders = JsonSerializer.Deserialize<List<CatalogItems>>(Answer);
+
+
+            DataGridCollection = new ObservableCollection<object>(Orders);
+            VisibilityForOrderItemsButton = Visibility.Hidden;
+        }
         public ICommand ShowAllCustomers { get; }
 
         private bool CanShowAllCustomers(object p) => true;
@@ -251,19 +540,32 @@ namespace Page_Navigation_App.ViewModel
             if (selectedItem == null) return;
 
             string classType = selectedItem.GetType().Name;
+            string catalogname = string.Empty;
             int id = selectedItem switch
             {
                 AllCustomers customer => customer.customer_id,
                 AllOrders order => order.order_id,
                 Selectedorder orderItem => orderItem.order_item_id,
+                CatalogItems component when component.component_name != null =>
+                    int.TryParse(component.component_name, out var parsedId) ? parsedId : -1,
                 _ => -1
             };
 
-            if (id == -1) return;
+            
+            if (selectedItem is CatalogItems catalog)
+            {
+                catalogname = catalog.component_name;
+                await ServerConnection.SendDataAsync($"16:{classType}:{catalogname}");
+                id = -1; 
+            }
 
+            if (id == -1 && string.IsNullOrEmpty(catalogname)) return;
+            if(!(id == -1))
             await ServerConnection.SendDataAsync($"16:{classType}:{id}");
+
             string Answer = await ServerConnection.GetDataAsync();
             DataGridCollection.RemoveAt(Convert.ToInt32(SelectedIndexDataGrid));
+            CurrentEventer.UpdateCatalog.Invoke(this, new EventArgs());
         }
         #endregion
         #region Fills
@@ -290,8 +592,11 @@ namespace Page_Navigation_App.ViewModel
 
         }
         #endregion
-        public AdminPanelVM()
+        public AdminPanelVM(EventNotification CurrentEventer)
+
         {
+
+            this.CurrentEventer = CurrentEventer;
             SendManufacturer = new RelayCommand(OnSendManufacturer,CanSendManufacturer);
             SendCategory = new RelayCommand(OnSendCategory, CanSendCategory);
             DeleteManufacturer = new RelayCommand(OnDeleteManufacturer, CanDeleteManufacturer);
@@ -300,7 +605,12 @@ namespace Page_Navigation_App.ViewModel
             ShowAllOrders = new RelayCommand(OnShowAllOrders, CanShowAllOrders);
             ShowAllCustomers = new RelayCommand(OnShowAllCustomers, CanShowAllCustomers);
             ShowSelectedOrder = new RelayCommand(OnShowSelectedOrder, CanShowSelectedOrder);
+            ShowCatalog = new RelayCommand(OnShowCatalog, CanShowCatalog);
             DeleteRowFromDataGrid = new RelayCommand(OnDeleteRowFromDataGrid, CanDeleteRowFromDataGrid);
+            ChangeManufacturerElementsVisibility = new RelayCommand(OnChangeManufacturerElementsVisibility, CanChangeManufacturerElementsVisibility);
+            ChangeCategoryElementsVisibility = new RelayCommand(OnChangeCategoryElementsVisibility, CanChangeCategoryElementsVisibility);
+            UpdateManufacturer = new RelayCommand(OnUpdateManufacturer, CanUpdateManufacturer);
+            UpdateCategory = new RelayCommand(OnUpdateCategory, CanUpdateCategory);
             FillComboitemsManufacturers();
             FillComboitemsCategories();
         }

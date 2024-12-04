@@ -112,7 +112,18 @@ namespace Page_Navigation_App.ViewModel
             _CustomerBaseModel.Role = IsAdmin ? "Admin" : "Customer";
             ChangingVisibilityParameters(_CustomerBaseModel);
             //CustomerVM.GetInstance().Fillcomboitems();
+            SettingAdmin(this.IsAdmin);
 
+
+        }
+        public void SettingAdmin(bool IsAdmin)
+        {
+            if (IsAdmin)
+            {
+                Nvm.IsVisibleForAdmin = Visibility.Visible;
+                Nvm.AdminPanelVM = new AdminPanelVM(CurrentHandler);
+                Nvm.ReportsVM = new ReportsVM();
+            }
         }
         private void ChangingVisibilityParameters(CustomerBase csBase)
         {
@@ -131,12 +142,6 @@ namespace Page_Navigation_App.ViewModel
             Nvm.IsEnabledCustomer = true;
             Nvm.IsVisHome = Visibility.Collapsed;
             Nvm.IsVisLogOut = Visibility.Visible;
-            if(IsAdmin)
-            {
-                Nvm.IsVisibleForAdmin = Visibility.Visible;
-                Nvm.AdminPanelVM = new AdminPanelVM();
-                Nvm.ReportsVM = new ReportsVM();
-            }
         }
         //public static HomeVM GetInstance(NavigationVM nvm)
         //{

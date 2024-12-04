@@ -96,7 +96,10 @@
         <Button Style="{StaticResource BtnStyle_Button}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="368,130,0,0" Height="46"
-            Command="{Binding DeleteManufacturer}">
+            Command="{Binding DeleteManufacturer}"
+                d:Visibility="Hidden"
+                Opacity="{Binding ManufacturerDelitingElementsOpacity}"
+                Visibility="{Binding ManufacturerDelitingElementsVisibility}">
 
 
 
@@ -109,7 +112,10 @@
         <Button Style="{StaticResource BtnStyle_Button}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="368,192,0,0" Height="46"
-            Command="{Binding DeleteCategory}">
+            Command="{Binding DeleteCategory}"
+                Visibility="{Binding CategoryDelitingElementsVisibility}"
+                Opacity="{Binding CategoryDelitingElementsOpacity}"
+                d:Visibility="Hidden">
 
 
 
@@ -131,7 +137,7 @@
                  SelectedIndex="{Binding SelectedIndexDataGrid}"
   ItemsSource="{Binding DataGridCollection}"
     Style="{StaticResource DarkDataGrid}">
-            
+
         </DataGrid>
         <Button Style="{StaticResource BtnStyle_Button}"
             HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -164,7 +170,7 @@
             Margin="13,423,0,0" Height="46"
             Command="{Binding ShowSelectedOrder}"
                 Visibility="{Binding VisibilityForOrderItemsButton}">
-            
+
 
 
 
@@ -203,8 +209,8 @@ Height="40" Width="40" />
                 </ControlTemplate>
             </TextBox.Template>
         </TextBox>
-        
-        
+
+
         <ComboBox HorizontalAlignment="Left" Margin="239,277,0,0" VerticalAlignment="Top" Width="176"
             FontSize="17"
             ItemsSource="{Binding ComboItemsManufacturers}"
@@ -247,6 +253,138 @@ Height="40" Width="40" />
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
                 TextAlignment="Center" 
                 Text="Добавить в каталог" 
+                FontSize="25" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
+        </Button>
+        <Button Style="{StaticResource BtnStyle_Button}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="37,130,0,0" Height="46"
+            Command="{Binding DeleteManufacturer}" Width="54">
+
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    CornerRadius="10">
+                        <Image Source="../Images/edit.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="44" />
+
+                    </Border>
+                </ControlTemplate>
+
+            </Button.Template>
+            <Button Style="{StaticResource BtnStyle_Button}"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Height="46"
+                Command="{Binding DeleteManufacturer}" Width="54">
+
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border 
+                            BorderBrush="Gray"
+                            BorderThickness="1"
+                            CornerRadius="10">
+                            <Image Source="/Images/edit.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="44" />
+
+                        </Border>
+                    </ControlTemplate>
+
+                </Button.Template>
+
+            </Button>
+
+        </Button>
+        <Button Style="{StaticResource BtnStyle_Button}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="37,192,0,0" Height="46"
+            Command="{Binding ChangeCategoryElementsVisibility}" Width="54"
+                >
+
+            <Image Source="/Images/edit.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="33" Height="38" />
+
+
+        </Button>
+        <Button Style="{StaticResource BtnStyle_Button}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="37,130,0,0" Height="46"
+            Command="{Binding ChangeManufacturerElementsVisibility}" Width="54">
+            <Image Source="/Images/edit.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="33" Height="38" />
+
+
+        </Button>
+        <TextBox
+            VerticalContentAlignment="Center"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Margin="368,130,0,0" TextWrapping="Wrap" FontSize="18" Height="46" Width="238"
+            Visibility="{Binding ManufacturerEditingElementsVisibility}"
+            Opacity="{Binding ManufacturerEditingElementsOpacity}"
+            d:Visibility="Visible"
+            Text="{Binding UpdateManufacturerstring}">
+            <TextBox.Template>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border Background="White"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="10">
+                        <!-- Скругление углов -->
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </Border>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
+        <Button Style="{StaticResource BtnStyle_Button}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="678,130,0,0" Height="46"
+            Command="{Binding UpdateManufacturer}" Width="54"
+                Visibility="{Binding ManufacturerEditingElementsVisibility}"
+                d:Visibility="Visible"
+                Opacity="{Binding ManufacturerEditingElementsOpacity}">
+
+            <Image Source="/Images/confirmation.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="44" />
+
+        </Button>
+        <Button Style="{StaticResource BtnStyle_Button}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="678,192,0,0" Height="46"
+            Command="{Binding UpdateCategory}" Width="54"
+            Visibility="{Binding CategoryEditingElementsVisibility}"
+            d:Visibility="Visible"
+            Opacity="{Binding CategoryEditingElementsOpacity}">
+
+            <Image Source="/Images/confirmation.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="44" />
+
+        </Button>
+        <TextBox
+            VerticalContentAlignment="Center"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Margin="368,192,0,0" TextWrapping="Wrap" FontSize="18" Height="46" Width="238"
+            Visibility="{Binding CategoryEditingElementsVisibility}"
+            Opacity="{Binding CategoryEditingElementsOpacity}"
+            d:Visibility="Visible"
+            Text="{Binding UpdateCategorystring}">
+            <TextBox.Template>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border Background="White"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="10">
+                        <!-- Скругление углов -->
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </Border>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
+        <Button Style="{StaticResource BtnStyle_Button}"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="414,423,0,0" Height="46"
+            Command="{Binding ShowCatalog}">
+
+
+
+
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                TextAlignment="Center" 
+                Text="Отобразить каталог" 
                 FontSize="25" Style="{StaticResource Text_Style}" Margin="0,0,0,0"/>
         </Button>
 

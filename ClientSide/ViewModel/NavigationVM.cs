@@ -135,7 +135,7 @@ namespace Page_Navigation_App.ViewModel
             homeVM = new HomeVM(this, CurrentEventer);
             CartVM = new CartVM();
             CartVM.CurrentEventer = CurrentEventer;
-            CatalogVM = new CatalogVM();
+            CatalogVM = new CatalogVM(CurrentEventer);
             CatalogVM.CartVM = CartVM;
            //customerVM = new CustomerVM();
         // Startup Page

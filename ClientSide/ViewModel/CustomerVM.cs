@@ -138,6 +138,7 @@ namespace Page_Navigation_App.ViewModel
 
             this.CurrentEventer = CurrentEventer;
             this.CurrentEventer.Update += Fillcomboitems;
+
             //MessageBox.Show("CustomerVM");
             //this.CustomerBaseModel = CustomerBase;
 

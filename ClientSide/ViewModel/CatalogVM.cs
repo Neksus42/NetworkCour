@@ -16,12 +16,14 @@ using System.Threading;
 using Page_Navigation_App.Model.Base;
 using System.Data;
 using System.ComponentModel;
+using Page_Navigation_App.Services;
 
 
 namespace Page_Navigation_App.ViewModel
 {
     class CatalogVM : Utilities.ViewModelBase
     {
+        EventNotification CurrentEventer;
         CartVM _cartVM;
         public CartVM CartVM
         {
@@ -91,7 +93,7 @@ namespace Page_Navigation_App.ViewModel
         }
 
 
-        public async void FillCatalog()
+        public async void FillCatalog(object sender, EventArgs e)
         {
             await GlobalSemaphore.ServerSemaphore.WaitAsync();
             await ServerConnection.SendDataAsync("4:<>");
@@ -141,14 +143,16 @@ namespace Page_Navigation_App.ViewModel
             SelectedItem = null;
             _SelectedItemRow = null;
         }
-        public CatalogVM()
+        public CatalogVM(EventNotification CurrentEventer)
         {
+            this.CurrentEventer = CurrentEventer;
+            this.CurrentEventer.UpdateCatalog += FillCatalog;
             AddPosition = new RelayCommand(OnAddPosition, CanAddPosition);
             
             if (!DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
             {
  
-                FillCatalog();
+                FillCatalog(null,null);
             }
 
         }

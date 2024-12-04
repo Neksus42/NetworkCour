@@ -9,6 +9,6 @@ namespace Page_Navigation_App.Services
     internal class EventNotification
     {
         public EventHandler Update;
-
+        public EventHandler UpdateCatalog;
     }
 }
