@@ -137,7 +137,7 @@
 
                 </b:EventTrigger>
             </b:Interaction.Triggers>
-            <Image Source="../Images/refresh.png" HorizontalAlignment="Center"
+            <Image Source="/Resources/Images/refresh.png" HorizontalAlignment="Center"
         Height="40" Width="40" />
 
 

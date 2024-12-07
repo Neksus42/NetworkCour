@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Page_Navigation_App.Utilities;
 using System.Windows.Input;
 using System.Windows;
-using Page_Navigation_App.Services;
 using System.ComponentModel;
+using Page_Navigation_App.Services;
 
 namespace Page_Navigation_App.ViewModel
 {

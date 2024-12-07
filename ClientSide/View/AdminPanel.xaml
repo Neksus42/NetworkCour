@@ -185,7 +185,7 @@
             Command="{Binding DeleteRowFromDataGrid}" Width="50"
                 >
 
-            <Image Source="../Images/trashbin.png" HorizontalAlignment="Center"
+            <Image Source="/Resources/Images/trashbin.png" HorizontalAlignment="Center"
 Height="40" Width="40" />
 
 
@@ -298,7 +298,7 @@ Height="40" Width="40" />
             Command="{Binding ChangeCategoryElementsVisibility}" Width="54"
                 >
 
-            <Image Source="/Images/edit.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="33" Height="38" />
+            <Image Source="/Resources/Images/edit.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="33" Height="38" />
 
 
         </Button>
@@ -306,7 +306,7 @@ Height="40" Width="40" />
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Margin="37,130,0,0" Height="46"
             Command="{Binding ChangeManufacturerElementsVisibility}" Width="54">
-            <Image Source="/Images/edit.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="33" Height="38" />
+            <Image Source="/Resources/Images/edit.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="33" Height="38" />
 
 
         </Button>
@@ -339,7 +339,7 @@ Height="40" Width="40" />
                 d:Visibility="Visible"
                 Opacity="{Binding ManufacturerEditingElementsOpacity}">
 
-            <Image Source="/Images/confirmation.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="44" />
+            <Image Source="/Resources/Images/confirmation.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="44" />
 
         </Button>
         <Button Style="{StaticResource BtnStyle_Button}"
@@ -350,7 +350,7 @@ Height="40" Width="40" />
             d:Visibility="Visible"
             Opacity="{Binding CategoryEditingElementsOpacity}">
 
-            <Image Source="/Images/confirmation.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="44" />
+            <Image Source="/Resources/Images/confirmation.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="31" Height="44" />
 
         </Button>
         <TextBox

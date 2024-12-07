@@ -15,8 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Sockets;
 using System.ComponentModel;
+using Page_Navigation_App.Services;
 
-namespace Page_Navigation_App
+namespace Page_Navigation_App.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

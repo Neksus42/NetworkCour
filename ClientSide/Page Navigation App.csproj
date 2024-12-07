@@ -10,108 +10,115 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\Rubik-Medium.ttf" />
-    <None Remove="Fonts\Rubik-Regular.ttf" />
-    <None Remove="Images\adminIcon.png" />
-    <None Remove="Images\cart.png" />
-    <None Remove="Images\confirmation.png" />
-    <None Remove="Images\customer_page.png" />
-    <None Remove="Images\edit.png" />
-    <None Remove="Images\home_page.png" />
-    <None Remove="Images\img_customer.png" />
-    <None Remove="Images\img_home.png" />
-    <None Remove="Images\img_logout.png" />
-    <None Remove="Images\img_order.png" />
-    <None Remove="Images\img_product.png" />
-    <None Remove="Images\img_setting.png" />
-    <None Remove="Images\img_shipment.png" />
-    <None Remove="Images\img_transaction.png" />
-    <None Remove="Images\order_page.png" />
-    <None Remove="Images\product_page.png" />
-    <None Remove="Images\refresh.png" />
-    <None Remove="Images\setting_page.png" />
-    <None Remove="Images\shipment_page.png" />
-    <None Remove="Images\shutdown_def.png" />
-    <None Remove="Images\shutdown_mo.png" />
-    <None Remove="Images\transaction_page.png" />
-    <None Remove="Images\trashbin.png" />
-    <None Remove="Images\trashcan.png" />
+    <Compile Remove="Source Code\**" />
+    <EmbeddedResource Remove="Source Code\**" />
+    <None Remove="Source Code\**" />
+    <Page Remove="Source Code\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Fonts\Rubik-Medium.ttf">
+    <None Remove="Resources\Fonts\Rubik-Medium.ttf" />
+    <None Remove="Resources\Fonts\Rubik-Regular.ttf" />
+    <None Remove="Resources\Images\adminIcon.png" />
+    <None Remove="Resources\Images\cart.png" />
+    <None Remove="Resources\Images\confirmation.png" />
+    <None Remove="Resources\Images\customer_page.png" />
+    <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\home_page.png" />
+    <None Remove="Resources\Images\img_customer.png" />
+    <None Remove="Resources\Images\img_home.png" />
+    <None Remove="Resources\Images\img_logout.png" />
+    <None Remove="Resources\Images\img_order.png" />
+    <None Remove="Resources\Images\img_product.png" />
+    <None Remove="Resources\Images\img_setting.png" />
+    <None Remove="Resources\Images\img_shipment.png" />
+    <None Remove="Resources\Images\img_transaction.png" />
+    <None Remove="Resources\Images\order_page.png" />
+    <None Remove="Resources\Images\product_page.png" />
+    <None Remove="Resources\Images\refresh.png" />
+    <None Remove="Resources\Images\setting_page.png" />
+    <None Remove="Resources\Images\shipment_page.png" />
+    <None Remove="Resources\Images\shutdown_def.png" />
+    <None Remove="Resources\Images\shutdown_mo.png" />
+    <None Remove="Resources\Images\transaction_page.png" />
+    <None Remove="Resources\Images\trashbin.png" />
+    <None Remove="Resources\Images\trashcan.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\Rubik-Medium.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Fonts\Rubik-Regular.ttf">
+    <Resource Include="Resources\Fonts\Rubik-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Images\adminIcon.png">
+    <Content Include="Resources\Images\adminIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\cart.png">
+    <Content Include="Resources\Images\cart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\confirmation.png">
+    <Content Include="Resources\Images\confirmation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\edit.png">
+    <Content Include="Resources\Images\edit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\img_logout.png">
+    <Content Include="Resources\Images\img_logout.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\customer_page.png">
+    <Content Include="Resources\Images\customer_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\home_page.png">
+    <Content Include="Resources\Images\home_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\trashbin.png">
+    <Content Include="Resources\Images\trashbin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\img_customer.png">
+    <Resource Include="Resources\Images\img_customer.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Images\img_home.png">
+    <Content Include="Resources\Images\img_home.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\img_order.png">
+    <Content Include="Resources\Images\img_order.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\img_product.png">
+    <Content Include="Resources\Images\img_product.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\img_setting.png">
+    <Content Include="Resources\Images\img_setting.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\img_shipment.png">
+    <Content Include="Resources\Images\img_shipment.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\img_transaction.png">
+    <Content Include="Resources\Images\img_transaction.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\order_page.png">
+    <Content Include="Resources\Images\order_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\product_page.png">
+    <Content Include="Resources\Images\product_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\refresh.png">
+    <Content Include="Resources\Images\refresh.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\setting_page.png">
+    <Content Include="Resources\Images\setting_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\shipment_page.png">
+    <Content Include="Resources\Images\shipment_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\shutdown_def.png">
+    <Content Include="Resources\Images\shutdown_def.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\shutdown_mo.png">
+    <Content Include="Resources\Images\shutdown_mo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\transaction_page.png">
+    <Content Include="Resources\Images\transaction_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

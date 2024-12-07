@@ -1,4 +1,4 @@
-﻿<Window x:Class="Page_Navigation_App.MainWindow"
+﻿<Window x:Class="Page_Navigation_App.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -60,7 +60,7 @@
                             Visibility="{Binding IsVisLogOut}" d:Visibility="Visible"
                             Command="{Binding LogOutCommand}">
                         <Grid>
-                            <Image Source="Images/img_logout.png"
+                            <Image Source="/Resources/Images/img_logout.png"
                                 Style="{StaticResource Image_Style}" Height="58" Margin="10,0,0,0" Width="51" />
                             <TextBlock  
                              Style="{StaticResource Text_Style}"
@@ -80,7 +80,7 @@
 
                     <Grid>
 
-                        <Image Source="Images/cart.png" Width="40" Height="40"
+                        <Image Source="/Resources/Images/cart.png" Width="40" Height="40"
                                                 Style="{StaticResource Image_Style}" />
 
                         <TextBlock Text="Cart"
@@ -101,7 +101,7 @@
 
                         <Grid>
 
-                            <Image Source="Images/img_home.png"
+                            <Image Source="/Resources/Images/img_home.png"
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Home"
@@ -121,7 +121,7 @@
 
                         <Grid>
 
-                            <Image Source="Images/img_customer.png"
+                            <Image Source="/Resources/Images/img_customer.png"
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Customer"
@@ -141,7 +141,7 @@
 
                         <Grid>
 
-                            <Image Source="Images/img_product.png"
+                            <Image Source="/Resources/Images/img_product.png"
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Catalog"
@@ -162,7 +162,7 @@
 
                     <Grid>
 
-                        <Image Source="Images/img_order.png"
+                        <Image Source="/Resources/Images/img_order.png"
                 Style="{StaticResource Image_Style}" />
 
                         <TextBlock Text="Reports"
@@ -182,7 +182,7 @@
 
                         <Grid>
 
-                            <Image Source="Images/adminIcon.png"
+                            <Image Source="/Resources/Images/adminIcon.png"
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Admin Panel"

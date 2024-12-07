@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Page_Navigation_App
+namespace Page_Navigation_App.Services
 {
 
 
@@ -16,22 +16,22 @@ namespace Page_Navigation_App
         static private TcpClient _client;
         static public void ConnectToServerAsync()
         {
-          
-                try
-                {
-                    _client = new TcpClient();
-                     _client.Connect("localhost", 8888);
 
-                }
-                catch (SocketException ex)
-                {
-                    MessageBox.Show($"Ошибка подключения: {ex.Message}");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Произошла ошибка: {ex.Message}");
-                }
-            
+            try
+            {
+                _client = new TcpClient();
+                _client.Connect("localhost", 8888);
+
+            }
+            catch (SocketException ex)
+            {
+                MessageBox.Show($"Ошибка подключения: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка: {ex.Message}");
+            }
+
         }
         static public void Disconnect()
         {
@@ -83,8 +83,8 @@ namespace Page_Navigation_App
             {
                 NetworkStream stream = _client.GetStream();
                 byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-                await stream.WriteAsync(dataBytes);  
-                
+                await stream.WriteAsync(dataBytes);
+
 
             }
             catch (Exception ex)
@@ -94,5 +94,5 @@ namespace Page_Navigation_App
         }
     }
 
-    
+
 }
