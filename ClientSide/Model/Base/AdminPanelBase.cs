@@ -15,8 +15,7 @@ namespace Page_Navigation_App.Model.Base
         public string manufacturer_name { get; set; }
     }
 
-    public interface AdminGridBase
-    { }
+ 
     class AllOrders 
     {
         public int order_id { get; set; }

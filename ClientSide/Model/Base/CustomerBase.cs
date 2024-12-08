@@ -12,7 +12,7 @@ namespace Page_Navigation_App.Model.Base
     {
      
         static private string _CustomerName;
-        static private int _CustomerPhone;
+        static private long _CustomerPhone;
         static ObservableCollection<CustomerOrderItems> _Customer_Order_Items;
         static private string _Role;
         public string Role
@@ -25,7 +25,7 @@ namespace Page_Navigation_App.Model.Base
             get { return _CustomerName; }
             set { _CustomerName = value;}
         }
-        public int CustomerPhone
+        public long CustomerPhone
         {
             get { return _CustomerPhone; }
             set { _CustomerPhone = value; }

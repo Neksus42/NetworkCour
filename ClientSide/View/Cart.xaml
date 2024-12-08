@@ -75,10 +75,10 @@
 
         <TextBlock FontSize="30"
     Style="{StaticResource Text_Style}" 
-           d:Text="Price: 000"  
+           d:Text="Цена: 000"  
            Height="31" 
            Margin="400,400,0,0" TextWrapping="Wrap" 
-           Text="{Binding TotalPrice, StringFormat=Price: {0}}" 
+           Text="{Binding TotalPrice, StringFormat=Цена: {0}}" 
            VerticalAlignment="Top" 
            HorizontalAlignment="Center"
            Width="219"

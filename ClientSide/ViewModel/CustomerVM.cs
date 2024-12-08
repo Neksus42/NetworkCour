@@ -42,7 +42,7 @@ namespace Page_Navigation_App.ViewModel
             get { return CustomerBaseModel.CustomerName; }
             set { CustomerBaseModel.CustomerName = value; OnPropertyChanged(); }
         }
-        public int CustomerPhone
+        public long CustomerPhone
         {
             get { return CustomerBaseModel.CustomerPhone; }
             set { CustomerBaseModel.CustomerPhone = value; OnPropertyChanged(); }

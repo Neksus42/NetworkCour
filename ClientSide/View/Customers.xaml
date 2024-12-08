@@ -41,7 +41,7 @@
            Style="{StaticResource DataTextBlockStyle}"
            HorizontalAlignment="Left"
            VerticalAlignment="Top"
-           Margin="385,26,0,0" />
+           Margin="365,26,0,0" />
 
         <!-- Border для "Customer Phone" -->
         <Border Style="{StaticResource RoundedGrayBorder}"
@@ -63,7 +63,7 @@
            Style="{StaticResource DataTextBlockStyle}"
            HorizontalAlignment="Left"
            VerticalAlignment="Top"
-           Margin="393,120,0,0" />
+           Margin="370,120,0,0" />
 
         <!-- Border для "Role" -->
         <Border Style="{StaticResource RoundedGrayBorder}"
@@ -85,7 +85,7 @@
            Style="{StaticResource DataTextBlockStyle}"
            HorizontalAlignment="Left"
            VerticalAlignment="Top"
-           Margin="215,210,0,0" />
+           Margin="205,210,0,0" />
         <DataGrid HorizontalAlignment="Left" 
           Height="243" 
           Margin="59,385,0,0" 

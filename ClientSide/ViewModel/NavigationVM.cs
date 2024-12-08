@@ -108,7 +108,7 @@ namespace Page_Navigation_App.ViewModel
             CurrentView = new HomeVM(this, CurrentEventer);
 
         }
-        //HomeVM.GetInstance(this);
+
         private void Home(object obj) => CurrentView = homeVM;
         private void Customer(object obj) => CurrentView = CustomerVM;
         private void Catalog(object obj) => CurrentView = CatalogVM;
@@ -137,20 +137,7 @@ namespace Page_Navigation_App.ViewModel
             CartVM.CurrentEventer = CurrentEventer;
             CatalogVM = new CatalogVM(CurrentEventer);
             CatalogVM.CartVM = CartVM;
-           //customerVM = new CustomerVM();
-        // Startup Page
         CurrentView = homeVM;
         }
-
-
-
-
-
-
-
-
-
-
-
-        }
+    }
 }
