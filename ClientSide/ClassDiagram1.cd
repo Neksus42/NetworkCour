@@ -1,12 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Page_Navigation_App.ViewModel.AdminPanelVM">
-    <Position X="0.5" Y="0.5" Width="2.25" />
+    <Position X="0.5" Y="0.5" Width="3" />
     <Members>
+      <Method Name="AdminPanelVM" Hidden="true" />
+      <Method Name="CanChangeCategoryElementsVisibility" Hidden="true" />
+      <Method Name="CanChangeManufacturerElementsVisibility" Hidden="true" />
+      <Method Name="CanDeleteCategory" Hidden="true" />
+      <Method Name="CanDeleteManufacturer" Hidden="true" />
+      <Method Name="CanDeleteRowFromDataGrid" Hidden="true" />
+      <Method Name="CanSendCategory" Hidden="true" />
+      <Method Name="CanSendManufacturer" Hidden="true" />
+      <Method Name="CanSendNewComponent" Hidden="true" />
+      <Method Name="CanShowAllCustomers" Hidden="true" />
+      <Method Name="CanShowAllOrders" Hidden="true" />
+      <Method Name="CanShowCatalog" Hidden="true" />
+      <Method Name="CanShowSelectedOrder" Hidden="true" />
       <Method Name="CanUpdateCategory" Hidden="true" />
+      <Method Name="CanUpdateManufacturer" Hidden="true" />
+      <Property Name="CategoryDelitingElementsOpacity" Hidden="true" />
+      <Property Name="CategoryDelitingElementsVisibility" Hidden="true" />
+      <Property Name="CategoryEditingElementsOpacity" Hidden="true" />
+      <Property Name="CategoryEditingElementsVisibility" Hidden="true" />
+      <Property Name="ChangeCategoryElementsVisibility" Hidden="true" />
+      <Property Name="ChangeManufacturerElementsVisibility" Hidden="true" />
+      <Property Name="DataGridCollection" Hidden="true" />
+      <Property Name="DeleteCategory" Hidden="true" />
+      <Property Name="DeleteManufacturer" Hidden="true" />
+      <Property Name="DeleteRowFromDataGrid" Hidden="true" />
+      <Property Name="ManufacturerDelitingElementsOpacity" Hidden="true" />
+      <Property Name="ManufacturerDelitingElementsVisibility" Hidden="true" />
+      <Property Name="ManufacturerEditingElementsOpacity" Hidden="true" />
+      <Property Name="ManufacturerEditingElementsVisibility" Hidden="true" />
+      <Property Name="SelectedCategoryItemRow" Hidden="true" />
+      <Property Name="SelectedIndexCategory" Hidden="true" />
+      <Property Name="SelectedIndexDataGrid" Hidden="true" />
+      <Property Name="SelectedIndexManufacturer" Hidden="true" />
+      <Property Name="SelectedManufacturerItemRow" Hidden="true" />
+      <Property Name="SendCategory" Hidden="true" />
+      <Property Name="SendManufacturer" Hidden="true" />
+      <Property Name="SendNewComponent" Hidden="true" />
+      <Property Name="ShowAllCustomers" Hidden="true" />
+      <Property Name="ShowAllOrders" Hidden="true" />
+      <Property Name="ShowCatalog" Hidden="true" />
+      <Property Name="ShowSelectedOrder" Hidden="true" />
+      <Property Name="UpdateCategorystring" Hidden="true" />
+      <Property Name="UpdateManufacturerstring" Hidden="true" />
+      <Property Name="VisibilityForOrderItemsButton" Hidden="true" />
     </Members>
     <Compartments>
-      <Compartment Name="Properties" Collapsed="true" />
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
@@ -14,165 +56,231 @@
       <FileName>ViewModel\AdminPanelVM.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.ViewModel.CartVM" Collapsed="true">
-    <Position X="12.75" Y="0.5" Width="1.5" />
+  <Class Name="Page_Navigation_App.ViewModel.CartVM">
+    <Position X="6" Y="0.5" Width="2" />
+    <Members>
+      <Method Name="CanConfirmOrder" Hidden="true" />
+      <Method Name="CanDeletePosition" Hidden="true" />
+      <Method Name="CartVM" Hidden="true" />
+      <Property Name="ConfirmOrder" Hidden="true" />
+      <Property Name="DeletePosition" Hidden="true" />
+      <Property Name="SelectedItemRow" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAACAAAAAgACAgAEgEQAABAAAAABQAACIAAAAAAgAAA=</HashCode>
       <FileName>ViewModel\CartVM.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.ViewModel.CatalogVM" Collapsed="true">
-    <Position X="14.5" Y="0.5" Width="1.5" />
+  <Class Name="Page_Navigation_App.ViewModel.CatalogVM">
+    <Position X="6" Y="3.25" Width="2" />
+    <Members>
+      <Property Name="AddPosition" Hidden="true" />
+      <Method Name="CanAddPosition" Hidden="true" />
+      <Method Name="CatalogVM" Hidden="true" />
+      <Property Name="SelectedItem" Hidden="true" />
+      <Property Name="SelectedItemPrice" Hidden="true" />
+      <Property Name="SelectedItemRow" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAACgAQAAYBCAAAQAgAAAFIAARAEAAAAABAAAAAQUAA=</HashCode>
       <FileName>ViewModel\CatalogVM.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.ViewModel.CustomerVM" Collapsed="true">
-    <Position X="16.25" Y="0.5" Width="1.5" />
+  <Class Name="Page_Navigation_App.ViewModel.CustomerVM">
+    <Position X="12.75" Y="0.5" Width="2" />
+    <Members>
+      <Method Name="CanGetComboItems" Hidden="true" />
+      <Property Name="CustomerBaseModel" Hidden="true" />
+      <Method Name="CustomerVM" Hidden="true" />
+      <Property Name="GetComboItems" Hidden="true" />
+      <Property Name="SelectedItem" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAgACAAgCAAAEIEAABAAQQAQAQAAAhAAAAAAAAA=</HashCode>
       <FileName>ViewModel\CustomerVM.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.ViewModel.GlobalSemaphore" Collapsed="true">
-    <Position X="12.75" Y="1.5" Width="1.5" />
+  <Class Name="Page_Navigation_App.ViewModel.GlobalSemaphore">
+    <Position X="10.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModel\HomeVM.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.ViewModel.HomeVM" Collapsed="true">
-    <Position X="14.5" Y="1.5" Width="1.5" />
+  <Class Name="Page_Navigation_App.ViewModel.HomeVM">
+    <Position X="8.25" Y="0.5" Width="2.25" />
+    <Members>
+      <Method Name="CanChangeNumber" Hidden="true" />
+      <Method Name="CanSendMessageAuthorization" Hidden="true" />
+      <Property Name="ChangeNumber" Hidden="true" />
+      <Property Name="SendMessageAuthorization" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AECAIAggAAAAACAAKEAFAAQACABAAAR0QABAAABAAEE=</HashCode>
       <FileName>ViewModel\HomeVM.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.ViewModel.NavigationVM" Collapsed="true">
-    <Position X="16.25" Y="1.5" Width="1.5" />
+  <Class Name="Page_Navigation_App.ViewModel.NavigationVM">
+    <Position X="15" Y="0.5" Width="1.75" />
+    <Members>
+      <Method Name="AdminPanel" Hidden="true" />
+      <Method Name="CanLogOutCommand" Hidden="true" />
+      <Method Name="Cart" Hidden="true" />
+      <Method Name="Catalog" Hidden="true" />
+      <Method Name="Customer" Hidden="true" />
+      <Method Name="Home" Hidden="true" />
+      <Property Name="IsEnabledCustomer" Hidden="true" />
+      <Property Name="IsEnabledHome" Hidden="true" />
+      <Property Name="IsVisC" Hidden="true" />
+      <Property Name="IsVisHome" Hidden="true" />
+      <Property Name="IsVisibleForAdmin" Hidden="true" />
+      <Property Name="IsVisLogOut" Hidden="true" />
+      <Method Name="NavigationVM" Hidden="true" />
+      <Method Name="Reports" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>IBEQgEASAAAAADwBYKFAgDIHAAwEAFAIBAAAAAE0EFA=</HashCode>
+      <HashCode>IBEQgEASAAAAADwAYKFAgDIFAAwEAFAIBAAAAAE0EEA=</HashCode>
       <FileName>ViewModel\NavigationVM.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.ViewModel.ReportsVM" Collapsed="true">
-    <Position X="12.75" Y="2.5" Width="1.5" />
+  <Class Name="Page_Navigation_App.ViewModel.ReportsVM">
+    <Position X="4" Y="0.5" Width="1.75" />
+    <Members>
+      <Method Name="CanMakeReport" Hidden="true" />
+      <Property Name="Dates2" Hidden="true" />
+      <Property Name="MakeReport" Hidden="true" />
+      <Method Name="ReportsVM" Hidden="true" />
+      <Property Name="SelectedIndexDate" Hidden="true" />
+      <Property Name="SelectedIndexDate2" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>BAAAAAIAAAEAAIgAAAAgEEAAAAAEABEABAAQCAACIAA=</HashCode>
       <FileName>ViewModel\ReportsVM.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.Model.Base.Component" Collapsed="true">
-    <Position X="17" Y="5" Width="1.5" />
+  <Class Name="Page_Navigation_App.Model.Customer">
+    <Position X="0.5" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEACAAAAAAAABAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Model\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Page_Navigation_App.Model.CustomerOrderItems">
+    <Position X="10.75" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAIAAAAAAAAAAAAAAAAAAIAAAACAAAQAAAAAAAA=</HashCode>
+      <FileName>Model\CustomerOrderItems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Page_Navigation_App.Model.CatalogItems">
+    <Position X="4" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAIAAAAAAAAAAAAAAAAAAIAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Model\CatalogItems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Page_Navigation_App.Utilities.RelayCommand">
+    <Position X="8.25" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\RelayCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Page_Navigation_App.Utilities.ViewModelBase">
+    <Position X="10.5" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Page_Navigation_App.Services.EventNotification">
+    <Position X="12.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\EventNotification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Page_Navigation_App.Services.ServerConnection">
+    <Position X="12.75" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACAAQAEAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\ServerConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Page_Navigation_App.Model.Base.Component">
+    <Position X="2.75" Y="7.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAABAAIAAAAAAAAAAAAAAAAAAIAAAAAAAAQAAAAAAAA=</HashCode>
       <FileName>Model\Base\AdminPanelBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.Model.Base.AllOrders" Collapsed="true">
-    <Position X="15.25" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAEACAAAAAAgAAQAAAAAAAAAAAAAAAgAAAA=</HashCode>
-      <FileName>Model\Base\AdminPanelBase.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Page_Navigation_App.Model.Base.Selectedorder">
-    <Position X="15.25" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgBAAIAAAAAAAAAAAAgAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\Base\AdminPanelBase.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Page_Navigation_App.Model.Base.AllCustomers" Collapsed="true">
-    <Position X="9" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAEACAAAAAAAABAAAAAAAAAAAAACAAAAAAA=</HashCode>
-      <FileName>Model\Base\AdminPanelBase.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Page_Navigation_App.Model.Base.CartBase" Collapsed="true">
-    <Position X="17" Y="4" Width="1.5" />
+  <Class Name="Page_Navigation_App.Model.Base.CartBase">
+    <Position X="5" Y="7.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAIAIAACAAAQAAAAAAAA=</HashCode>
       <FileName>Model\Base\CartBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.Model.Base.CatalogBase" Collapsed="true">
-    <Position X="9" Y="3.75" Width="1.5" />
+  <Class Name="Page_Navigation_App.Model.Base.CatalogBase">
+    <Position X="7.25" Y="7.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AgAAAAQAAIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Base\CatalogBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.Model.Base.CustomerBase" Collapsed="true">
-    <Position X="13.5" Y="6" Width="1.5" />
+  <Class Name="Page_Navigation_App.Model.Base.CustomerBase">
+    <Position X="9.25" Y="7.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>BAAAAAgAAAAICAAQEAAAAAQAQQAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Base\CustomerBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Page_Navigation_App.Model.Base.ReportPanelBase">
-    <Position X="13.5" Y="7" Width="1.5" />
+    <Position X="17" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAEACAAAAAAgAAQAAAAAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>Model\Base\ReportPanelBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.Model.Base.AllOrderItems" Collapsed="true">
-    <Position X="13.5" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgBAAIAAAAAAAAAAAAgAAAAAIAAAACAAAQAAAAAAAA=</HashCode>
-      <FileName>Model\Base\ReportPanelBase.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Page_Navigation_App.Model.Base.CategoryPriceSumForPeriod" Collapsed="true">
-    <Position X="15.25" Y="5" Width="1.5" />
+  <Class Name="Page_Navigation_App.Model.Base.CategoryPriceSumForPeriod">
+    <Position X="3" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAIAAAAAAA=</HashCode>
       <FileName>Model\Base\ReportPanelBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Page_Navigation_App.Model.Base.ManufacturerPriceSum" Collapsed="true">
-    <Position X="17" Y="6" Width="1.5" />
+  <Class Name="Page_Navigation_App.Model.Base.ManufacturerPriceSum">
+    <Position X="4.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Base\ReportPanelBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Page_Navigation_App.Model.Base.SumPriceByMonths">
-    <Position X="17" Y="7" Width="1.5" />
+    <Position X="6.5" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Base\ReportPanelBase.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Page_Navigation_App.Model.CatalogItems" Collapsed="true">
-    <Position X="13.5" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABAAIAAAAAAAAAAAAAAAAAAIAAAAAAAAQAAAAAAAA=</HashCode>
-      <FileName>Model\CatalogItems.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Page_Navigation_App.Model.Customer" Collapsed="true">
-    <Position X="9" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAEACAAAAAAAABAAAAAAAAAAAAACAAAAAAA=</HashCode>
-      <FileName>Model\Customer.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Page_Navigation_App.Model.CustomerOrderItems" Collapsed="true">
-    <Position X="15.25" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABAAIAAAAAAAAAAAAAAAAAAIAAAACAAAQAAAAAAAA=</HashCode>
-      <FileName>Model\CustomerOrderItems.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Page_Navigation_App.Model.PageModel">
-    <Position X="9" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>CIABABAAAAAAAAAAACAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\PageModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
